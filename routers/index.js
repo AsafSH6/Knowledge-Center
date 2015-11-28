@@ -5,11 +5,6 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/:screen_id*?', function(req, res, next) {
-    //var db = req.db;
-    //var collection = db.get('posts');
-    //collection.find({}, {}, function(err, docs) {
-    //    console.log(docs)
-    //})
     var screenId = req.params.screen_id;
     console.log(screenId);
     var screenMessagesList = new Array();
@@ -30,7 +25,6 @@ router.get('/:screen_id*?', function(req, res, next) {
         console.log('screen: ' + screenId);
         res.render('index.html');
     }
-    //res.send("ba")
 });
 
 module.exports = router;

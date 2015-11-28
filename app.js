@@ -1,30 +1,42 @@
 var express = require('express');
+var expressSession = require('express-session');
+var passport = require('passport');
+var flash = require('connect-flash')
 var path = require('path');
 var bodyParser = require('body-parser');
-var mongodb = require('mongodb');
-var monk = require('monk');
-var db = ('mongodb://Asaf:56785678@ds059524.mongolab.com:59524/webapp');
+var mongoose = require('mongoose');
+var dbConfig = require('./DB/config');
 
-var routes = require('./routers/index.js');
+mongoose.connect(dbConfig.url);
+
+
+var routes = require('./routers/index');
+var auth = require('./routes/auth')(passport);
 
 
 app = express()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
+//app.engine('html', require('ejs').renderFile);
+//app.set('view engine', 'html');
+app.set('view engine', 'jade');
 
+app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(function (req, res, next) {
-    console.log("req.db")
-    req.db = db;
-    next();
-})
+app.use(expressSession({secret: 'mySecretKey'}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
-app.use('/', routes);
+//app.use('/', routes);
+//app.use('/auth', auth)
+app.use('/', auth);
+
+var initPassport = require('./passport/init');
+initPassport(passport);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -42,5 +54,17 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
+    });
+}
 
 module.exports = app;
