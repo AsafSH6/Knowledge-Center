@@ -3,6 +3,7 @@ var expressSession = require('express-session');
 var passport = require('passport');
 var flash = require('connect-flash')
 var path = require('path');
+var logger = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var dbConfig = require('./DB/config');
@@ -11,7 +12,7 @@ mongoose.connect(dbConfig.url);
 
 
 var routes = require('./routers/index');
-var auth = require('./routes/auth')(passport);
+var auth = require('./routers/auth')(passport);
 
 
 app = express()
