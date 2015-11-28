@@ -2,10 +2,16 @@ var express = require('express');
 var messages = require('../DB/messages');
 var router = express.Router();
 
+
 /* GET home page. */
 router.get('/:screen_id*?', function(req, res, next) {
+    //var db = req.db;
+    //var collection = db.get('posts');
+    //collection.find({}, {}, function(err, docs) {
+    //    console.log(docs)
+    //})
     var screenId = req.params.screen_id;
-    console.log(screenId)
+    console.log(screenId);
     var screenMessagesList = new Array();
     if(screenId == undefined) {
         console.log('screen is undefined');
@@ -17,13 +23,14 @@ router.get('/:screen_id*?', function(req, res, next) {
 
             if(screens.indexOf(screenId) != -1) {
                 screenMessagesList.push(message);
-                console.log('pushed')
+                console.log('pushed');
             }
         }
         console.log(screenMessagesList)
         console.log('screen: ' + screenId);
         res.render('index.html');
     }
+    //res.send("ba")
 });
 
 module.exports = router;

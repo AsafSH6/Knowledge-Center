@@ -1,0 +1,7 @@
+{
+  "_id": {
+    "$oid": "this field is created automatically by mongoDB"
+  },
+  "name": "java script",
+  "category_id": "questions"
+}

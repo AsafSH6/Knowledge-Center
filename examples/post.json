@@ -1,0 +1,15 @@
+{
+  "_id": {
+    "$oid": "this field is created automatically by mongoDB"
+  },
+  "user_id": 12356,
+  "title": "title",
+  "creation_date": {
+    "$date": "date the created by using 'new Date()'"
+  },
+  "views": 123214,
+  "tags": [1, 2, 3],
+  "comments": [1, 2, 34, 55],
+  "text": "blablabla",
+  "category_id": "questions"
+}

@@ -1,6 +1,9 @@
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
+var mongodb = require('mongodb');
+var monk = require('monk');
+var db = ('mongodb://Asaf:56785678@ds059524.mongolab.com:59524/webapp');
 
 var routes = require('./routers/index.js');
 
@@ -15,6 +18,11 @@ app.set('view engine', 'html');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(function (req, res, next) {
+    console.log("req.db")
+    req.db = db;
+    next();
+})
 
 app.use('/', routes);
 
