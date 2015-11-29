@@ -1,5 +1,5 @@
 var LocalStrategy   = require('passport-local').Strategy;
-var User = require('../DB/models/user');
+var User = require('../DB/models').user;
 var bCrypt = require('bcrypt-nodejs');
 
 module.exports = function(passport){
@@ -32,6 +32,7 @@ module.exports = function(passport){
                             newUser.email = req.param('email');
                             newUser.firstName = req.param('firstName');
                             newUser.lastName = req.param('lastName');
+                            // TODO: add points and creation date.
 
                             // save the user
                             newUser.save(function(err) {
