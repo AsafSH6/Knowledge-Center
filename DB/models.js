@@ -43,9 +43,9 @@ var postSchema = new Schema({
     tags: [tagSchema]
 })
 
-module.exports.image = mongoose.model('Image', imageSchema, 'images');
-module.exports.user = mongoose.model('User', user, 'users');
-module.exports.category = mongoose.model('Category', categorySchema, 'categories');
-module.exports.tag = mongoose.model('Tag', tagSchema, 'tags');
-module.exports.comment = mongoose.model('Comment', commentSchema, 'comments');
-module.exports.post = mongoose.model('Post', postSchema, 'posts');
+module.exports.Image = mongoose.model('Image', imageSchema, 'images');
+module.exports.User = mongoose.model('User', user, 'users');
+module.exports.Category = mongoose.model('Category', categorySchema, 'categories');
+module.exports.Tag = mongoose.model('Tag', tagSchema, 'tags');
+module.exports.Comment = mongoose.model('Comment', commentSchema, 'comments');
+module.exports.Post = mongoose.model('Post', postSchema, 'posts');

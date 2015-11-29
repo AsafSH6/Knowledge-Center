@@ -35,11 +35,11 @@ router.get('/', function(req, res) {
 
 router.post('/test/create_post', function(req, res) {
     console.log("ba");
-    var post = new models.post();
+    var post = new models.Post();
     post.title = req.params.title;
     post.text = req.params.text;
-    models.category.findOne({'name': req.body.category}, function(err, category) {
-        models.tag.findOne({'name': req.body.tags}, function(err, tag) {
+    models.Category.findOne({'name': req.body.category}, function(err, category) {
+        models.Tag.findOne({'name': req.body.tags}, function(err, tag) {
             post.categories.push(category);
             post.tags.push(tag);
             post.save(function (err) {
@@ -56,7 +56,7 @@ router.get('/test/create_category', function(req, res) {
 })
 
 router.post('/test/create_category', function(req, res) {
-    var category = new models.category({'name': req.body.category});
+    var category = new models.Category({'name': req.body.category});
     category.save(function (err) {
         if (err) res.send(err);
         res.json({message: 'Category created'});
@@ -68,7 +68,7 @@ router.get('/test/create_tag', function(req, res) {
 })
 
 router.post('/test/create_tag', function(req, res) {
-    var tag = new models.tag({'name': req.body.tag});
+    var tag = new models.Tag({'name': req.body.tag});
     tag.save(function (err) {
         if (err) res.send(err);
         res.json({message: 'Tag created'});
