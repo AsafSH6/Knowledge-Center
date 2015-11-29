@@ -19,8 +19,8 @@ app = express()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-//app.engine('html', require('ejs').renderFile);
-//app.set('view engine', 'html');
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
@@ -32,9 +32,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-//app.use('/', routes);
-//app.use('/auth', auth)
-app.use('/', auth);
+app.use('/baa', routes);
+app.use('/auth', auth)
+//app.use('/', auth);
 
 var initPassport = require('./passport/init');
 initPassport(passport);
