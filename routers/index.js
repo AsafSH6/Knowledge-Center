@@ -28,18 +28,16 @@ router.get('/:screen_id=:screen_id', function(req, res, next) {
 });
 
 router.get('/json/screen_id=:screen_id', function(req, res, next) {
-   console.log(req.params['screen_id']);
-    var screenId = req.params['screen_id'];
-    var relevant_messages = [];
+    var screenId = parseInt(req.params['screen_id']);
+    var relevantMessages = [];
     for(var message in messages)  {
         var screens = messages[message].screenIds
-        console.log(screens);
-        if(screenId in screens) {
-            relevant_messages.push(messages[message])
+        if(screens.indexOf(screenId) != -1) {
+            relevantMessages.push(messages[message])
         }
     }
-    console.log(relevant_messages)
-    res.json(relevant_messages)
+
+    res.json(relevantMessages)
 });
 
 module.exports = router;
