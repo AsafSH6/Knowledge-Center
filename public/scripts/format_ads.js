@@ -60,7 +60,7 @@ $(document).ready(function() {
     var relevantMessagesArray = []
     var messageName
     var screenId = getScreenId();
-    $.getJSON('./json/screen_id=' + screenId, function(messages) {
+    $.getJSON('./screen_json/screen_id=' + screenId, function(messages) {
         var timingFunction = function () {
             if(relevantMessagesArray.length == 0)
                 relevantMessagesArray = getRelevantMessages(messages)
