@@ -1,5 +1,5 @@
 var index = 5
-function getRelevantMessages() {
+function getRelevantMessages(messages) {
     // months and days starts from 0
     if(index == -1)
         var today = new Date() // TODAY
@@ -58,17 +58,18 @@ function getScreenId() {
 
 $(document).ready(function() {
     var relevantMessagesArray = []
-    var message
+    var messageName
     var screenId = getScreenId();
-    $.getJSON('./json/screen_id=' + screenId, function(data) {
-        messages = data;
+    $.getJSON('./json/screen_id=' + screenId, function(messages) {
         var timingFunction = function () {
             if(relevantMessagesArray.length == 0)
-                relevantMessagesArray = getRelevantMessages()
-            message = relevantMessagesArray.pop()
-            console.log(message.name + ", " + message.template)
-            loadAndFormatTemplate(message)
-            window.setTimeout(timingFunction, message.durationInSeconds * 1000)
+                relevantMessagesArray = getRelevantMessages(messages)
+            messageName = relevantMessagesArray.pop().name
+            console.log(messageName)
+                $.getJSON('./message/message_name=' + messageName, function(message) {
+                    loadAndFormatTemplate(message)
+                    window.setTimeout(timingFunction, message.durationInSeconds * 1000)
+                })
         }
         timingFunction()
     })

@@ -1,6 +1,6 @@
 var express = require('express');
-var messages = require('../DB/messages');
 var router = express.Router();
+var messages = require('../DB/messages');
 
 
 router.get('/', function(req, res, next) {
@@ -33,11 +33,33 @@ router.get('/json/screen_id=:screen_id', function(req, res, next) {
     for(var message in messages)  {
         var screens = messages[message].screenIds
         if(screens.indexOf(screenId) != -1) {
-            relevantMessages.push(messages[message])
+            relevantMessages.push({
+                name: messages[message].name,
+                displayTime: messages[message].displayTime
+            })
         }
     }
-
+    console.log(relevantMessages)
     res.json(relevantMessages)
 });
+
+router.get('/message/message_name=:message_name', function(req, res, next) {
+    var messages = require('../DB/messages');
+    var messageName = req.params['message_name']
+    var message;
+    for(var message in messages) {
+        if(messages[message].name == messageName) {
+            message = messages[message]
+            break;
+        }
+    }
+    if(message != undefined) {
+        res.json(message);
+    }
+    else {
+        res.send('ERROR');
+    }
+});
+
 
 module.exports = router;
