@@ -44,7 +44,6 @@ router.get('/json/screen_id=:screen_id', function(req, res, next) {
 });
 
 router.get('/message/message_name=:message_name', function(req, res, next) {
-    var messages = require('../DB/messages');
     var messageName = req.params['message_name']
     var message;
     for(var message in messages) {
