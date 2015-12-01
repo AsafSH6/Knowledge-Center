@@ -27,7 +27,7 @@ var tagSchema = new Schema({
 var commentSchema = new Schema({
     text: String,
     creation_date: { type: Date, default: Date.now },
-    up_votes: Number,
+    up_votes: {type: Number, default: 0},
     user: {type: Schema.Types.ObjectId, ref: 'User'},
     category: categorySchema
 })
@@ -36,7 +36,7 @@ var postSchema = new Schema({
     title: String,
     text: String,
     creation_date: { type: Date, default: Date.now },
-    views: Number,
+    views: {type: Number, default: 0},
     user: user,
     comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}],
     categories: [categorySchema],
