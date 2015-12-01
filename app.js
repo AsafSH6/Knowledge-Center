@@ -2,6 +2,11 @@ var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose');
+var dbConfig = require('./DB/config');
+
+mongoose.connect(dbConfig.url, function(){console.log('conntected')});
+
 
 var routes = require('./routers/index.js');
 
