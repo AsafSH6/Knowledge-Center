@@ -60,13 +60,13 @@ $(document).ready(function() {
     var relevantMessagesArray = []
     var messageName
     var screenId = getScreenId();
-    $.getJSON('./screen_json/screen_id=' + screenId, function(messages) {
+    $.getJSON('./screen_json/' + screenId, function(messages) {
         var timingFunction = function () {
             if(relevantMessagesArray.length == 0)
                 relevantMessagesArray = getRelevantMessages(messages)
             messageName = relevantMessagesArray.pop().name
             console.log(messageName)
-                $.getJSON('./message/message_name=' + messageName, function(message) {
+                $.getJSON('./message/' + messageName, function(message) {
                     loadAndFormatTemplate(message)
                     window.setTimeout(timingFunction, message.durationInSeconds * 1000)
                 })
