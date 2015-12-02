@@ -8,8 +8,11 @@ var dbConfig = require('./DB/config');
 mongoose.connect(dbConfig.url, function(err){
     if (err!=null) {
         console.log('connection error')
+        console.log(err)
     }
-    console.log('conntected')
+    else {
+        console.log('conntected')
+    }
 });
 
 
