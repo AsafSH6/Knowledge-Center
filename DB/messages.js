@@ -10,8 +10,7 @@ var messages = [
             'Message A: LINE2',
             'Message A: LINE3',
             'Message A: LINE4'],
-        images: ['images/image1.jpg',
-            'images/image2.JPG'],
+        images: ['images/image1.jpg', 'images/image2.JPG'],
         template: 'templates/templateA.html',
         durationInSeconds: 3,
         displayTime: [

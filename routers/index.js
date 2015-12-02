@@ -22,7 +22,7 @@ router.get('/:screen_id=:screen_id', function(req, res, next) {
         res.render('index.html');
 });
 
-router.get('/screen_json/screen_id', function(req, res, next) {
+router.get('/screen_json/:screen_id', function(req, res, next) {
     console.log('screen json')
     var screenId = parseInt(req.params['screen_id']);
     console.log(screenId)
