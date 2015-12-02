@@ -46,9 +46,9 @@ router.get('/screen_json/screen_id=:screen_id', function(req, res, next) {
 router.get('/message/message_name=:message_name', function(req, res, next) {
     var messageName = req.params['message_name']
     var message;
-    for(var message in messages) {
-        if(messages[message].name == messageName) {
-            message = messages[message]
+    for(var msg in messages) {
+        if(messages[msg].name == messageName) {
+            message = messages[msg]
             break;
         }
     }
