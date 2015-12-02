@@ -58,19 +58,28 @@ function getScreenId() {
 
 $(document).ready(function() {
     var relevantMessagesArray = []
-    var messageName
-    var screenId = getScreenId();
-    $.getJSON('./screen_json/' + screenId, function(messages) {
-        var timingFunction = function () {
-            if(relevantMessagesArray.length == 0)
-                relevantMessagesArray = getRelevantMessages(messages)
-            messageName = relevantMessagesArray.pop().name
-            console.log(messageName)
-                $.getJSON('./message/' + messageName, function(message) {
-                    loadAndFormatTemplate(message)
-                    window.setTimeout(timingFunction, message.durationInSeconds * 1000)
-                })
+    var message
+    var screenId = getScreenId()
+    window.messages = [] // global
+    var timingFunction = function () {
+        if (relevantMessagesArray.length == 0) {
+            relevantMessagesArray = getRelevantMessages(messages)
         }
+        message = relevantMessagesArray.pop()
+        loadAndFormatTemplate(message)
+        window.setTimeout(timingFunction, message.durationInSeconds * 1000)
+    }
+    var loadMessages = function(callback) {
+        $.getJSON('./screen_json/' + screenId, function(messages) {
+            callback(messages)
+        })
+    }
+    loadMessages(function(messages) {
+        window.messages = messages
+        window.setInterval(loadMessages, 9000, function(messages){  // passing the function as callback to loadMessages - DOES NOT WORK WITH IE!!
+            console.log('reloading messages')
+            window.messages = messages
+        })
         timingFunction()
     })
 })

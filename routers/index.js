@@ -33,14 +33,16 @@ router.get('/screen_json/:screen_id', function(req, res, next) {
     for(var message in messages)  {
         var screens = messages[message].screenIds
         if(screens.indexOf(screenId) != -1) {
-            relevantMessages.push({
-                name: messages[message].name,
-                displayTime: messages[message].displayTime
-            })
+            relevantMessages.push(messages[message])
         }
     }
-    console.log(relevantMessages)
-    res.json(relevantMessages)
+    //console.log(relevantMessages)
+    if(relevantMessages.length != 0) {
+        res.json(relevantMessages)
+    }
+    else {
+        res.json({error: 'ERROR ZERO MESSAGES FOUND'});
+    }
 });
 
 router.get('/message/:message_name', function(req, res, next) {
@@ -56,7 +58,7 @@ router.get('/message/:message_name', function(req, res, next) {
         res.json(message);
     }
     else {
-        res.send('ERROR');
+        res.json({error: 'ERROR'});
     }
 });
 
