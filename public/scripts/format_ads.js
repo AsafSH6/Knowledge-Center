@@ -76,7 +76,8 @@ $(document).ready(function() {
     }
     loadMessages(function(messages) {
         window.messages = messages
-        window.setInterval(loadMessages, 9000, function(messages){  // passing the function as callback to loadMessages - DOES NOT WORK WITH IE!!
+        // set interval every 3 minutes
+        window.setInterval(loadMessages, 180000, function(messages){  // passing the function as callback to loadMessages - DOES NOT WORK WITH IE!!
             console.log('reloading messages')
             window.messages = messages
         })

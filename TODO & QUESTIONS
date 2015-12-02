@@ -4,7 +4,7 @@ V-change the urls to rest-api like.
 QUESTIONS:
 
 Q-To ask Shay if it's okay that the client send requests to the server everything it needs the template or should it save it locally once he received the template.
-A- ?
+A- It's fine.
 
 Q-To ask Shay if the messages should update after each time the client sees all of them (the stack is empty) or its fine to reload them from the first list of messages.
 A- No, the client should request the messages from the server every ~3 minutes.
