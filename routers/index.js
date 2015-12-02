@@ -23,20 +23,13 @@ router.get('/:screen_id=:screen_id', function(req, res, next) {
 });
 
 router.get('/screen_json/screen_id=:screen_id', function(req, res, next) {
+    console.log('screen json')
     var screenId = parseInt(req.params['screen_id']);
-    console.log(dal.getMessagesByScreenId(screenId))
-    var relevantMessages = [];
-    for(var message in messages)  {
-        var screens = messages[message].screenIds
-        if(screens.indexOf(screenId) != -1) {
-            relevantMessages.push({
-                name: messages[message].name,
-                displayTime: messages[message].displayTime
-            })
-        }
-    }
-    console.log(relevantMessages)
-    res.json(relevantMessages)
+    console.log(screenId)
+    dal.getMessagesByScreenId(screenId, function (messages) {
+        console.log(messages)
+        res.json(messages)
+    })
 });
 
 router.get('/message/message_name=:message_name', function(req, res, next) {

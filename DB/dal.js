@@ -1,21 +1,22 @@
 var models = require('./models');
-var mongoose = require('mongoose');
 
 
-function getMessagesByScreenId(screenId){
+function getMessagesByScreenId(screenId, callback){
+    console.log('messages by screen id')
     models.Message.find({screenIds: screenId}, function(err, messages) {
+        console.log('find message')
         if(err != null) {
             console.log('error')
             return false
         }
         else {
-            console.log('returned')
-            return messages
+            console.log('found messages')
+            callback(messages)
         }
     })
 }
 
-function insertNewMessage(name, screenIds, text, images, template, durationInSeconds, displayTime) {
+function insertNewMessage(name, screenIds, text, images, template, durationInSeconds, displayTime, callback) {
     var message = new models.Message({
         name: name,
         screenIds: screenIds,
@@ -32,7 +33,7 @@ function insertNewMessage(name, screenIds, text, images, template, durationInSec
         }
         else {
             console.log("saved message: " + message);
-            return message._id;
+            callback(message)
         }
     })
 }

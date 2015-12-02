@@ -5,7 +5,12 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var dbConfig = require('./DB/config');
 
-mongoose.connect(dbConfig.url, function(){console.log('conntected')});
+mongoose.connect(dbConfig.url, function(err){
+    if (err!=null) {
+        console.log('connection error')
+    }
+    console.log('conntected')
+});
 
 
 var routes = require('./routers/index.js');
