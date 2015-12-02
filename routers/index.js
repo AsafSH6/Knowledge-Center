@@ -27,7 +27,7 @@ router.get('/:screen_id=:screen_id', function(req, res, next) {
     }
 });
 
-router.get('/screen_json/screen_id=:screen_id', function(req, res, next) {
+router.get('/screen_json/:screen_id', function(req, res, next) {
     var screenId = parseInt(req.params['screen_id']);
     var relevantMessages = [];
     for(var message in messages)  {
@@ -43,7 +43,7 @@ router.get('/screen_json/screen_id=:screen_id', function(req, res, next) {
     res.json(relevantMessages)
 });
 
-router.get('/message/message_name=:message_name', function(req, res, next) {
+router.get('/message/:message_name', function(req, res, next) {
     var messageName = req.params['message_name']
     var message;
     for(var message in messages) {
