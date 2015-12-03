@@ -33,6 +33,7 @@ router.get('/screen_json/:screen_id', function(req, res, next) {
     for(var message in messages)  {
         var screens = messages[message].screenIds
         if(screens.indexOf(screenId) != -1) {
+            console.log('sending: ' + messages[message].name)
             relevantMessages.push(messages[message])
         }
     }
