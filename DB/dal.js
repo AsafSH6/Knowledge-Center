@@ -2,15 +2,12 @@ var models = require('./models');
 
 
 function getMessagesByScreenId(screenId, callback){
-    console.log('messages by screen id')
     models.Message.find({screenIds: screenId}, function(err, messages) {
-        console.log('find message')
         if(err != null) {
             console.log('error')
             return false
         }
         else {
-            console.log('found messages')
             callback(messages)
         }
     })

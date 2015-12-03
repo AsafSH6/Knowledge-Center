@@ -16,7 +16,7 @@ router.get('/:screen_id=:screen_id', function(req, res, next) {
 
 router.get('/screen_json/:screen_id', function(req, res, next) {
     var screenId = parseInt(req.params['screen_id']);
-    console.log(screenId)
+    
     dal.getMessagesByScreenId(screenId, function (messages) {
         console.log('*** sending ***')
         for(var message in messages) {
