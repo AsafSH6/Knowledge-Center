@@ -18,19 +18,24 @@ router.get('/screen_json/:screen_id', function(req, res, next) {
     var screenId = parseInt(req.params['screen_id']);
     console.log(screenId)
     dal.getMessagesByScreenId(screenId, function (messages) {
-        console.log(messages)
+        console.log('*** sending ***')
+        for(var message in messages) {
+            console.log(messages[message].name)
+        }
         res.json(messages)
     })
 });
 
-//router.get('/insert_messages', function(req, res, next) {
-//    for(var message in messages) {
-//        var m = messages[message]
-//        console.log(m.name)
-//        dal.insertNewMessage(m.name, m.screenIds, m.text, m.images, m.template, m.durationInSeconds, m.displayTime)
-//    }
-//   res.send('done');
-//});
+router.get('/insert_messages', function(req, res, next) {
+    for(var message in messages) {
+        var m = messages[message]
+        //if(m.name == 'messageA') {
+        console.log(m.name)
+        dal.insertNewMessage(m.name, m.screenIds, m.text, m.images, m.template, m.durationInSeconds, m.displayTime, function(message){})
+        //}
+    }
+   res.send('done');
+});
 
 
 module.exports = router;

@@ -1,21 +1,21 @@
-var index = 3
+var index = 5
 function getRelevantMessages(messages) {
     // months and days starts from 0
     if(index == -1)
         var today = new Date() // TODAY
 //            ** TEST CASES **
     else if(index  == 0)
-        var today = new Date(Date.UTC(2016, 6, 4, 7)) // case A
+        var today = new Date(2016, 6, 4, 7) // case A
     else if(index == 1)
-        var today = new Date(Date.UTC(2016, 2, 16, 15)) // case B
+        var today = new Date(2016, 2, 16, 15) // case B
     else if(index == 2)
-        var today = new Date(Date.UTC(2016, 4, 1, 17)) // case C
+        var today = new Date(2016, 4, 1, 17) // case C
     else if(index == 3)
-        var today = new Date(Date.UTC(2016, 3, 11, 18)) // case D and E
+        var today = new Date(2016, 3, 11, 18) // case D and E
     else if(index == 4)
-        var today = new Date(Date.UTC(2016, 3, 4, 2)) // case E
+        var today = new Date(2016, 3, 4, 2) // case E
     else if(index == 5)
-        var today = new Date(Date.UTC(2016, 2, 16, 11)) // case A and B
+        var today = new Date(2016, 2, 16, 14) // case A and B
 
     //index  = (index + 1) % 6; // the right order should be : A, B, C, E, D, E, B, A........
 
@@ -28,6 +28,16 @@ function getRelevantMessages(messages) {
 
             if((today >= beginDate && today <= endDate) && ($.inArray(today.getDay(), displayTime[time].days) != -1) && (today.getHours() >= displayTime[time].hours.begin && today.getHours() <= displayTime[time].hours.end)){
                 relevantMessagesArray.push(messages[message])
+            }
+            else {
+                //if(messages[message].name == 'messageA') {
+                //    console.log(messages[message].name)
+                //    var beginDate = new Date(displayTime[time].dates.begin);
+                //    console.log(beginDate)
+                //    var endDate = new Date(displayTime[time].dates.end);
+                //    console.log(endDate)
+                //    console.log($.inArray(today.getDay(), displayTime[time].days) != -1)
+                //}
             }
         }
     }

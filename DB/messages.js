@@ -2,6 +2,8 @@
  * Created by Asaf on 14/11/2015.
  */
 
+
+var GMTHoursOffset = 0;
 var messages = [
     {
         name: 'messageA',
@@ -21,8 +23,8 @@ var messages = [
                 },
                 days: [1, ],
                 dates: {
-                    begin: new Date(Date.UTC(2016, 0, 1)),
-                    end: new Date(Date.UTC(2016, 11, 31))
+                    begin: new Date(2016, 0, 1, GMTHoursOffset),
+                    end: new Date(2016, 11, 31, GMTHoursOffset)
                 }
             },
             {
@@ -32,8 +34,8 @@ var messages = [
                 },
                 days: [3, ],
                 dates: {
-                    begin: new Date(Date.UTC(2016, 0, 1)),
-                    end: new Date(Date.UTC(2016, 11, 31))
+                    begin: new Date(2016, 0, 1, GMTHoursOffset),
+                    end: new Date(2016, 11, 31, GMTHoursOffset)
                 }
             },
         ]
@@ -62,8 +64,8 @@ var messages = [
                 },
                 days: [2, 3, ],
                 dates: {
-                    begin: new Date(Date.UTC(2016, 2, 1)),
-                    end: new Date(Date.UTC(2016, 3, 30))
+                    begin: new Date(2016, 2, 1, GMTHoursOffset),
+                    end: new Date(2016, 3, 30, GMTHoursOffset)
                 }
             },
         ]
@@ -83,8 +85,8 @@ var messages = [
                 },
                 days: [0, 1, 2, 3, 4, 5, 6],
                 dates: {
-                    begin: new Date(Date.UTC(2016, 4, 1)),
-                    end: new Date(Date.UTC(2016, 5, 15))
+                    begin: new Date(2016, 4, 1, GMTHoursOffset),
+                    end: new Date(2016, 5, 15, GMTHoursOffset)
                 }
             },
         ]
@@ -104,8 +106,8 @@ var messages = [
                 },
                 days: [1, ],
                 dates: {
-                    begin: new Date(Date.UTC(2016, 2, 29)),
-                    end: new Date(Date.UTC(2016, 3, 15))
+                    begin: new Date(2016, 2, 29, GMTHoursOffset),
+                    end: new Date(2016, 3, 15, GMTHoursOffset)
                 }
             },
         ]
@@ -131,8 +133,8 @@ var messages = [
                 },
                 days: [1, 2, 4, ],
                 dates: {
-                    begin: new Date(Date.UTC(2016, 3, 1)),
-                    end: new Date(Date.UTC(2016, 3, 30))
+                    begin: new Date(2016, 3, 1, GMTHoursOffset),
+                    end: new Date(2016, 3, 30, GMTHoursOffset)
                 }
             },
         ]
