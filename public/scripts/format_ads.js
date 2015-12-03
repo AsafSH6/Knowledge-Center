@@ -1,4 +1,4 @@
-var index = 5
+var index = 3
 function getRelevantMessages(messages) {
     // months and days starts from 0
     if(index == -1)
