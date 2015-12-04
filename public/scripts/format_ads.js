@@ -1,24 +1,23 @@
-var index = 5
+var index = -1
 function getRelevantMessages(messages) {
     // months and days starts from 0
     if(index == -1)
         var today = new Date() // TODAY
 //            ** TEST CASES **
-    else if(index  == 0)
-        var today = new Date(2016, 6, 4, 7) // case A
-    else if(index == 1)
-        var today = new Date(2016, 2, 16, 15) // case B
-    else if(index == 2)
-        var today = new Date(2016, 4, 1, 17) // case C
-    else if(index == 3)
-        var today = new Date(2016, 3, 11, 18) // case D and E
-    else if(index == 4)
-        var today = new Date(2016, 3, 4, 2) // case E
-    else if(index == 5)
-        var today = new Date(2016, 2, 16, 14) // case A and B
+//    else if(index  == 0)
+//        var today = new Date(2016, 6, 4, 7) // case A
+//    else if(index == 1)
+//        var today = new Date(2016, 2, 16, 15) // case B
+//    else if(index == 2)
+//        var today = new Date(2016, 4, 1, 17) // case C
+//    else if(index == 3)
+//        var today = new Date(2016, 3, 11, 18) // case D and E
+//    else if(index == 4)
+//        var today = new Date(2016, 3, 4, 2) // case E
+//    else if(index == 5)
+//        var today = new Date(2016, 2, 16, 14) // case A and B
 
     //index  = (index + 1) % 6; // the right order should be : A, B, C, E, D, E, B, A........
-    console.log(today)
     var relevantMessagesArray = new Array()
     for(var message in messages) {
         var displayTime = messages[message].displayTime

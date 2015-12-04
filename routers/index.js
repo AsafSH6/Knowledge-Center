@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var path = require('path');
 var messages = require('../DB/messages');
 
 
@@ -23,7 +24,7 @@ router.get('/:screen_id=:screen_id', function(req, res, next) {
                 screenMessagesList.push(message);
             }
         }
-        res.render('index.html');
+        res.sendFile(path.join(__dirname, '../views', 'index.html'));
     }
 });
 
