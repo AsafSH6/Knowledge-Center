@@ -3,7 +3,7 @@ function getRelevantMessages(messages) {
     // months and days starts from 0
     if(index == -1)
         var today = new Date() // TODAY
-//            ** TEST CASES **
+////            ** TEST CASES **
 //    else if(index  == 0)
 //        var today = new Date(2016, 6, 4, 7) // case A
 //    else if(index == 1)
@@ -17,7 +17,7 @@ function getRelevantMessages(messages) {
 //    else if(index == 5)
 //        var today = new Date(2016, 2, 16, 14) // case A and B
 
-    //index  = (index + 1) % 6; // the right order should be : A, B, C, E, D, E, B, A........
+
     var relevantMessagesArray = new Array()
     for(var message in messages) {
         var displayTime = messages[message].displayTime
