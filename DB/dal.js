@@ -30,7 +30,7 @@ function createNewCategory(name, url, callback) {
     })
 }
 
-function createNewTag(name, categoryName, callback) {
+function createNewTag(name, categoriesName, callback) {
     models.Tag.findOne({name: name}, function(err, tag) {
         if(tag) {
             console.log("tag already exists: " + tag);
@@ -38,14 +38,14 @@ function createNewTag(name, categoryName, callback) {
             return false;
         }
         else {
-            models.Category.findOne({name: categoryName}, function(err, category) {
-                if(!category) {
+            models.Category.find({name: {$in: categoriesName}}, function(err, categories) {
+                if(!categories) {
                     console.log("category does not exists.");
                     mongoose.disconnect();
                     return false;
                 }
                 else {
-                    var tag = new models.Tag({name: name, category: category});
+                    var tag = new models.Tag({name: name, categories: categories});
                     tag.save(function (err) {
                         if (err) {
                             console.log("error: couldn't save the tag");
@@ -161,10 +161,23 @@ function createNewCommentAndPushToPost(userName, postID, text, callback) {
     })
 }
 
-createNewCategory('TEST4', 'www.test.com3', function(){});
-//createNewTag('TEST3', 'TEST7', function(){});
-//createNewPost('Asaf', 'TEST5', "ABCDE", ['Style Frame', 'Gal'], ['A', 'TEST1'], function(post){
-//    console.log(post._id);
-//    createNewCommentAndPushToPost('Asaf', post._id, "COMMENT2", function(){});
-//});
 
+// RUN ONE BY ONE
+function insertFakeDataToDB() {
+    //createNewCategory('Questions', '/questions', function(){});
+    //createNewCategory('Links', '/links', function(){});
+    //createNewCategory('Things I learnt today', '/things-I-learnt-today', function(){});
+    //createNewTag('Python', ['Questions', 'Links', 'Things I learnt today'], function(){});
+    //createNewTag('Java', ['Questions', 'Links'], function(){});
+    //createNewTag('StyleFrame', ['Questions'], function(){});
+    //createNewTag('Pandas', ['Things I learnt today'], function(){});
+    //createNewPost('Asaf', 'To be or not to be?', "That is the question!!", ['Questions'], ['Python', 'StyleFrame'], function(post){
+    //createNewCommentAndPushToPost('Asaf', post._id, "The answer is to be :)", function(){});
+    //});
+    createNewPost('Asaf', 'Link to StyleFrame github', "www.github/styleframe", ['Links'], [], function(post){
+        createNewCommentAndPushToPost('Asaf', post._id, "Thanks!", function(){});
+    });
+}
+
+
+insertFakeDataToDB()

@@ -21,7 +21,7 @@ var categorySchema = new Schema({
 
 var tagSchema = new Schema({
     name: String,
-    category: [categorySchema]
+    categories: [categorySchema]
 }, {strict: true})
 
 var commentSchema = new Schema({

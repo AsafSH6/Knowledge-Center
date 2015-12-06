@@ -1,3 +1,7 @@
-<div>
-    LINKS
+<div ng-controller="links as linksCtrl">
+    <ul class="nav navbar-nav">
+        <li ng-repeat="link in linksCtrl.dbLinks track by $index">
+            <a href="#"> {{ link.title }} </a>
+        </li>
+    </ul>
 </div>

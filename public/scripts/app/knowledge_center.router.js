@@ -28,6 +28,11 @@
                 templateUrl: './templates/questions.html'
             })
 
+            .state('things i learnt today', {
+                url: '/things-I-learnt-today',
+                templateUrl: './templates/things-i-learnt-today.html'
+            })
+
             .state('links', {
                 url: '/links',
                 templateUrl: './templates/links.html'
