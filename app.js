@@ -8,7 +8,14 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var dbConfig = require('./DB/config');
 
-mongoose.connect(dbConfig.url);
+mongoose.connect(dbConfig.url, function(err) {
+    if(err!=null) {
+        console.log('connection error')
+    }
+    else {
+        console.log('connected')
+    }
+});
 
 
 var routes = require('./routers/index');
@@ -32,8 +39,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-app.use('/baa', routes);
-app.use('/auth', auth)
+app.use('/', routes);
+//app.use('/auth', auth)
 //app.use('/', auth);
 
 var initPassport = require('./passport/init');

@@ -91,7 +91,7 @@ function createNewPost(userName, title, text, categoriesName, tagsName, callback
                                 {
                                     title: title,
                                     text: text,
-                                    user: user,
+                                    user: user._id,
                                     categories: categories,
                                     tags: tags
                                 });
@@ -131,7 +131,7 @@ function createNewCommentAndPushToPost(userName, postID, text, callback) {
                 }
                 else {
                     var comment = new models.Comment({
-                        user: user,
+                        user: user._id,
                         text: text,
                         category: post.categories
                     });
@@ -161,10 +161,10 @@ function createNewCommentAndPushToPost(userName, postID, text, callback) {
     })
 }
 
-//createNewCategory('TEST3', 'www.test.com3', function(){});
+createNewCategory('TEST4', 'www.test.com3', function(){});
 //createNewTag('TEST3', 'TEST7', function(){});
-createNewPost('Asaf', 'TEST5', "ABCDE", ['Style Frame', 'Gal'], ['A', 'TEST1'], function(post){
-    console.log(post._id);
-    createNewCommentAndPushToPost('Asaf', post._id, "COMMENT2", function(){});
-});
+//createNewPost('Asaf', 'TEST5', "ABCDE", ['Style Frame', 'Gal'], ['A', 'TEST1'], function(post){
+//    console.log(post._id);
+//    createNewCommentAndPushToPost('Asaf', post._id, "COMMENT2", function(){});
+//});
 

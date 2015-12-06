@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var imageSchema = new Schema({
     image: { data: Buffer, contentType: String }
-})
+}, {strict: true})
 
 var user = new Schema({
     username: String,
@@ -12,17 +12,17 @@ var user = new Schema({
     points: Number,
     creation_date: { type: Date, default: Date.now },
     profile_image: {type: Schema.Types.ObjectId, ref: 'Image'}
-})
+}, {strict: true})
 
 var categorySchema = new Schema({
     name: String,
     url: String
-})
+}, {strict: true})
 
 var tagSchema = new Schema({
     name: String,
     category: [categorySchema]
-})
+}, {strict: true})
 
 var commentSchema = new Schema({
     text: String,
@@ -30,18 +30,18 @@ var commentSchema = new Schema({
     up_votes: {type: Number, default: 0},
     user: {type: Schema.Types.ObjectId, ref: 'User'},
     category: categorySchema
-})
+}, {strict: true})
 
 var postSchema = new Schema({
     title: String,
     text: String,
     creation_date: { type: Date, default: Date.now },
     views: {type: Number, default: 0},
-    user: user,
-    comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}],
+    user: {type: Schema.Types.ObjectId, ref: 'User'},
+    comments: [commentSchema],
     categories: [categorySchema],
     tags: [tagSchema]
-})
+}, {strict: true})
 
 module.exports.Image = mongoose.model('Image', imageSchema, 'images');
 module.exports.User = mongoose.model('User', user, 'users');

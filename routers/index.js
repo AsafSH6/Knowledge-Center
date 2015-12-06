@@ -30,7 +30,19 @@ var router = express.Router();
 
 router.get('/', function(req, res) {
     // Display the Login page with any flash message, if any
-    res.render('test.html');
+    res.render('index.html');
+});
+
+router.get('/test', function(req, res) {
+    // Display the Login page with any flash message, if any
+    res.render('angularTEST.html');
+});
+
+router.get('/api/v1/get-all-categories', function(req, res) {
+    models.Category.find({}, function(err, categories) {
+        console.log('in categories')
+        res.json(categories)
+    })
 });
 
 router.post('/test/create_post', function(req, res) {
