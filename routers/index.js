@@ -3,46 +3,46 @@ var messages = require('../DB/messages');
 var models = require('../DB/models')
 var router = express.Router();
 
-
-/* GET home page. */
-//router.get('/:screen_id*?', function(req, res, next) {
-//    var screenId = req.params.screen_id;
-//    console.log(screenId);
-//    var screenMessagesList = new Array();
-//    if(screenId == undefined) {
-//        console.log('screen is undefined');
-//        res.send("no screen id.");
-//    }
-//    else {
-//        for(var message in messages) {
-//            var screens = messages[message].screenIds;
-//
-//            if(screens.indexOf(screenId) != -1) {
-//                screenMessagesList.push(message);
-//                console.log('pushed');
-//            }
-//        }
-//        console.log(screenMessagesList)
-//        console.log('screen: ' + screenId);
-//        res.render('indexold.html');
-//    }
-//});
-
 router.get('/', function(req, res) {
-    // Display the Login page with any flash message, if any
     res.render('index.html');
 });
+
+router.get('/api/v1/get-all-categories', function(req, res) {
+    models.Category.findAllCategories(function(err, categories) {
+        res.json(categories)
+    })
+});
+
+router.get('/api/v1/get-all-posts-filtered-by-category/:category', function(req, res) {
+    console.log(req.params['category'])
+    models.Post.findAllPostsFilteredByCategory(req.params['category'], function(err, posts) {
+        if(err!=null) {
+            console.log(err)
+        }
+        res.json(posts)
+    })
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 router.get('/test', function(req, res) {
     // Display the Login page with any flash message, if any
     res.render('angularTEST.html');
-});
-
-router.get('/api/v1/get-all-categories', function(req, res) {
-    models.Category.find({}, function(err, categories) {
-        console.log('in categories')
-        res.json(categories)
-    })
 });
 
 router.post('/test/create_post', function(req, res) {

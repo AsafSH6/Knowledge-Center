@@ -2,5 +2,5 @@
     'use strict';
 
     angular
-        .module('knowledgeCenter', []);
+        .module('knowledgeCenter', ['ui.router']);
 })();

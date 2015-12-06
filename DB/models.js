@@ -43,6 +43,14 @@ var postSchema = new Schema({
     tags: [tagSchema]
 }, {strict: true})
 
+categorySchema.statics.findAllCategories = function(callback) {
+    return this.model('Category').find({}, callback)
+}
+
+postSchema.statics.findAllPostsFilteredByCategory = function(category, callback) {
+    return this.model('Post').find({'categories.name': category}, callback)
+}
+
 module.exports.Image = mongoose.model('Image', imageSchema, 'images');
 module.exports.User = mongoose.model('User', user, 'users');
 module.exports.Category = mongoose.model('Category', categorySchema, 'categories');

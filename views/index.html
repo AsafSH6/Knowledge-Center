@@ -7,14 +7,20 @@
     <script src="./bower_components/jquery/dist/jquery.js"></script>
     <script src="./bower_components/angular/angular.min.js"></script>
     <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./bower_components/ui-router/release/angular-ui-router.min.js"></script>
     <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
 </head>
 <body>
+<div id="navbar">
 <ng-include src="'./templates/navbar.html'"></ng-include>
-HELLO
+</div>
+<div id="content" ui-view>
+</div>
 <script src="./scripts/app/app.module.js"></script>
 <script src="./scripts/app/navbar.controller.js"></script>
+<script src="./scripts/app/questions.controller.js"></script>
 <script src="./scripts/app/knowledge_center.service.js"></script>
+<script src="./scripts/app/knowledge_center.router.js"></script>
 </body>
 </html>

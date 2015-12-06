@@ -1,0 +1,7 @@
+<div ng-controller="questions as questionsCtrl">
+    <ul class="nav navbar-nav">
+        <li ng-repeat="question in questionsCtrl.dbQuestions track by $index">
+            <a href="#"> {{ question.title }} </a>
+        </li>
+    </ul>
+</div>
