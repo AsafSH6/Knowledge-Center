@@ -29,6 +29,9 @@ node_modules
 # WebStorm
 .idea/
 
+# Connection string
+DB/config.js
+
 #test
 test.js
 
