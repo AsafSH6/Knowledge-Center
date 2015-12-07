@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
 
 
 /* GET home page. */
-router.get('/:screen_id=:screen_id', function(req, res, next) {
+router.get('/screen_id=:screen_id', function(req, res, next) {
     var screenId = req.params.screen_id;
     if(screenId == undefined) {
         res.send("no screen id.");
@@ -38,23 +38,5 @@ router.get('/screen_json/:screen_id', function(req, res, next) {
         res.json({error: 'ERROR ZERO MESSAGES FOUND'});
     }
 });
-
-//router.get('/message/:message_name', function(req, res, next) {
-//    var messageName = req.params['message_name']
-//    var message;
-//    for(var msg in messages) {
-//        if(messages[msg].name == messageName) {
-//            message = messages[msg]
-//            break;
-//        }
-//    }
-//    if(message != undefined) {
-//        res.json(message);
-//    }
-//    else {
-//        res.json({error: 'ERROR'});
-//    }
-//});
-
 
 module.exports = router;

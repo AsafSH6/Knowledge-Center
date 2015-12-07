@@ -4,6 +4,6 @@ Remember to change the screen ID to check the different cases.
 
 getRelevantMessages returns array which treated as stack with the messages that relevant to the date in "today".
 
-The script reloads every 3minutes the messages from the server in case something changed.
+The script reloads the messages every 3minutes from the server in case something changed.
 
 To run the sever, run the code in server.js

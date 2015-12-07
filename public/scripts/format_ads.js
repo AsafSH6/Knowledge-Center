@@ -60,7 +60,7 @@ $(document).ready(function() {
     var message
     var screenId = getScreenId()
     window.messages = [] // global
-    var timingFunction = function () {
+    function timingFunction() {
         if (relevantMessagesArray.length == 0) {
             relevantMessagesArray = getRelevantMessages(messages)
         }
@@ -68,7 +68,7 @@ $(document).ready(function() {
         loadAndFormatTemplate(message)
         window.setTimeout(timingFunction, message.durationInSeconds * 1000)
     }
-    var loadMessages = function(callback) {
+    function loadMessages(callback) {
         $.getJSON('./screen_json/' + screenId, function(messages) {
             callback(messages)
         })

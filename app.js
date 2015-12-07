@@ -8,7 +8,7 @@ var routes = require('./routers/index.js');
 
 app = express()
 
-// view engine setup
+// view setup
 app.set('views', path.join(__dirname, 'views'));
 
 
