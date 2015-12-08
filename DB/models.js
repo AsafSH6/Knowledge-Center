@@ -29,7 +29,7 @@ var commentSchema = new Schema({
     creation_date: { type: Date, default: Date.now },
     up_votes: {type: Number, default: 0},
     user: {type: Schema.Types.ObjectId, ref: 'User'},
-    category: categorySchema
+    categories: [categorySchema]
 }, {strict: true})
 
 var postSchema = new Schema({
@@ -37,10 +37,11 @@ var postSchema = new Schema({
     text: String,
     creation_date: { type: Date, default: Date.now },
     views: {type: Number, default: 0},
-    user: {type: Schema.Types.ObjectId, ref: 'User'},
+    user: { userName: {type: String, ref: 'User'}, points: {type: Number, ref: 'User'} },
     comments: [commentSchema],
     categories: [categorySchema],
-    tags: [tagSchema]
+    tags: [tagSchema],
+    solved: {type: Boolean, default: false}
 }, {strict: true})
 
 categorySchema.statics.findAllCategories = function(callback) {

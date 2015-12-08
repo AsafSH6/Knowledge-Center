@@ -91,7 +91,7 @@ function createNewPost(userName, title, text, categoriesName, tagsName, callback
                                 {
                                     title: title,
                                     text: text,
-                                    user: user._id,
+                                    user: {userName: user.username, points: user.points},
                                     categories: categories,
                                     tags: tags
                                 });
@@ -117,6 +117,7 @@ function createNewPost(userName, title, text, categoriesName, tagsName, callback
 
 function createNewCommentAndPushToPost(userName, postID, text, callback) {
     models.User.findOne({username: userName}, function(err, user) {
+        console.log(postID)
         if(!user) {
             console.log('user does not exits');
             mongoose.disconnect();
@@ -171,12 +172,12 @@ function insertFakeDataToDB() {
     //createNewTag('Java', ['Questions', 'Links'], function(){});
     //createNewTag('StyleFrame', ['Questions'], function(){});
     //createNewTag('Pandas', ['Things I learnt today'], function(){});
-    //createNewPost('Asaf', 'To be or not to be?', "That is the question!!", ['Questions'], ['Python', 'StyleFrame'], function(post){
-    //createNewCommentAndPushToPost('Asaf', post._id, "The answer is to be :)", function(){});
-    //});
-    createNewPost('Asaf', 'Link to StyleFrame github', "www.github/styleframe", ['Links'], [], function(post){
-        createNewCommentAndPushToPost('Asaf', post._id, "Thanks!", function(){});
+    createNewPost('Asaf', 'Who wants to come over tonight?', "Im aloneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", ['Questions'], ['Pandas'], function(post){
+    createNewCommentAndPushToPost('Asaf', post._id, "I do", function(){mongoose.disconnect()});
     });
+    //createNewPost('Asaf', 'Link to StyleFrame github', "www.github/styleframe", ['Links'], [], function(post){
+    //    createNewCommentAndPushToPost('Asaf', post._id, "Thanks!", function(){});
+    //});
 }
 
 
