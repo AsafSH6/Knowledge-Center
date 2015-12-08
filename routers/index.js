@@ -1,5 +1,4 @@
 var express = require('express');
-var messages = require('../DB/messages');
 var models = require('../DB/models')
 var router = express.Router();
 

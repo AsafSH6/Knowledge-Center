@@ -25,27 +25,28 @@
 
             .state('questions', {
                 url: '/questions',
-                templateUrl: './templates/questions.html'
+                templateUrl: './templates/posts.html',
+                controller: 'questions'
             })
 
             .state('things i learnt today', {
                 url: '/things-I-learnt-today',
-                templateUrl: './templates/things-i-learnt-today.html'
+                templateUrl: './templates/posts.html',
+                controller: 'things-i-learnt-today'
             })
 
             .state('links', {
                 url: '/links',
-                templateUrl: './templates/links.html'
+                templateUrl: './templates/posts.html',
+                controller: 'links'
             })
 
-            //.state('suppliers', {
-            //    url: '/api/v1/tender/esg/suppliers/',
-            //    templateUrl: '/static-tender/app/suppliers.html'
-            //})
-            //.state('connections', {
-            //    url: '/api/v1/tender/esg/connections/',
-            //    templateUrl: '/static-tender/app/connections.html'
-            //})
+            .state('guides', {
+                url: '/guides',
+                templateUrl: './templates/posts.html',
+                controller: 'guides'
+            })
+
     }
 
 

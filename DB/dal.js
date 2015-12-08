@@ -168,17 +168,20 @@ function insertFakeDataToDB() {
     //createNewCategory('Questions', '/questions', function(){});
     //createNewCategory('Links', '/links', function(){});
     //createNewCategory('Things I learnt today', '/things-I-learnt-today', function(){});
+    //createNewCategory('Guides', '/guides', function(){});
     //createNewTag('Python', ['Questions', 'Links', 'Things I learnt today'], function(){});
     //createNewTag('Java', ['Questions', 'Links'], function(){});
     //createNewTag('StyleFrame', ['Questions'], function(){});
     //createNewTag('Pandas', ['Things I learnt today'], function(){});
-    createNewPost('Asaf', 'Who wants to come over tonight?', "Im aloneeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", ['Questions'], ['Pandas'], function(post){
-    createNewCommentAndPushToPost('Asaf', post._id, "I do", function(){mongoose.disconnect()});
-    });
+    //createNewPost('Asaf', 'Pandas guide', "blablabla", ['Guides'], ['Pandas'], function(post){
+    //createNewCommentAndPushToPost('Asaf', post._id, "Cool!", function(){});
+    //createNewCommentAndPushToPost('Asaf', post._id, "Thanks!!", function(){});
+    //createNewCommentAndPushToPost('Asaf', post._id, "Awesome!", function(){});
+    //});
     //createNewPost('Asaf', 'Link to StyleFrame github', "www.github/styleframe", ['Links'], [], function(post){
     //    createNewCommentAndPushToPost('Asaf', post._id, "Thanks!", function(){});
     //});
 }
 
-
-insertFakeDataToDB()
+//function(){mongoose.disconnect()}
+//insertFakeDataToDB()

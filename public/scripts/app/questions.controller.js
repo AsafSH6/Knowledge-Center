@@ -5,12 +5,12 @@
         .module('knowledgeCenter')
         .controller('questions', questions);
 
-    questions.$inject = ['knowledgeCenterServiceCtrl'];
+    questions.$inject = ['knowledgeCenterServiceCtrl', '$scope'];
 
     /* @ngInject */
-    function questions(dataService) {
+    function questions(dataService, $scope) {
         /* jshint validthis: true */
-        var vm = this;
+        var vm = $scope;
 
         vm.activate = activate;
         vm.category = 'Questions';
@@ -21,8 +21,8 @@
 
         function activate() {
             dataService.getAllPostsFilteredByCategory(vm.category, function(questions) {
-                vm.dbQuestions = questions.data
-                console.log(vm.dbQuestions)
+                vm.dbPosts = questions.data
+                console.log(vm.dbPosts)
             })
         }
     }

@@ -1,0 +1,31 @@
+<!--<div ng-controller="questions as questionsCtrl">-->
+    <div style="margin-left: 8px;" class="row"
+         ng-repeat="post in dbPosts track by $index">
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <!--<img src="..." alt="...">-->
+                <div class="caption">
+                    <h3>
+                        <span ng-if="post.solved" class="glyphicon glyphicon-ok-sign" style="color:green"></span>
+                        <span ng-if="!post.solved" class="glyphicon glyphicon-question-sign"></span>
+                        {{ post.title }}
+                    </h3>
+
+                    <p ng-if="post.text.length > 30" >{{ post.text.substring(0, 30) }}...</p>
+                    <p ng-if="post.text.length <= 30" >{{ post.text }}</p>
+
+                    <p>
+                        <a class="btn btn-default" role="button">
+                            Views: {{ post.views }}
+                        </a>
+                        <a class="btn btn-primary" role="button">
+                            Comments: {{ post.comments.length }}
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!--</div>-->
