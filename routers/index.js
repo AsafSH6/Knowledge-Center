@@ -1,6 +1,6 @@
 var express = require('express');
 var path = require('path');
-//var messages = require('../DB/messages');
+var messages = require('../DB/messages');
 var dal = require('../DB/dal');
 
 var router = express.Router();
@@ -27,16 +27,16 @@ router.get('/screen_json/:screen_id', function(req, res, next) {
     })
 });
 
-//router.get('/insert_messages', function(req, res, next) {
-//    for(var message in messages) {
-//        var m = messages[message]
-//        //if(m.name == 'messageA') {
-//        console.log(m.name)
-//        dal.insertNewMessage(m.name, m.screenIds, m.text, m.images, m.template, m.durationInSeconds, m.displayTime, function(message){})
-//        //}
-//    }
-//   res.send('done');
-//});
+router.get('/insert_messages', function(req, res, next) {
+    for(var message in messages) {
+        var m = messages[message]
+        //if(m.name == 'messageA') {
+        console.log(m.name)
+        dal.insertNewMessage(m.name, m.screenIds, m.text, m.images, m.template, m.durationInSeconds, m.displayTime, function(message){})
+        //}
+    }
+   res.send('done');
+});
 
 
 module.exports = router;

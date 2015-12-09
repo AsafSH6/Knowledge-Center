@@ -1,0 +1,27 @@
+{
+  "name": "Web-app",
+  "version": "0.0.0",
+  "description": "Web app task 3",
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "mongoose": "^4.2.10",
+    "express": "^4.13.3",
+    "morgan": "^1.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AsafSH6/Web-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AsafSH6/Web-app/issues"
+  },
+  "homepage": "https://github.com/AsafSH6/Web-app"
+}
