@@ -29,16 +29,6 @@ function getRelevantMessages(messages) {
             if((today >= beginDate && today <= endDate) && ($.inArray(today.getDay(), displayTime[time].days) != -1) && (today.getHours() >= displayTime[time].hours.begin && today.getHours() <= displayTime[time].hours.end)){
                 relevantMessagesArray.push(messages[message])
             }
-            else {
-                //if(messages[message].name == 'messageA') {
-                //    console.log(messages[message].name)
-                //    var beginDate = new Date(displayTime[time].dates.begin);
-                //    console.log(beginDate)
-                //    var endDate = new Date(displayTime[time].dates.end);
-                //    console.log(endDate)
-                //    console.log($.inArray(today.getDay(), displayTime[time].days) != -1)
-                //}
-            }
         }
     }
     return relevantMessagesArray

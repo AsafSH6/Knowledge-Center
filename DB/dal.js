@@ -1,8 +1,37 @@
-var models = require('./models');
+//var models = require('./models');
+var MongoClient = require('mongodb').MongoClient;
+var dbConfig = require('./config');
+var __db = null;
+var dal = null;
 
+module.exports.Connect = function() {
+    MongoClient.connect(dbConfig.url, function(err, db){
+        if (err!=null) {
+            console.log('connection error')
+            console.log(err)
+        }
+        else {
+            console.log('connected')
+            __db = db
+            dal = __db.collection('messages')
+        }
+    });
+}
+
+module.exports.Disconnect = function() {
+    __db.close(function(err) {
+        if(err != null) {
+            console.log('error disconnecting db')
+            console.log(err)
+        }
+        else {
+            console.log('disconnected');
+        }
+    });
+}
 
 function getMessagesByScreenId(screenId, callback){
-    models.Message.find({screenIds: screenId}, function(err, messages) {
+    dal.find({screenIds: screenId}).toArray(function(err, messages) {
         if(err != null) {
             console.log('error')
             return false
@@ -14,7 +43,7 @@ function getMessagesByScreenId(screenId, callback){
 }
 
 function insertNewMessage(name, screenIds, text, images, template, durationInSeconds, displayTime, callback) {
-    var message = new models.Message({
+    dal.insertOne({
         name: name,
         screenIds: screenIds,
         text: text,
@@ -22,18 +51,19 @@ function insertNewMessage(name, screenIds, text, images, template, durationInSec
         template: template,
         durationInSeconds: durationInSeconds,
         displayTime: displayTime
-    })
-    message.save(function(err) {
+    }, function(err, message) {
         if (err) {
             console.log("error: couldn't save the message");
             return false;
         }
         else {
-            console.log("saved message: " + message);
             callback(message)
         }
     })
+
 }
 
-module.exports.getMessagesByScreenId = getMessagesByScreenId
-module.exports.insertNewMessage = insertNewMessage
+module.exports.Dal = {
+                        getMessagesByScreenId: getMessagesByScreenId,
+                        insertNewMessage: insertNewMessage
+                     }
