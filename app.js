@@ -2,22 +2,8 @@ var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
-var mongoose = require('mongoose');
-var dbConfig = require('./DB/config');
 
-mongoose.connect(dbConfig.url, function(err){
-    if (err!=null) {
-        console.log('connection error')
-        console.log(err)
-    }
-    else {
-        console.log('conntected')
-    }
-});
-
-
-var routes = require('./routers/index.js');
-
+require('./DB/dal.js').Connect()
 
 app = express()
 
@@ -29,6 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+var routes = require('./routers/index.js');
 app.use('/', routes);
 
 // catch 404 and forward to error handler
@@ -59,5 +46,6 @@ if (app.get('env') === 'development') {
         });
     });
 }
+
 
 module.exports = app;

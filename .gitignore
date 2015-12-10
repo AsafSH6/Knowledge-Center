@@ -35,3 +35,6 @@ DB/config.js
 #test
 test.js
 
+# Bower
+public/bower_components/
+
