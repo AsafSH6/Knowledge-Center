@@ -39,14 +39,14 @@ function loadAndFormatTemplate(message) {
         var lines = message.text
         var line
         for(line in lines) {
-            $("#line" + line).html(lines[line])
-            $("#line" + line).show()
+            $("#" + line).html(lines[line])
+            $("#" + line).show()
         }
 
         var images = message.images
         for(var image in images) {
-            $("#image" + image).attr("src", images[image])
-            $("#image" + image).show()
+            $("#" + image).attr("src", images[image])
+            $("#" + image).show()
         }
     })
 }

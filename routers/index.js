@@ -32,7 +32,7 @@ router.get('/screen_json/:screen_id', function(req, res, next) {
 router.get('/insert_messages', function(req, res, next) {
     for(var message in messages) {
         var m = messages[message]
-        dal.insertNewMessage(m.name, m.screenIds, m.text, m.images, m.template, m.durationInSeconds, m.displayTime, function(message){console.log('inserted: ' + m.name)})
+        dal.insertNewMessage(m.name, m.screenIds, m.text, m.images, m.template, m.durationInSeconds, m.displayTime, function(){console.log('inserted: ' + m.name)})
     }
    res.send('done');
 });

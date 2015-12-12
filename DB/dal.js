@@ -14,6 +14,13 @@ module.exports.Connect = function() {
             console.log('connected')
             __db = db
             dal = __db.collection('messages')
+
+            getAllMessages(function(messages) {
+                if(messages.length != 5) {
+                    var messages = require('./messages.js')
+                    insertListOfMessages(messages, function(message){console.log('inserted: ' + message.name)})
+                }
+            })
         }
     });
 }
@@ -26,11 +33,25 @@ module.exports.Disconnect = function() {
         }
         else {
             console.log('disconnected');
+            getAllMessages()
         }
     });
 }
 
-function getMessagesByScreenId(screenId, callback){
+function getAllMessages(callback) {
+    dal.find().toArray(function(err, messages) {
+        if(err != null) {
+            console.log('error')
+            console.log(err)
+            return false;
+        }
+        else {
+            callback(messages)
+        }
+    })
+}
+
+function getMessagesByScreenId(screenId, callback) {
     dal.find({screenIds: screenId}).toArray(function(err, messages) {
         if(err != null) {
             console.log('error')
@@ -60,10 +81,18 @@ function insertNewMessage(name, screenIds, text, images, template, durationInSec
             callback(message)
         }
     })
+}
 
+function insertListOfMessages(messages, callback) {
+    for(var message in messages) {
+        var m = messages[message]
+        insertNewMessage(m.name, m.screenIds, m.text, m.images, m.template, m.durationInSeconds, m.displayTime, callback)
+    }
 }
 
 module.exports.Dal = {
+                        getAllMessages: getAllMessages,
                         getMessagesByScreenId: getMessagesByScreenId,
-                        insertNewMessage: insertNewMessage
+                        insertNewMessage: insertNewMessage,
+                        insertListOfMessages:insertListOfMessages
                      }
