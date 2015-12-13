@@ -47,6 +47,12 @@
                 controller: 'guides'
             })
 
+            .state('post', {
+                url: '/post/:postId',
+                templateUrl: './templates/post.html',
+                controller: 'post'
+            })
+
     }
 
 

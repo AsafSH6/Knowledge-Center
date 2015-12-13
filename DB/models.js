@@ -28,7 +28,7 @@ var commentSchema = new Schema({
     text: String,
     creation_date: { type: Date, default: Date.now },
     up_votes: {type: Number, default: 0},
-    user: {type: Schema.Types.ObjectId, ref: 'User'},
+    user: { id: {type: Schema.Types.ObjectId, ref: 'User'}, userName: {type: String, ref: 'User'}, points: {type: Number, ref: 'User'}},
     categories: [categorySchema]
 }, {strict: true})
 
@@ -37,7 +37,7 @@ var postSchema = new Schema({
     text: String,
     creation_date: { type: Date, default: Date.now },
     views: {type: Number, default: 0},
-    user: { userName: {type: String, ref: 'User'}, points: {type: Number, ref: 'User'} },
+    user: { id: {type: Schema.Types.ObjectId, ref: 'User'}, userName: {type: String, ref: 'User'}, points: {type: Number, ref: 'User'}},
     comments: [commentSchema],
     categories: [categorySchema],
     tags: [tagSchema],

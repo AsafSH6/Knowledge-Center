@@ -91,7 +91,7 @@ function createNewPost(userName, title, text, categoriesName, tagsName, callback
                                 {
                                     title: title,
                                     text: text,
-                                    user: {userName: user.username, points: user.points},
+                                    user: {id: user._id, userName: user.username, points: user.points},
                                     categories: categories,
                                     tags: tags
                                 });
@@ -132,7 +132,7 @@ function createNewCommentAndPushToPost(userName, postID, text, callback) {
                 }
                 else {
                     var comment = new models.Comment({
-                        user: user._id,
+                        user: {id: user._id, userName: user.username, points: user.points},
                         text: text,
                         category: post.categories
                     });
@@ -171,17 +171,21 @@ function insertFakeDataToDB() {
     //createNewCategory('Guides', '/guides', function(){});
     //createNewTag('Python', ['Questions', 'Links', 'Things I learnt today'], function(){});
     //createNewTag('Java', ['Questions', 'Links'], function(){});
-    //createNewTag('StyleFrame', ['Questions'], function(){});
+    //createNewTag('StyleFrame', ['Questions', 'Links'], function(){});
     //createNewTag('Pandas', ['Things I learnt today'], function(){});
-    //createNewPost('Asaf', 'Pandas guide', "blablabla", ['Guides'], ['Pandas'], function(post){
+    //createNewPost('Asaf', '1+1=?', "5!!", ['Questions'], ['Python', 'Pandas', 'StyleFrame'], function(post){
     //createNewCommentAndPushToPost('Asaf', post._id, "Cool!", function(){});
     //createNewCommentAndPushToPost('Asaf', post._id, "Thanks!!", function(){});
     //createNewCommentAndPushToPost('Asaf', post._id, "Awesome!", function(){});
     //});
-    //createNewPost('Asaf', 'Link to StyleFrame github', "www.github/styleframe", ['Links'], [], function(post){
-    //    createNewCommentAndPushToPost('Asaf', post._id, "Thanks!", function(){});
+    //createNewPost('Asaf', 'Python is awesome', 'you should try it!', ['Things I learnt today'], ['Python'], function(post){
+    //    createNewCommentAndPushToPost('Asaf', post._id, "Thanks I will!", function(){mongoose.disconnect()});
     //});
+    createNewPost('Asaf', 'Change columns in excel file', "How to change the columns in excel file using StyleFrame?", ['Questions'], ['StyleFrame'], function(post){
+        //createNewCommentAndPushToPost('Asaf', post._id, "Thanks!", function(){mongoose.disconnect()});
+        mongoose.disconnect()
+    });
 }
 
 //function(){mongoose.disconnect()}
-//insertFakeDataToDB()
+insertFakeDataToDB()
