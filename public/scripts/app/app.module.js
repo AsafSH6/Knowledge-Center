@@ -2,5 +2,5 @@
     'use strict';
 
     angular
-        .module('knowledgeCenter', ['ui.router']);
+        .module('knowledgeCenter', ['ui.router', 'ngCookies']);
 })();

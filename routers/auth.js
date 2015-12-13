@@ -20,11 +20,33 @@ module.exports = function(passport){
     });
 
     /* Handle Login POST */
-    router.post('/login', passport.authenticate('login', {
-        successRedirect: '/home',
-        failureRedirect: '/',
-        failureFlash : true
-    }));
+    router.post('/login', passport.authenticate('login'), function(req, res) {
+        res.json({status: 200, id: req.user._id})
+    })
+
+
+    //    function(req, res, next) {
+    //    console.log('login')
+    //    passport.authenticate('login', function(err, userId, info) {
+    //        if(err) {
+    //            console.log('error')
+    //            return next(err)
+    //        }
+    //        else if(!userId){
+    //            return res.send(info)
+    //        }
+    //        else {
+    //            req.login(userId, function(err) {
+    //                if(err) {
+    //                    return next(err)
+    //                }
+    //                console.log('sending 200')
+    //                console.log(userId)
+    //                return res.sendStatus(200)
+    //            })
+    //        }
+    //    })(req, res, next)
+    //});
 
     /* GET Registration Page */
     router.get('/signup', function(req, res){
