@@ -45,9 +45,12 @@
             callback(post)
         })
     }
+    function IncreaseViewByOne(postId) {
+        $http.get('./api/v1/increase-view-by-one/' + postId)
+    }
     function updateCurrentPost(index) {
-         console.log('updating current post ' + index)
         currentPost = dbPosts[index]
+        IncreaseViewByOne(currentPost._id)
         console.log(currentPost)
     }
     function getCurrentPost() {

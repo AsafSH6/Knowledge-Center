@@ -24,7 +24,7 @@ router.get('/api/v1/get-all-posts-filtered-by-category/:category', function(req,
 
 router.get('/api/v1/get-post-by-id/:id', function(req, res) {
     console.log(req.params['id'])
-    models.Post.findById(req.params['id'], function(err, post) {
+    models.Post.findPostById(req.params['id'], function(err, post) {
         if(err!=null) {
             console.log(err)
         }
@@ -32,7 +32,19 @@ router.get('/api/v1/get-post-by-id/:id', function(req, res) {
     })
 });
 
-
+router.get('/api/v1/increase-view-by-one/:id', function(req, res) {
+    models.Post.findPostById(req.params['id'], function(err, post) {
+        if(err!=null) {
+            console.log(err)
+            res.sendStatus(500)
+        }
+        else {
+            post.increasePostViewByOne(function() {
+                res.sendStatus(200)
+            })
+        }
+    })
+});
 
 
 

@@ -45,11 +45,26 @@ var postSchema = new Schema({
 }, {strict: true})
 
 categorySchema.statics.findAllCategories = function(callback) {
-    return this.model('Category').find({}, callback)
+    return this.find({}, callback)
 }
 
 postSchema.statics.findAllPostsFilteredByCategory = function(category, callback) {
-    return this.model('Post').find({'categories.name': category}, callback)
+    return this.find({'categories.name': category}, callback)
+}
+
+postSchema.statics.findPostById = function(postId, callback) {
+    return this.findById(postId, callback)
+}
+
+postSchema.methods.increasePostViewByOne = function(callback) {
+    this.update({views: (this.views + 1)}, function(err) {
+        if(err!=null) {
+            console.log(err)
+        }
+        else {
+            callback(this)
+        }
+    })
 }
 
 module.exports.Image = mongoose.model('Image', imageSchema, 'images');
