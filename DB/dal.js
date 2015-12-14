@@ -33,7 +33,6 @@ module.exports.Disconnect = function() {
         }
         else {
             console.log('disconnected');
-            getAllMessages()
         }
     });
 }
