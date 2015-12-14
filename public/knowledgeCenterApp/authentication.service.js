@@ -7,10 +7,16 @@
 
     AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope'];
     function AuthenticationService($http, $cookieStore, $rootScope) {
+
+        $rootScope.globals = $cookieStore.get('globals');
+        if($rootScope.globals == undefined) {
+            $rootScope.globals = {loggedIn: false}
+        }
+
         var service = {
             Login: Login,
             SetCredentials: SetCredentials,
-            ClearCredentials: ClearCredentials
+            ClearCredentials: ClearCredentials,
         };
 
         return service;
@@ -21,7 +27,6 @@
             console.log(password)
             $http.post('/auth/login', { username: username, password: password })
                 .success(function (response) {
-                    console.log(response)
                     callback(null, response);
                 })
                 .error(function() {

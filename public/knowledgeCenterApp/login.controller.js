@@ -17,14 +17,12 @@
         vm.activate = activate;
         vm.title = 'login.controller';
         vm.authenticationFailed = false;
-        $rootScope.globals = { loggedIn: false }
 
         activate();
 
         ////////////////
 
         function activate() {
-            AuthenticationService.ClearCredentials()
         }
 
         function login() {
@@ -37,7 +35,6 @@
                 else {
                     console.log('auth successed')
                     vm.authenticationFailed = false
-                    $rootScope.loggedIn = true
                     AuthenticationService.SetCredentials(response.id, vm.username, vm.password);
 
                 }
