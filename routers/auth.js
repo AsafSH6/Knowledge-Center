@@ -12,7 +12,6 @@ var isAuthenticated = function (req, res, next) {
 }
 
 module.exports = function(passport){
-
     /* GET login page. */
     router.get('/', function(req, res) {
         // Display the Login page with any flash message, if any
@@ -23,6 +22,10 @@ module.exports = function(passport){
     router.post('/login', passport.authenticate('login'), function(req, res) {
         res.json({status: 200, id: req.user._id})
     })
+
+    //router.post('/login', function(req, res) {
+    //    console.log('login')
+    //})
 
 
     //    function(req, res, next) {

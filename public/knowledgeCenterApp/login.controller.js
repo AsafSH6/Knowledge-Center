@@ -5,10 +5,10 @@
         .module('knowledgeCenter')
         .controller('loginController', login);
 
-    login.$inject = ['$location', 'AuthenticationService'];
+    login.$inject = ['$rootScope', 'AuthenticationService'];
 
     /* @ngInject */
-    function login($location, AuthenticationService)
+    function login($rootScope, AuthenticationService)
     {
         /* jshint validthis: true */
         var vm = this;
@@ -16,6 +16,8 @@
 
         vm.activate = activate;
         vm.title = 'login.controller';
+        vm.authenticationFailed = false;
+        $rootScope.globals = { loggedIn: false }
 
         activate();
 
@@ -26,15 +28,18 @@
         }
 
         function login() {
-            console.log(vm.username)
-            console.log(vm.password)
-            AuthenticationService.Login(vm.username, vm.password, function (response) {
-                if (response.status == 200) {
+            AuthenticationService.Login(vm.username, vm.password, function (err, response) {
+                console.log('at login')
+                if(err!= null) {
+                    console.log('err!=null')
+                    vm.authenticationFailed = true
+                }
+                else {
+                    console.log('auth successed')
+                    vm.authenticationFailed = false
+                    $rootScope.loggedIn = true
                     AuthenticationService.SetCredentials(response.id, vm.username, vm.password);
-                    $location.path('/');
-                } else {
-                    console.log(response.status)
-                    console.log('failed')
+
                 }
             });
         };

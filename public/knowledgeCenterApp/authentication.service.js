@@ -22,8 +22,12 @@
             $http.post('/auth/login', { username: username, password: password })
                 .success(function (response) {
                     console.log(response)
-                    callback(response);
-                });
+                    callback(null, response);
+                })
+                .error(function() {
+                    console.log('error')
+                    callback({err: 'authentication failed'}, null)
+            });
         }
 
         function SetCredentials(id, username, password) {
@@ -34,7 +38,8 @@
                     id: id,
                     username: username,
                     authdata: authdata
-                }
+                },
+                loggedIn: true
             };
 
             $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
@@ -42,7 +47,7 @@
         }
 
         function ClearCredentials() {
-            $rootScope.globals = {};
+            $rootScope.globals = { loggedIn: false };
             $cookieStore.remove('globals');
             $http.defaults.headers.common.Authorization = 'Basic';
         }

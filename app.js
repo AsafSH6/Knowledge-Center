@@ -20,11 +20,6 @@ mongoose.connect(dbConfig.url, function(err) {
 
 app = express()
 
-// routers
-app.use('/', require('./routers/index'));
-app.use('/auth', require('./routers/auth')(passport))
-app.use('/api/v1', require('./routers/api'));
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
@@ -42,6 +37,11 @@ app.use(passport.session());
 app.use(flash());
 
 require('./passport/init')(passport);
+
+// routers
+app.use('/', require('./routers/index'));
+app.use('/auth', require('./routers/auth')(passport))
+app.use('/api/v1', require('./routers/api'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

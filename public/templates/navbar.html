@@ -20,7 +20,7 @@
                     <a ui-sref="{{ category.name | lowercase }}" ng-click="navbarCtrl.setActive($index)" href="{{ category.url }}"> {{ category.name }} </a>
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right" ng-hide="globals.loggedIn">
                 <li><a href="/signup">Sign Up</a></li>
                 <li class="divider-vertical"></li>
                 <li class="dropdown">
@@ -29,12 +29,20 @@
                     </a>
                     <div class="dropdown-menu" ng-controller="loginController as loginCtrl">
                         <form class="sign-in" method="post" accept-charset="UTF-8" ng-submit="loginCtrl.login()">
+                            <div ng-hide="!loginCtrl.authenticationFailed" class="alert alert-danger" role="alert">
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                <span class="sr-only">Error:</span>
+                                Authentication failed
+                            </div>
                             <input style="margin-bottom: 15px;" ng-model="loginCtrl.username" type="text" placeholder="Username" id="username" name="username">
                             <input style="margin-bottom: 15px;" ng-model="loginCtrl.password" type="password" placeholder="Password" id="password" name="password">
                             <input class="btn-group-sm" type="submit" id="sign-in" value="Sign In">
                         </form>
                     </div>
                 </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" ng-hide="!globals.loggedIn">
+                <li><a>Welcome {{ globals.currentUser.username }}</a></li>
             </ul>
             <!--<button type="submit" class="navbar-btn btn btn-group-sm navbar-right">login/signup</button>-->
 
