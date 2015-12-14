@@ -3,9 +3,9 @@
 
     angular
         .module('knowledgeCenter')
-        .controller('post', post)
+        .controller('postController', post)
 
-    post.$inject = ['$scope', '$stateParams', 'knowledgeCenterServiceCtrl'];
+    post.$inject = ['$scope', '$stateParams', 'dataService'];
 
     /* @ngInject */
     function post($scope,$stateParams, dataService) {

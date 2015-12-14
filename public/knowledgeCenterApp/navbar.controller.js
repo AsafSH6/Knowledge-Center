@@ -3,9 +3,9 @@
 
     angular
         .module('knowledgeCenter')
-        .controller('navbar', navbar);
+        .controller('navbarController', navbar);
 
-    navbar.$inject = ['knowledgeCenterServiceCtrl'];
+    navbar.$inject = ['dataService'];
 
     /* @ngInject */
     function navbar(dataService) {

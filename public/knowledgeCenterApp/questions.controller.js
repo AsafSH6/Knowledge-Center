@@ -3,9 +3,9 @@
 
     angular
         .module('knowledgeCenter')
-        .controller('questions', questions);
+        .controller('questionsController', questions);
 
-    questions.$inject = ['$scope', 'knowledgeCenterServiceCtrl'];
+    questions.$inject = ['$scope', 'dataService'];
 
     /* @ngInject */
     function questions($scope, dataService) {

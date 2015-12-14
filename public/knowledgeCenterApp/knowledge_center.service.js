@@ -3,7 +3,7 @@
 
     angular
         .module('knowledgeCenter')
-        .factory('knowledgeCenterServiceCtrl', knowledgeCenterServiceCtrl);
+        .factory('dataService', knowledgeCenterServiceCtrl);
 
     knowledgeCenterServiceCtrl.$inject = ['$http'];
 

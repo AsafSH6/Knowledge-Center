@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default" ng-controller="navbar as navbarCtrl">
+<nav class="navbar navbar-default" ng-controller="navbarController as navbarCtrl">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -27,7 +27,7 @@
                     <a class="dropdown-toggle" href="" data-toggle="dropdown">
                         Sign In <strong class="caret"></strong>
                     </a>
-                    <div class="dropdown-menu" ng-controller="login as loginCtrl">
+                    <div class="dropdown-menu" ng-controller="loginController as loginCtrl">
                         <form class="sign-in" method="post" accept-charset="UTF-8" ng-submit="loginCtrl.login()">
                             <input style="margin-bottom: 15px;" ng-model="loginCtrl.username" type="text" placeholder="Username" id="username" name="username">
                             <input style="margin-bottom: 15px;" ng-model="loginCtrl.password" type="password" placeholder="Password" id="password" name="password">

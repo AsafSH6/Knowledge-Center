@@ -26,31 +26,31 @@
             .state('questions', {
                 url: '/questions',
                 templateUrl: './templates/posts.html',
-                controller: 'questions'
+                controller: 'questionsController'
             })
 
             .state('things i learnt today', {
                 url: '/things-I-learnt-today',
                 templateUrl: './templates/posts.html',
-                controller: 'things-i-learnt-today'
+                controller: 'things-i-learnt-todayController'
             })
 
             .state('links', {
                 url: '/links',
                 templateUrl: './templates/posts.html',
-                controller: 'links'
+                controller: 'linksController'
             })
 
             .state('guides', {
                 url: '/guides',
                 templateUrl: './templates/posts.html',
-                controller: 'guides'
+                controller: 'guidesController'
             })
 
             .state('post', {
                 url: '/post/:postId',
                 templateUrl: './templates/post.html',
-                controller: 'post'
+                controller: 'postController'
             })
 
     }

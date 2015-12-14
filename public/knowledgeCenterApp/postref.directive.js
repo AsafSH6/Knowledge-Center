@@ -6,7 +6,7 @@
         .directive('postref', postref);
 
     /* @ngInject */
-    postref.$inject = ['$window', 'knowledgeCenterServiceCtrl'];
+    postref.$inject = ['$window', 'dataService'];
 
     function postref($window, dataService) {
 

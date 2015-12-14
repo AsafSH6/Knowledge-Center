@@ -3,25 +3,25 @@
 
     angular
         .module('knowledgeCenter')
-        .controller('links', links);
+        .controller('guidesController', guides);
 
-    links.$inject = ['knowledgeCenterServiceCtrl', "$scope"];
+    guides.$inject = ['knowledgeCenterServiceCtrl', '$scope'];
 
     /* @ngInject */
-    function links(dataService, $scope) {
+    function guides(dataService, $scope) {
         /* jshint validthis: true */
         var vm = $scope;
 
         vm.activate = activate;
-        vm.category = 'Links';
+        vm.category = 'Guides';
 
         activate();
 
         ////////////////
 
         function activate() {
-            dataService.getAllPostsFilteredByCategory(vm.category, function(links) {
-                vm.dbPosts = links.data
+            dataService.getAllPostsFilteredByCategory(vm.category, function(guides) {
+                vm.dbPosts = guides.data
                 console.log(vm.dbPosts)
             })
         }

@@ -18,12 +18,12 @@ mongoose.connect(dbConfig.url, function(err) {
     }
 });
 
-
-var routes = require('./routers/index');
-var auth = require('./routers/auth')(passport);
-
-
 app = express()
+
+// routers
+app.use('/', require('./routers/index'));
+app.use('/auth', require('./routers/auth')(passport))
+app.use('/api/v1', require('./routers/api'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -41,12 +41,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-app.use('/', routes);
-app.use('/auth', auth)
-//app.use('/', auth);
-
-var initPassport = require('./passport/init');
-initPassport(passport);
+require('./passport/init')(passport);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

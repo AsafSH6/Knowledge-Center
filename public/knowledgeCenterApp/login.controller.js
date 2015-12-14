@@ -3,7 +3,7 @@
 
     angular
         .module('knowledgeCenter')
-        .controller('login', login);
+        .controller('loginController', login);
 
     login.$inject = ['$location', 'AuthenticationService'];
 
