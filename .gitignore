@@ -38,3 +38,10 @@ test.js
 # Bower
 public/bower_components/
 
+# MongoDB
+MongoDB/
+dbfiles/
+
+# rar files
+*.rar
+

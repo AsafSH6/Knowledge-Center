@@ -15,12 +15,12 @@ module.exports.Connect = function() {
             __db = db
             dal = __db.collection('messages')
 
-            getAllMessages(function(messages) {
-                if(messages.length != 5) {
-                    var messages = require('./messages.js')
-                    insertListOfMessages(messages, function(message){console.log('inserted: ' + message.name)})
-                }
-            })
+            //getAllMessages(function(messages) {
+            //    if(messages.length != 5) {
+            //        var messages = require('./messages.js')
+            //        insertListOfMessages(messages, function(message){console.log('inserted: ' + message.name)})
+            //    }
+            //})
         }
     });
 }
