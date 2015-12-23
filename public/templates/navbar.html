@@ -17,7 +17,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li ng-class="(navbarCtrl.checkActive($index)) ? 'active' : ''" ng-repeat="category in navbarCtrl.dbCategories track by $index">
-                    <a ui-sref="{{ category.name | lowercase }}" ng-click="navbarCtrl.setActive($index)" href="{{ category.url }}"> {{ category.name }} </a>
+                    <a ui-sref="{{ category.name | lowercase }}" ng-click="navbarCtrl.setActive($index)"> {{ category.name }} </a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right" ng-hide="globals.loggedIn">
