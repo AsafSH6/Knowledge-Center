@@ -4,5 +4,6 @@ Remember to change the screen ID to check the different cases.
 
 The script reloads the messages every 3minutes from the server in case something changed.
 
-**I assume that the path of mongoDB is your environment variables PATH!!!**
-run the RunMe.bat
+**I assume that the path of mongoDB is in your environment variables PATH!!!**
+
+run: RunMe.bat
