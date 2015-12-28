@@ -23,7 +23,7 @@ router.get('/get-all-posts-filtered-by-category/:category', function(req, res) {
 
 router.get('/get-post-by-id/:id', function(req, res) {
     console.log(req.params['id'])
-    models.Post.findPostById(req.params['id'], function(err, post) {
+    models.Post.findPostByIdWithUserDetails(req.params['id'], function(err, post) {
         if(err!=null) {
             console.log(err)
         }
@@ -32,7 +32,7 @@ router.get('/get-post-by-id/:id', function(req, res) {
 });
 
 router.get('/increase-view-by-one/:id', function(req, res) {
-    models.Post.findPostById(req.params['id'], function(err, post) {
+    models.Post.findPostByIdWithUserDetails(req.params['id'], function(err, post) {
         if(err!=null) {
             console.log(err)
             res.sendStatus(500)
