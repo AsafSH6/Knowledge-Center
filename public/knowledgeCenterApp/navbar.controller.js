@@ -15,8 +15,6 @@
         vm.activate = activate;
         vm.title = 'navbar';
         vm.homeUrl = '/';
-        vm.setActive = setActivate;
-        vm.checkActive = checkActive;
         vm.currentActive = -1;
 
         activate();
@@ -28,6 +26,8 @@
                 vm.dbCategories = categories.data
                 console.log(vm.dbCategories)
             })
+            vm.setActive = setActivate;
+            vm.checkActive = checkActive;
         }
 
         function setActivate($index){

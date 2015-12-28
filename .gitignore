@@ -43,5 +43,6 @@ test.js
 
 # MongoDB
 MongoDB/
+dbfiles/
 
 

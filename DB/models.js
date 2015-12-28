@@ -49,11 +49,14 @@ categorySchema.statics.findAllCategories = function(callback) {
 }
 
 postSchema.statics.findAllPostsFilteredByCategory = function(category, callback) {
-    return this.find({'categories.name': category}, callback)
+    return this.find({'categories.name': category})
+        .populate('user', 'username points')
+        .populate('comments.user', 'username points')
+        .exec(callback)
 }
 
-postSchema.statics.findPostByIdWithUserDetails = function(postId, callback) {
-    return this.findById(postId, callback).populate('user', ['userName', 'points'])
+postSchema.statics.findPostById = function(postId, callback) {
+    return this.findById(postId).populate('user', 'username points').exec(callback)
 }
 
 postSchema.methods.increasePostViewByOne = function(callback) {
