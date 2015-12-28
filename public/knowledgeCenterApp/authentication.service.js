@@ -12,6 +12,7 @@
         if($rootScope.globals == undefined) {
             $rootScope.globals = {loggedIn: false}
         }
+        checkIfAuthenticated()
 
         var service = {
             Login: Login,
@@ -33,6 +34,15 @@
                     console.log('error')
                     callback({err: 'authentication failed'}, null)
             });
+        }
+
+        function checkIfAuthenticated() {
+            $http.get('./api/v1/is-authenticated').then(function(response) {
+                if(!response.data.isAuthenticated) {
+                    console.log('not auth')
+                    ClearCredentials()
+                }
+            })
         }
 
         function SetCredentials(id, username, password) {

@@ -31,8 +31,7 @@
                         <form class="sign-in" method="post" accept-charset="UTF-8" ng-submit="loginCtrl.login()">
                             <div ng-hide="!loginCtrl.authenticationFailed" class="alert alert-danger" role="alert">
                                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                                <span class="sr-only">Error:</span>
-                                Authentication failed
+                                Wrong.
                             </div>
                             <input style="margin-bottom: 15px;" ng-model="loginCtrl.username" type="text" placeholder="Username" id="username" name="username">
                             <input style="margin-bottom: 15px;" ng-model="loginCtrl.password" type="password" placeholder="Password" id="password" name="password">

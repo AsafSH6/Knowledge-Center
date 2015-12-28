@@ -11,6 +11,8 @@ var isAuthenticated = function (req, res, next) {
     res.redirect('/');
 }
 
+module.exports.isAuthenticated = isAuthenticated
+
 module.exports = function(passport){
     /* GET login page. */
     router.get('/', function(req, res) {

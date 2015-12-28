@@ -43,6 +43,11 @@ router.get('/increase-view-by-one/:id', function(req, res) {
             })
         }
     })
+});
+
+router.get('/is-authenticated', function(req, res) {
+    console.log(req.isAuthenticated())
+    res.json({isAuthenticated: req.isAuthenticated()})
 })
 
 module.exports = router;
