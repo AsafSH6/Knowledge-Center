@@ -21,7 +21,29 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right" ng-hide="globals.loggedIn">
-                <li><a href="/signup">Sign Up</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" href="" data-toggle="dropdown">
+                        Sign up <strong class="caret"></strong>
+                    </a>
+                    <div class="dropdown-menu" ng-controller="signupController as signupCtrl">
+                        <form class="sign-up" method="post" accept-charset="UTF-8" ng-submit="signupCtrl.signup()">
+                            <div ng-hide="!signupCtrl.signupFailed" class="alert alert-danger" role="alert">
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                User already exits.
+                            </div>
+                            <div ng-hide="!signupCtrl.signedup" class="alert alert-danger" role="alert">
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                Signed up!.
+                            </div>
+                            <input style="margin-bottom: 15px;" ng-model="signupCtrl.firstName" type="text" placeholder="first name" id="firstName" name="firstName">
+                            <input style="margin-bottom: 15px;" ng-model="signupCtrl.lastName" type="text" placeholder="last name" id="lastName" name="lastname">
+                            <input style="margin-bottom: 15px;" ng-model="signupCtrl.email" type="text" placeholder="email" id="email" name="email">
+                            <input style="margin-bottom: 15px;" ng-model="signupCtrl.username" type="text" placeholder="Username" id="user" name="username">
+                            <input style="margin-bottom: 15px;" ng-model="signupCtrl.password" type="password" placeholder="Password" id="signup-password" name="password">
+                            <input class="btn-group-sm" type="submit" id="sign-up" value="Sign Up">
+                        </form>
+                    </div>
+                </li>
                 <li class="divider-vertical"></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" href="" data-toggle="dropdown">
@@ -41,7 +63,16 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right" ng-hide="!globals.loggedIn">
-                <li><a>Welcome {{ globals.currentUser.username }}</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" href="" data-toggle="dropdown">
+                       Welcome {{ globals.currentUser.username }} <strong class="caret"></strong>
+                    </a>
+                    <div class="dropdown-menu" ng-controller="logoutController as logoutCtrl">
+                        <form class="log-out" method="post" accept-charset="UTF-8" ng-submit="logoutCtrl.logout()">
+                            <input class="btn-group-sm" type="submit" id="log-out" value="log out">
+                        </form>
+                    </div>
+                </li>
             </ul>
             <!--<button type="submit" class="navbar-btn btn btn-group-sm navbar-right">login/signup</button>-->
 

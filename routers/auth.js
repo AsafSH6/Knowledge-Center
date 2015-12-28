@@ -14,16 +14,24 @@ var isAuthenticated = function (req, res, next) {
 module.exports.isAuthenticated = isAuthenticated
 
 module.exports = function(passport){
-    /* GET login page. */
-    router.get('/', function(req, res) {
-        // Display the Login page with any flash message, if any
-        res.render('index', { message: req.flash('message') });
-    });
+
 
     /* Handle Login POST */
     router.post('/login', passport.authenticate('login'), function(req, res) {
         res.json({status: 200, id: req.user._id})
     })
+
+    /* Handle Registration POST */
+    router.post('/signup', passport.authenticate('signup'), function(req, res) {
+            res.json({status: 200, id: req.user._id})
+    });
+
+    /* Handle Logout */
+    router.get('/signout', function(req, res) {
+        req.logout();
+        //res.redirect('/');
+        res.json({status: 200})
+    });
 
     //router.post('/login', function(req, res) {
     //    console.log('login')
@@ -53,28 +61,22 @@ module.exports = function(passport){
     //    })(req, res, next)
     //});
 
+    /* GET login page. */
+    router.get('/', function(req, res) {
+        // Display the Login page with any flash message, if any
+        res.render('index', { message: req.flash('message') });
+    });
+
     /* GET Registration Page */
     router.get('/signup', function(req, res){
         res.render('register',{message: req.flash('message')});
     });
-
-    /* Handle Registration POST */
-    router.post('/signup', passport.authenticate('signup', {
-        successRedirect: '/home',
-        failureRedirect: '/signup',
-        failureFlash : true
-    }));
 
     /* GET Home Page */
     router.get('/home', isAuthenticated, function(req, res){
         res.render('home', { user: req.user });
     });
 
-    /* Handle Logout */
-    router.get('/signout', function(req, res) {
-        req.logout();
-        res.redirect('/');
-    });
 
     return router;
 }

@@ -15,12 +15,26 @@
         checkIfAuthenticated()
 
         var service = {
+            Signup: Signup,
             Login: Login,
+            Logout: Logout,
             SetCredentials: SetCredentials,
             ClearCredentials: ClearCredentials,
         };
 
         return service;
+
+        function Signup(username, password, firstName, lastName, email, callback) {
+            console.log('signup')
+            $http.post('/auth/signup', {username: username, password: password, firstName: firstName, lastName: lastName, email: email})
+                .success(function (response) {
+                    callback(null, response);
+                })
+                .error(function() {
+                    console.log('error')
+                    callback({err: 'authentication failed'}, null)
+                });
+        }
 
         function Login(username, password, callback) {
             console.log('login')
@@ -34,6 +48,18 @@
                     console.log('error')
                     callback({err: 'authentication failed'}, null)
             });
+        }
+
+        function Logout(callback) {
+            console.log('logout')
+            $http.get('/auth/signout')
+                .success(function (response) {
+                    callback(null, response);
+                })
+                .error(function() {
+                    console.log('error')
+                    callback({err: 'logout failed'}, null)
+                });
         }
 
         function checkIfAuthenticated() {

@@ -190,7 +190,7 @@ function createNewCommentAndPushToPost(userName, postID, text, callback) {
 
 // RUN ONE BY ONE
 function insertFakeDataToDB() {
-    createNewUser('Asaf', 'a@b.c', function(user) {
+    createNewUser('Asaf1', 'a1@b.c', function(user) {
         createNewCategory('Questions', '/questions', function(){
         createNewCategory('Links', '/links', function(){
             createNewCategory('Things I learnt today', '/things-I-learnt-today', function(){
