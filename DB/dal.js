@@ -2,13 +2,37 @@ var models = require('../DB/models')
 var mongoose = require('mongoose');
 var dbConfig = require('./config');
 
-mongoose.connect(dbConfig.url);
+mongoose.connect(dbConfig.url, function() {
+    console.log('connected')
+});
+
+function createNewUser(username, email, callback) {
+    var user = new models.User({
+        username: username,
+        password: "$2a$10$VYwau9CXD2sjTKQD8BGZ4uzaet0VHFY0Mb95R1JT.tlMB17LEqD3i",
+        email:  email,
+        points: 0
+    });
+    user.save(function (err) {
+        if (err) {
+            console.log("error: couldn't save the user");
+            //mongoose.disconnect();
+            return false;
+        }
+        else {
+            console.log("saved user: " +  user);
+            callback(user);
+            //mongoose.disconnect();
+            return user._id;
+        }
+    })
+}
 
 function createNewCategory(name, url, callback) {
     models.Category.findOne({$or: [{name: name}, {url: url}]}, function(err, category) {
         if(category) {
             console.log("category already exists: " + category);
-            mongoose.disconnect();
+            //mongoose.disconnect();
             return false;
         }
         else {
@@ -16,13 +40,13 @@ function createNewCategory(name, url, callback) {
             category.save(function (err) {
                 if (err) {
                     console.log("error: couldn't save the category");
-                    mongoose.disconnect();
+                    //mongoose.disconnect();
                     return false;
                 }
                 else {
                     console.log("saved category: " +  category);
                     callback(category)
-                    mongoose.disconnect();
+                    //mongoose.disconnect();
                     return category._id;
                 }
             })
@@ -34,14 +58,14 @@ function createNewTag(name, categoriesName, callback) {
     models.Tag.findOne({name: name}, function(err, tag) {
         if(tag) {
             console.log("tag already exists: " + tag);
-            mongoose.disconnect();
+            //mongoose.disconnect();
             return false;
         }
         else {
             models.Category.find({name: {$in: categoriesName}}, function(err, categories) {
                 if(!categories) {
                     console.log("category does not exists.");
-                    mongoose.disconnect();
+                    //mongoose.disconnect();
                     return false;
                 }
                 else {
@@ -49,13 +73,13 @@ function createNewTag(name, categoriesName, callback) {
                     tag.save(function (err) {
                         if (err) {
                             console.log("error: couldn't save the tag");
-                            mongoose.disconnect();
+                            //mongoose.disconnect();
                             return false;
                         }
                         else {
                             console.log("saved tag: " +  tag);
                             callback(tag);
-                            mongoose.disconnect();
+                            //mongoose.disconnect();
                             return tag._id;
                         }
                     })
@@ -69,21 +93,21 @@ function createNewPost(userName, title, text, categoriesName, tagsName, callback
     models.User.findOne({username: userName}, function(err, user) {
         if(!user) {
             console.log("user does not exits");
-            mongoose.disconnect();
+            //mongoose.disconnect();
             return false;
         }
         else {
             models.Category.find({name: {$in: categoriesName}}, function(err, categories) {
                 if(categories.length != categoriesName.length) {
                     console.log("One or more of the categories list does not exits: "+ categories);
-                    mongoose.disconnect();
+                    //mongoose.disconnect();
                     return false;
                 }
                 else {
                     models.Tag.find({name: {$in: tagsName}}, function(err, tags) {
                         if(tags.length != tagsName.length) {
                             console.log("One or more of the tags list does not exits: "+ tags);
-                            mongoose.disconnect();
+                            //mongoose.disconnect();
                             return false;
                         }
                         else {
@@ -91,14 +115,15 @@ function createNewPost(userName, title, text, categoriesName, tagsName, callback
                                 {
                                     title: title,
                                     text: text,
-                                    user: {id: user._id, userName: user.username, points: user.points},
+                                    //user: {id: user._id, userName: user.username, points: user.points},
+                                    user: user._id,
                                     categories: categories,
                                     tags: tags
                                 });
                             post.save(function (err) {
                                 if (err) {
                                     console.log("error: couldn't save the post");
-                                    mongoose.disconnect();
+                                    //mongoose.disconnect();
                                     return false;
                                 }
                                 else {
@@ -120,26 +145,26 @@ function createNewCommentAndPushToPost(userName, postID, text, callback) {
         console.log(postID)
         if(!user) {
             console.log('user does not exits');
-            mongoose.disconnect();
+            //mongoose.disconnect();
             return false;
         }
         else {
             models.Post.findById(postID, function(err, post) {
                 if(!post) {
                     console.log('post does not exits.');
-                    mongoose.disconnect();
+                    //mongoose.disconnect();
                     return false;
                 }
                 else {
                     var comment = new models.Comment({
-                        user: {id: user._id, userName: user.username, points: user.points},
+                        user:user._id,
                         text: text,
                         category: post.categories
                     });
                     comment.save(function (err) {
                         if (err) {
                             console.log("error: couldn't save the comment");
-                            mongoose.disconnect();
+                            //mongoose.disconnect();
                             return false;
                         }
                         else {
@@ -147,7 +172,7 @@ function createNewCommentAndPushToPost(userName, postID, text, callback) {
                             post.update({$push: {comments: comment}}, function(err) {
                                 if(err) {
                                     console.log("couldn't update post");
-                                    mongoose.disconnect();
+                                    //mongoose.disconnect();
                                 }
                                 else {
                                     console.log("updated post.")
@@ -165,7 +190,29 @@ function createNewCommentAndPushToPost(userName, postID, text, callback) {
 
 // RUN ONE BY ONE
 function insertFakeDataToDB() {
-    //createNewCategory('Questions', '/questions', function(){});
+    createNewUser('Asaf', 'a@b.c', function(user) {
+        createNewCategory('Questions', '/questions', function(){
+        createNewCategory('Links', '/links', function(){
+            createNewCategory('Things I learnt today', '/things-I-learnt-today', function(){
+                createNewCategory('Guides', '/guides', function(){
+                    createNewTag('Python', ['Questions', 'Links', 'Things I learnt today'], function(){
+                        createNewTag('Java', ['Questions', 'Links'], function(){
+                            createNewTag('StyleFrame', ['Questions', 'Links'], function(){
+                                createNewTag('Pandas', ['Things I learnt today'], function(){
+                                    createNewPost('Asaf', '1+1=?', "5!!", ['Questions'], ['Python', 'Pandas', 'StyleFrame'], function(post){
+                                        createNewCommentAndPushToPost('Asaf', post._id, "Cool!", function(){});
+                                        createNewCommentAndPushToPost('Asaf', post._id, "Thanks!!", function(){});
+                                        createNewCommentAndPushToPost('Asaf', post._id, "Awesome!", function(){console.log('almost done')});
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+        });
+    });
     //createNewCategory('Links', '/links', function(){});
     //createNewCategory('Things I learnt today', '/things-I-learnt-today', function(){});
     //createNewCategory('Guides', '/guides', function(){});
@@ -181,11 +228,20 @@ function insertFakeDataToDB() {
     //createNewPost('Asaf', 'Python is awesome', 'you should try it!', ['Things I learnt today'], ['Python'], function(post){
     //    createNewCommentAndPushToPost('Asaf', post._id, "Thanks I will!", function(){mongoose.disconnect()});
     //});
-    createNewPost('Asaf', 'Change columns in excel file', "How to change the columns in excel file using StyleFrame?", ['Questions'], ['StyleFrame'], function(post){
+    //createNewPost('Asaf', 'Change columns in excel file', "How to change the columns in excel file using StyleFrame?", ['Questions'], ['StyleFrame'], function(post){
         //createNewCommentAndPushToPost('Asaf', post._id, "Thanks!", function(){mongoose.disconnect()});
-        mongoose.disconnect()
-    });
+        //mongoose.disconnect()
+    //});
 }
 
 //function(){mongoose.disconnect()}
-insertFakeDataToDB()
+//insertFakeDataToDB()
+
+//function b() {
+//    models.Post.findOne({title: '1+1=?'}).populate('user', 'username points').exec(function(err, post) {
+//        console.log(post)
+//        mongoose.disconnect()
+//    })
+//        //console.log(post)
+//}
+//b()

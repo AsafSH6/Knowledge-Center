@@ -38,3 +38,11 @@ DB/config.js
 #Test
 test.js
 
+# rar
+*.rar
+
+# MongoDB
+MongoDB/
+dbfiles/
+
+

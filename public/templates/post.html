@@ -16,7 +16,7 @@
                             <span class="thumb-lg pull-left mr">
                                 <img class="img-circle" src="http://bootdey.com/img/Content/user_1.jpg" alt="...">
                             </span>
-                            <h5 class="mt-sm fw-normal text-white">{{ post.user.userName }}</h5>
+                            <h5 class="mt-sm fw-normal text-white">{{ post.user.username }}</h5>
 
                             <p class="fs-mini text-muted">
                                 <time>{{ post.user.points }} Points</time>
@@ -66,7 +66,7 @@
                                         <img src="http://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="">
                                         <div class="post-comments">
                                             <p class="meta">
-                                                <a href="#">{{ comment.user.userName }} </a>
+                                                <a href="#">{{ comment.user.username }} </a>
                                                 {{ comment.creation_date | date}}
                                             <p>
                                                 {{ comment.text }}

@@ -28,7 +28,7 @@ var commentSchema = new Schema({
     text: String,
     creation_date: { type: Date, default: Date.now },
     up_votes: {type: Number, default: 0},
-    user: { id: {type: Schema.Types.ObjectId, ref: 'User'}, userName: {type: String, ref: 'User'}, points: {type: Number, ref: 'User'}},
+    user: {type: Schema.Types.ObjectId, ref: 'User'},
     categories: [categorySchema]
 }, {strict: true})
 
@@ -37,7 +37,7 @@ var postSchema = new Schema({
     text: String,
     creation_date: { type: Date, default: Date.now },
     views: {type: Number, default: 0},
-    user: { id: {type: Schema.Types.ObjectId, ref: 'User'}, userName: {type: String, ref: 'User'}, points: {type: Number, ref: 'User'}},
+    user: {type: Schema.Types.ObjectId, ref: 'User'},
     comments: [commentSchema],
     categories: [categorySchema],
     tags: [tagSchema],
@@ -49,11 +49,14 @@ categorySchema.statics.findAllCategories = function(callback) {
 }
 
 postSchema.statics.findAllPostsFilteredByCategory = function(category, callback) {
-    return this.find({'categories.name': category}, callback)
+    return this.find({'categories.name': category})
+        .populate('user', 'username points')
+        .populate('comments.user', 'username points')
+        .exec(callback)
 }
 
 postSchema.statics.findPostById = function(postId, callback) {
-    return this.findById(postId, callback)
+    return this.findById(postId).populate('user', 'username points').exec(callback)
 }
 
 postSchema.methods.increasePostViewByOne = function(callback) {

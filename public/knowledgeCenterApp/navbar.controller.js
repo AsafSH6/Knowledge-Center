@@ -15,10 +15,6 @@
         vm.activate = activate;
         vm.title = 'navbar';
         vm.homeUrl = '/';
-        vm.setActive = setActivate;
-        vm.checkActive = checkActive;
-        vm.currentActiveCategory = currentActiveCategory;
-        vm.getCategoryTemplate = getCategoryTemplate;
         vm.currentActive = -1;
 
         activate();
@@ -30,26 +26,17 @@
                 vm.dbCategories = categories.data
                 console.log(vm.dbCategories)
             })
+            vm.setActive = setActivate;
+            vm.checkActive = checkActive;
         }
 
-        function setActivate(number){
-            vm.currentActive = number
+        function setActivate($index){
+            vm.currentActive = $index
         }
 
-        function checkActive(number){
-            return  (vm.currentActive == number)
+        function checkActive($index){
+            return  (vm.currentActive == $index)
         }
-
-        function currentActiveCategory() {
-            return vm.dbCategories[number]
-        }
-
-        function getCategoryTemplate() {
-            var template = vm.currentActive == -1 ? './templates/home.html' : './templates/' + (currentActiveCategory() | lowercase) + 'html'
-            console.log(template)
-            return template
-        }
-
 
     }
 })();

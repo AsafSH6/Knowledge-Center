@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ navbarCtrl.homeUrl }}" ng-click="navbarCtrl.setActive(-1)">
+            <a class="navbar-brand" ui-sref="home" ng-click="navbarCtrl.setActive(-1)">
                 <span class="glyphicon glyphicon-align-left" aria-hidden="false"></span>
                 Knowledge Center
             </a>
@@ -16,8 +16,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li ng-class="(navbarCtrl.checkActive($index)) ? 'active' : ''" ng-repeat="category in navbarCtrl.dbCategories track by $index">
-                    <a ui-sref="{{ category.name | lowercase }}" ng-click="navbarCtrl.setActive($index)" href="{{ category.url }}"> {{ category.name }} </a>
+                <li ng-class="{'active':navbarCtrl.checkActive($index)}" ng-repeat="category in navbarCtrl.dbCategories track by $index">
+                    <a ui-sref="{{ category.name | lowercase }}" ng-click="navbarCtrl.setActive($index)"> {{ category.name }} </a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right" ng-hide="globals.loggedIn">

@@ -17,7 +17,9 @@ router.get('/get-all-posts-filtered-by-category/:category', function(req, res) {
         if(err!=null) {
             console.log(err)
         }
-        res.json(posts)
+        else {
+            res.json(posts)
+        }
     })
 });
 
@@ -27,6 +29,7 @@ router.get('/get-post-by-id/:id', function(req, res) {
         if(err!=null) {
             console.log(err)
         }
+        console.log(post)
         res.json(post)
     })
 });
