@@ -56,7 +56,9 @@ postSchema.statics.findAllPostsFilteredByCategory = function(category, callback)
 }
 
 postSchema.statics.findPostById = function(postId, callback) {
-    return this.findById(postId).populate('user', 'username points').exec(callback)
+    return this.findById(postId)
+        .populate('user', 'username points')
+        .exec(callback)
 }
 
 postSchema.methods.increasePostViewByOne = function(callback) {
