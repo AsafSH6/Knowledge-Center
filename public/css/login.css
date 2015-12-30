@@ -1,4 +1,8 @@
-.sign-in {
+input {
+    margin-bottom: 15px;
+}
+
+.pad-buttom {
     padding-bottom: 10px;
 }
 

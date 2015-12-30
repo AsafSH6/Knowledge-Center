@@ -15,16 +15,16 @@
         checkIfAuthenticated()
 
         var service = {
-            Signup: Signup,
-            Login: Login,
-            Logout: Logout,
+            signup: signup,
+            signin: signin,
+            signout: signout,
             SetCredentials: SetCredentials,
             ClearCredentials: ClearCredentials,
         };
 
         return service;
 
-        function Signup(username, password, firstName, lastName, email, callback) {
+        function signup(username, password, firstName, lastName, email, callback) {
             console.log('signup')
             $http.post('/auth/signup', {username: username, password: password, firstName: firstName, lastName: lastName, email: email})
                 .success(function (response) {
@@ -36,8 +36,8 @@
                 });
         }
 
-        function Login(username, password, callback) {
-            console.log('login')
+        function signin(username, password, callback) {
+            console.log('signin')
             console.log(username)
             console.log(password)
             $http.post('/auth/login', { username: username, password: password })
@@ -50,7 +50,7 @@
             });
         }
 
-        function Logout(callback) {
+        function signout(callback) {
             console.log('logout')
             $http.get('/auth/signout')
                 .success(function (response) {
