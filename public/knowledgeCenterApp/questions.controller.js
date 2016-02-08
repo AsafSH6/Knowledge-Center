@@ -24,9 +24,6 @@
                 vm.dbPosts = questions.data
                 console.log('posts')
                 console.log(vm.dbPosts)
-                dataService.createNewPost(vm.category, null, 'test', 'testttt', function(data) {
-                    console.log(data)
-                })
             })
         }
     }

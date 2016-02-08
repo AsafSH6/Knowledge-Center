@@ -53,6 +53,12 @@
                 controller: 'postController'
             })
 
+            .state('create-new-post', {
+                url: '/create-new-post/:category',
+                templateUrl: './templates/createPost.html',
+                controller: 'newPostController'
+            })
+
     }
 
 

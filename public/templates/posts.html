@@ -1,5 +1,6 @@
 <!--<div ng-controller="questions as questionsCtrl">-->
-    <div style="margin-left: 8px;" class="row" ng-repeat="post in dbPosts track by $index">
+<button ui-sref="create-new-post({category: category})" id="new-post" type="button" class="btn btn-info btn-lg">Create New Post</button>
+    <div class="row center" ng-repeat="post in dbPosts track by $index">
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
                 <!--<img src="..." alt="...">-->

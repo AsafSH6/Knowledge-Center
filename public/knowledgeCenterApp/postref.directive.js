@@ -18,7 +18,7 @@
         var directive = {
             link: link,
             restrict: 'AEC',
-            template: '<a ui-sref="post({postId: post._id})" ng-click="updateCurrentPost($index)">{{ post.title }}</a>'
+            template: '<a class="title" ui-sref="post({postId: post._id})" ng-click="updateCurrentPost($index)">{{ post.title }}</a>'
         };
         return directive;
 
