@@ -48,6 +48,17 @@ router.get('/increase-view-by-one/:id', function(req, res) {
     })
 });
 
+router.post('/create-new-post/', function(req, res) {
+    models.Post.createNewPost(req.user._id,
+                              req.body.category,
+                              req.body.tags,
+                              req.body.title,
+                              req.body.text,
+                              function(post) {
+                                  return res.sendStatus(200)
+                              })
+});
+
 router.get('/is-authenticated', function(req, res) {
     console.log(req.isAuthenticated())
     res.json({isAuthenticated: req.isAuthenticated()})

@@ -18,6 +18,7 @@
             getPostById: getPostById,
             updateCurrentPost: updateCurrentPost,
             getCurrentPost: getCurrentPost,
+            createNewPost: createNewPost,
             dbPosts: dbPosts,
             dbCategories: dbCategories,
         };
@@ -47,6 +48,12 @@
     }
     function IncreaseViewByOne(postId) {
         $http.get('./api/v1/increase-view-by-one/' + postId)
+    }
+    function createNewPost(category, tags, title, text, callback) {
+        $http.post('./api/v1/create-new-post/', {category: category, tags: tags, title: title, text: text}).then(function(res) {
+            console.log(res)
+            callback(res.data)
+        })
     }
     function updateCurrentPost(index) {
         currentPost = dbPosts[index]

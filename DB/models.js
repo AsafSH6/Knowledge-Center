@@ -61,6 +61,33 @@ postSchema.statics.findPostById = function(postId, callback) {
         .exec(callback)
 }
 
+postSchema.statics.createNewPost = function(userId, category, tags, title, text, callback) {
+    var createNewPost = this
+    mongoose.model('Category').findOne({name: category}, function(err, category) {
+        if(err) {
+            console.log('could not find category')
+            return false
+        }
+        var post = new createNewPost({
+            user: userId,
+            categories: [category],
+            //tags: [],
+            title: title,
+            text: text
+        })
+
+        post.save(function(err) {
+            if(err) {
+                console.log('could not save post')
+                return false
+            }
+            console.log('saved post')
+            callback(post)
+            return post._id
+        })
+    })
+}
+
 postSchema.methods.increasePostViewByOne = function(callback) {
     this.update({views: (this.views + 1)}, function(err) {
         if(err!=null) {
