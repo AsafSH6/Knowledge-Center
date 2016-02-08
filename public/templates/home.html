@@ -1,3 +1,101 @@
-<div>
-    HOME
+<html lang="en">
+<head>
+    <title>CodeMirror in Action</title>
+
+
+    <style type="text/css" media="screen">
+
+        #container {
+            padding: 15px;
+        }
+        h5 {
+            margin: 7px 0px;
+        }
+        #editor1-pane,
+        #editor2-pane {
+            position:relative;
+            display: block;
+            width: 600px;
+            height: 200px;
+            border: solid 1px #bbb;
+        }
+
+        #editor1,
+        #editor2 {
+            font-size: 9pt;
+        }
+        #editor1 .CodeMirror {
+            height: 198px;
+        }
+
+        #editor2 .CodeMirror {
+            height: 198px;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+
+    <h5>PHP editor</h5>
+    <div id="editor1-pane">
+        <div id="editor1"></div>
+    </div>
+
+    <h5>SPARQL editor</h5>
+    <div id="editor2-pane">
+        <div id="editor2"></div>
+    </div>
+
 </div>
+
+<script type="text/javascript">
+    var code = $("#php-sample-1").html().split('<code>')[1].split('</code>')
+    console.log(code)
+//    var beginning = code[1]
+//    console.log()
+    $(document).ready(function () {
+        window.codemirror1 = CodeMirror($('#editor1').get(0), {
+            value: code[0],
+            mode:  "python",
+            styleActiveLine: true,
+            lineNumbers: true,
+        });
+        window.codemirror2 = CodeMirror($('#editor2').get(0), {
+            value: $("#sparql-sample-1").html(),
+            mode:  "sparql",
+            styleActiveLine: true,
+            lineNumbers: true,
+        });
+        window.codemirror2.on('blur', function (editor) {
+            console.debug ('codemirror2 changed:');
+            console.debug (editor);
+            console.debug ('value is: ' + editor.getValue());
+
+        });
+    })
+</script>
+
+<script type="text/sparql" id="sparql-sample-1">
+            PREFIX au:<http://inspire.jrc.ec.europa.eu/schemas/au/3.0/>
+            PREFIX geo:<http://www.opengis.net/ont/geosparql#>
+
+            # This is a comment
+
+    SELECT ?nCode
+            WHERE {
+        ?f au:nationalCode ?nCode .
+                ?f geo:hasGeometry ?fGeom .
+                ?fGeom geo:asWKT ?fWKT . FILTER (bif:st_contains ( ?fWKT , bif:st_point (22.952149, 40.582051), 0.1))
+    }
+</script>
+
+<script type="text/python" id="php-sample-1">
+heyheyhey print def self
+<code>
+    def test(self, a):
+        print a
+</code>
+</script>
+
+</body>
+</html>
