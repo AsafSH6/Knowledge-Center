@@ -24,6 +24,7 @@
         function activate() {
             dataService.getAllCategories(function(categories) {
                 vm.dbCategories = categories.data
+                console.log("categories: ")
                 console.log(vm.dbCategories)
             })
             vm.setActive = setActivate;

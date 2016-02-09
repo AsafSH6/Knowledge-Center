@@ -22,7 +22,7 @@
         function activate() {
             dataService.getAllPostsFilteredByCategory(vm.category, function(questions) {
                 vm.dbPosts = questions.data
-                console.log('posts')
+                console.log('questions posts: ')
                 console.log(vm.dbPosts)
             })
         }

@@ -55,7 +55,7 @@ router.post('/create-new-post/', function(req, res) {
                               req.body.title,
                               req.body.text,
                               function(post) {
-                                  return res.sendStatus(200)
+                                  return res.json({post: post})
                               })
 });
 

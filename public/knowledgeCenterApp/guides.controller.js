@@ -22,6 +22,7 @@
         function activate() {
             dataService.getAllPostsFilteredByCategory(vm.category, function(guides) {
                 vm.dbPosts = guides.data
+                console.log("guides posts: ")
                 console.log(vm.dbPosts)
             })
         }

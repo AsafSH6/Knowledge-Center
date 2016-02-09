@@ -22,6 +22,7 @@
         function activate() {
             dataService.getAllPostsFilteredByCategory(vm.category, function(tild) {
                 vm.dbPosts = tild.data
+                console.log("things i learnt today posts: ")
                 console.log(vm.dbPosts)
             })
         }

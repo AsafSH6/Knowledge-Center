@@ -1,8 +1,53 @@
-.new-post-title {
-    margin-top: 5%;
-    margin-left: 30%;
+#main-div {
+    width: 100%;
+    overflow: hidden;
 }
 
-.input-title {
+.new-post {
+    float: left;
+    margin-top: 1%;
     width: 40%;
+    margin-left: 1%;
+}
+#new-post-preview {
+    margin-top: 5%;
+}
+
+.link a{
+    color: #00a8c6 !important;
+}
+
+.input-text {
+    width: 100%;
+}
+
+#preview {
+    margin-top: 7%;
+}
+
+#post-submit, #post-preview-btn {
+    margin-top: 2%;
+}
+
+#post-preview-btn {
+    float: right;
+    width: 30%;
+}
+
+.jumbotron {
+    opacity: 0.4 !important;
+}
+
+#post-guide {
+    float: left;
+    margin-left: 1%;
+}
+
+#post-preview {
+    float: left;
+    width: 30%;
+    margin-left: 1%;
+}
+.guide-item {
+    font-size: medium !important;
 }

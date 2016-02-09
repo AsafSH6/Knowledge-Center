@@ -45,7 +45,7 @@
                     callback(null, response);
                 })
                 .error(function() {
-                    console.log('error')
+                    console.log('error log in')
                     callback({err: 'authentication failed'}, null)
             });
         }
@@ -57,7 +57,7 @@
                     callback(null, response);
                 })
                 .error(function() {
-                    console.log('error')
+                    console.log('error log out')
                     callback({err: 'logout failed'}, null)
                 });
         }

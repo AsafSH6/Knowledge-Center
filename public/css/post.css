@@ -4,6 +4,15 @@ body{
     margin-top:20px;
 }
 
+#post-text {
+    white-space: pre;
+    font-size: medium;
+}
+
+.editor .CodeMirror{
+    height: auto;
+}
+
 .widget {
     position: relative;
     margin-bottom: 30px;

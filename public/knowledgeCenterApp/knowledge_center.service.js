@@ -32,7 +32,6 @@
             dbCategories = categories.data
             callback(categories);
         });
-
     }
     function getAllPostsFilteredByCategory(category, callback) {
         $http.get('./api/v1/get-all-posts-filtered-by-category/' + category).then(function(posts) {
@@ -42,7 +41,7 @@
     }
     function getPostById(postId, callback) {
         $http.get('./api/v1/get-post-by-id/' + postId).then(function(post) {
-            console.log(post.data)
+            console.log("get post by id: " + post.data)
             callback(post)
         })
     }
@@ -51,14 +50,13 @@
     }
     function createNewPost(category, tags, title, text, callback) {
         $http.post('./api/v1/create-new-post/', {category: category, tags: tags, title: title, text: text}).then(function(res) {
-            console.log(res)
-            callback(res.data)
+            currentPost = res.data.post
+            callback(currentPost)
         })
     }
     function updateCurrentPost(index) {
         currentPost = dbPosts[index]
         IncreaseViewByOne(currentPost._id)
-        console.log(currentPost)
     }
     function getCurrentPost() {
         return currentPost
