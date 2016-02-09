@@ -1,0 +1,69 @@
+<i class="fa fa-spin fa-refresh fa-5x" id="loader"></i>
+<div class="container">
+    <h2>AngularJS Example - User Data Grid</h2>
+    <h4>via <a href="">RandomUser.me</a> API + <a href="http://www.bootply.com/R8RIDlrbxs">Bootply</a></h4>
+    <hr>
+    <div class="row" id="userList">
+        <table class="table-responsive">
+            <thead>
+            <tr>
+                <th class="col-xs-1"></th>
+                <th class="col-xs-2">Last</th>
+                <th class="col-xs-2">First</th>
+                <th class="col-xs-2">Username</th>
+                <th class="col-xs-2">Phone</th>
+                <th class="col-xs-2">Location</th>
+                <th class="col-xs-1"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat-start="u in users" ng-click="showDetail(u.user)" ng-class-odd="'alt'">
+                <td class="col-xs-1"><img title="{{u.user.name.first}}" src="{{u.user.picture}}" class="img-thumbnail img-responsive img-circle"></td>
+                <td class="col-xs-2 cap">{{u.user.name.last}}</td>
+                <td class="col-xs-2 cap">{{u.user.name.first}}</td>
+                <td class="col-xs-2 strong">{{u.user.username}}</td>
+                <td class="col-xs-2">{{u.user.phone}}</td>
+                <td class="col-xs-2">{{u.user.location.state}}</td>
+                <td class="col-xs-1"><a href=""><i class="fa fa-plus fa-3x"></i></a></td>
+            </tr>
+            <tr ng-repeat-end="" ng-show="active==u.user.username" ng-class-odd="'alt'">
+                <td></td>
+                <td colspan="6">
+                    <div class="row">
+                        <div class="col-xs-12"><h2 class="cap">{{u.user.name.first}} <i ng-show="u.user.gender=='female'" class="fa fa-female"></i><i ng-show="u.user.gender=='male'" class="fa fa-male"></i></h2></div>
+                        <div class="col-md-3 col-xs-6 small">
+                            <label>Username</label> {{u.user.username}}<br>
+                            <label>Registered</label> {{u.user.registered | date:'MM/dd/yyyy'}}<br>
+                            <label>Email</label> {{u.user.email}}
+                        </div>
+                        <div class="col-md-3 col-xs-6 small">
+                            <label>Address</label> {{u.user.location.street}}<br>
+                            <label>City</label> {{u.user.location.city}}<br>
+                            <label>Zip Code</label> {{u.user.location.zip}}<br>
+                        </div>
+                        <div class="col-md-3 col-xs-6 small">
+                            <label>Birthday</label> {{u.user.dob | date:'MM/dd/yyyy'}}<br>
+                            <label>Phone</label> {{u.user.phone}}<br>
+                            <label>Cell</label> {{u.user.cell}}<br>
+                        </div>
+                        <div class="col-md-2 col-xs-12 text-center">
+                            <img title="{{u.user.name.first}}" src="{{u.user.picture}}" class="img-thumbnail img-responsive img-circle center-block">
+                        </div>
+                        <div class="col-xs-12"><hr></div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div><!--/row-->
+
+    <div class="row">
+
+
+        <hr>
+
+    </div>
+
+
+</div><!--/container-->

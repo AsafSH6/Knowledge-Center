@@ -1,0 +1,33 @@
+body {
+    background-color: #eee;
+    color:#444;
+}
+
+.fa {
+    color:#666;
+}
+
+hr {
+    border-color: transparent;
+}
+
+
+#userList {
+    display:none;
+}
+
+#loader {
+    position:absolute;
+    z-index:2;
+    width:100%;
+    text-align:center;
+    top:40%;
+}
+
+.cap:first-letter {
+    text-transform: uppercase;
+}
+
+.alt {
+    background-color:#ccc;
+}
