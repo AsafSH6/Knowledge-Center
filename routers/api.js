@@ -23,6 +23,18 @@ router.get('/get-all-posts-filtered-by-category/:category', function(req, res) {
     })
 });
 
+router.get('/get-all-tags-filtered-by-category/:category', function(req, res) {
+    console.log('aaaa')
+    console.log(req.params['category'])
+    models.Tag.findAllTagsFilteredByCategory(req.params['category'], function(err, tags) {
+        if(err!=null) {
+            console.log(err)
+        }
+        else {
+            res.json(tags)
+        }
+    })
+});
 router.get('/get-post-by-id/:id', function(req, res) {
     console.log(req.params['id'])
     models.Post.findPostById(req.params['id'], function(err, post) {
@@ -32,6 +44,7 @@ router.get('/get-post-by-id/:id', function(req, res) {
         res.json(post)
     })
 });
+
 
 router.get('/increase-view-by-one/:id', function(req, res) {
     models.Post.findPostById(req.params['id'], function(err, post) {

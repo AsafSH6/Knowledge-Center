@@ -20,15 +20,48 @@
 
         function activate() {
             vm.postPreviewElement = angular.element('#new-post-preview')
-            enableTab()
             vm.category = $stateParams.category
+            APIService.getAllTagsFilteredByCategory(vm.category, function(tags) {
+                vm.dbTags = tags.data
+                console.log(vm.dbTags)
+                vm.chosenTags = []
+            })
+            enableTab()
             vm.submitNewPost = submitNewPost
             vm.displayPreview = displayPreview
+            vm.addCode = addCode
             vm.prewiew = false
+            vm.text = ''
+            vm.supportedLanguages = {
+                'Python': 'python',
+                'Java Script': 'javascript',
+                'Java': 'text/x-java',
+                'Scala': 'text/x-scala',
+                'C': 'text/x-csrc',
+                'C++': 'text/x-c++src',
+                'C#': 'text/x-csharp',
+                'Objective-C': 'text/x-objectivec ',
+                'GO':'go',
+                'Groovy': 'groovy',
+                'Perl': 'perl',
+                'PHP': 'php',
+                'Ruby': 'ruby',
+                'Swift': 'swift',
+                'SQL SERVER': 'text/x-sql',
+                'MYSQL': 'text/x-mysql',
+                'SHELL': 'shell',
+                'Pig': 'pig',
+                'HTML': 'xml',
+                'XML': 'xml',
+                'CSS': 'css',
+                'HTTP': 'http',
+                'NGINX': 'nginx'
+            }
+
         }
 
         function submitNewPost() {
-            APIService.createNewPost(vm.category, null, vm.title, vm.text, function(post) {
+            APIService.createNewPost(vm.category, vm.chosenTags, vm.title, vm.text, function(post) {
                 $location.path('post/' + post._id)
             })
         }
@@ -36,6 +69,12 @@
         function displayPreview() {
             vm.postPreviewElement.empty()
             parseText(vm.text)
+        }
+
+        function addCode(language) {
+            if(vm.text.length > 0)
+                vm.text += '\n'
+            vm.text += '<code ' + language + '>\n\n</code>\n'
         }
 
         function parseText(text) {
@@ -58,9 +97,10 @@
             //console.log('program code: \n' + programmingCode)
             var editor = 'editor' + vm.codesCounter
             vm.postPreviewElement.append('<div id="' + editor + '-pane" class="editor"><div id="' + editor +'" class="editor"></div></div>')
+            console.log(programmingLanguage)
             $window.codemirror = CodeMirror($('#' + editor).get(0), {
                 value: programmingCode,
-                mode:  programmingLanguage,
+                mode: programmingLanguage,
                 styleActiveLine: true,
                 lineNumbers: true,
                 readOnly: true,

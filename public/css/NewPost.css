@@ -6,12 +6,22 @@
 .new-post {
     float: left;
     margin-top: 1%;
-    width: 40%;
+    width: 35%;
     margin-left: 1%;
 }
+
 #new-post-preview {
     margin-top: 5%;
     white-space: pre;
+}
+
+.under-line {
+    text-decoration: underline;
+}
+
+.overflow {
+    /*max-width: 70%;*/
+    overflow: auto;
 }
 
 .link a{
@@ -39,6 +49,7 @@
 }
 
 #post-guide {
+    width: 30%;
     float: left;
     margin-left: 1%;
 }
@@ -50,4 +61,27 @@
 }
 .guide-item {
     font-size: medium !important;
+}
+
+.tags {
+    margin: 10px 0;
+}
+.tags .tag {
+    border-radius: 6px;
+    background-color: #EFEFEF;
+    border: 1px solid #DDD;
+    padding: 5px;
+    margin-right: 10px;
+}
+
+.tags-directive {
+    word-wrap: break-word !important;
+    /*overflow: auto !important;*/
+    /*height: 100% !important;*/
+    width: 100% !important;
+}
+
+.tags-directive .tag:hover {
+    color: red;
+    text-decoration: none;
 }

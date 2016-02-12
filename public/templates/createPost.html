@@ -4,7 +4,15 @@
         <ul>
             <li>
                 <p class="guide-item">
-                    Add code:
+                    Link:
+                    <br>use the tag &ltlink=url> where url is the specific link address.</br>
+                    For example:
+                    <br>&ltlink=www.google.com></br>
+                </p>
+            </li>
+            <li>
+                <p class="guide-item">
+                    Code:
                     <br>use the tag &ltcode> and specify the programming language.</br>
                     For example:
                     <br>&ltcode python> </br>
@@ -16,10 +24,12 @@
             </li>
             <li>
                 <p class="guide-item">
-                    Add link:
-                    <br>use the tag &ltlink=url> where url is the specific link address.</br>
-                    For example:
-                    <br>&ltlink=www.google.com></br>
+                Supported languages:
+                <div class="overflow">
+                    <a href="" ng-click="addCode(value)" ng-repeat="(key, value) in supportedLanguages">
+                        <b class="under-line">{{ key }}</b>
+                    </a>
+                </div>
                 </p>
             </li>
         </ul>
@@ -30,7 +40,7 @@
         <!--<input type="text" id="title" class="form-control input-title">-->
         <label for="title"><h3><b>Title</b></h3></label>
         <input ng-model="title" id="title" type="text" class="form-control input-text">
-
+        <tags-directive></tags-directive>
         <textarea id="textbox" ng-model="text" class="form-control input-text" rows="25"></textarea>
         <button ng-click="submitNewPost()" id="post-submit" type="button" class="btn btn-info btn-lg">Submit</button>
         <button ng-click="displayPreview()" id="post-preview-btn" type="button" class="btn btn-info btn-lg">Preview</button>

@@ -15,6 +15,7 @@
         var service = {
             getAllCategories: getAllCategories,
             getAllPostsFilteredByCategory: getAllPostsFilteredByCategory,
+            getAllTagsFilteredByCategory: getAllTagsFilteredByCategory,
             getPostById: getPostById,
             updateCurrentPost: updateCurrentPost,
             getCurrentPost: getCurrentPost,
@@ -37,13 +38,19 @@
         });
     }
     function getAllPostsFilteredByCategory(category, callback) {
-        $http.get('./api/v1/get-all-posts-filtered-by-category/' + category).then(function(posts) {
-            dbPosts = posts.data
+        $http.get('./api/v1/get-all-posts-filtered-by-category/' + category).then(function(res) {
+            dbPosts = res.data
             console.log('all posts of category: ' + category)
             console.log(dbPosts)
-            callback(posts);
+            callback(res);
         });
     }
+    function getAllTagsFilteredByCategory(category, callback) {
+        $http.get('./api/v1/get-all-tags-filtered-by-category/' + category).then(function(res) {
+            callback(res)
+        })
+    }
+
     function getPostById(postId, callback) {
         $http.get('./api/v1/get-post-by-id/' + postId).then(function(post) {
             console.log("get post by id: " + post.data)

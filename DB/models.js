@@ -62,6 +62,10 @@ postSchema.statics.findAllPostsFilteredByCategory = function(category, callback)
         })
 }
 
+tagSchema.statics.findAllTagsFilteredByCategory = function(category, callback) {
+    return this.find({'categories.name': category}, callback)
+}
+
 postSchema.statics.findPostById = function(postId, callback) {
     return this.findById(postId)
         .populate('user', 'username points')
@@ -82,25 +86,32 @@ postSchema.statics.createNewPost = function(userId, category, tags, title, text,
             console.log('could not find category')
             return false
         }
-        var post = new createNewPost({
-            user: userId,
-            categories: [category],
-            //tags: [],
-            title: title,
-            text: text
-        })
-
-        post.save(function(err) {
+        mongoose.model('Tag').find({name: {$in: tags}}, function(err, tags) {
             if(err) {
-                console.log('could not save post')
+                console.log('could not find tags')
                 return false
             }
-            console.log('saved post')
-            createNewPost.findById(post._id)
-                .populate('user', 'username points')
-                .exec(callback)
-            return post._id
+            var post = new createNewPost({
+                user: userId,
+                categories: [category],
+                tags: tags,
+                title: title,
+                text: text
+            })
+
+            post.save(function(err) {
+                if(err) {
+                    console.log('could not save post')
+                    return false
+                }
+                console.log('saved post')
+                createNewPost.findById(post._id)
+                    .populate('user', 'username points')
+                    .exec(callback)
+                return post._id
+            })
         })
+
     })
 }
 
