@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="knowledgeCenter">
+<html ng-app="KnowledgeCenter">
 <head lang="en">
     <meta charset="UTF-8">
     <title>Knowledge Center </title>
@@ -46,19 +46,18 @@
 </div>
 <div id="content" ui-view>
 </div>
-<script src="./knowledgeCenterApp/knowledgeCenterModule.js"></script>
-<script src="./knowledgeCenterApp/navbar.controller.js"></script>
-<script src="./knowledgeCenterApp/questions.controller.js"></script>
-<script src="./knowledgeCenterApp/links.controller.js"></script>
-<script src="./knowledgeCenterApp/things_i_learnt_today.controller.js"></script>
-<script src="./knowledgeCenterApp/guides.controller.js"></script>
-<script src="./knowledgeCenterApp/post.controller.js"></script>
-<script src="./knowledgeCenterApp/newPostController.js"></script>
-<script src="./knowledgeCenterApp/AuthenticationController.js"></script>
-<script src="./knowledgeCenterApp/postref.directive.js"></script>
-<script src="./knowledgeCenterApp/knowledge_center.service.js"></script>
-<script src="./knowledgeCenterApp/authentication.service.js"></script>
-<script src="./knowledgeCenterApp/user.service.js"></script>
-<script src="./knowledgeCenterApp/knowledge_center.router.js"></script>
+<script src="./knowledgeCenterApp/app.js"></script>
+<script src="./knowledgeCenterApp/controllers/NavbarController.js"></script>
+<script src="./knowledgeCenterApp/controllers/QuestionsController.js"></script>
+<script src="./knowledgeCenterApp/controllers/LinksController.js"></script>
+<script src="./knowledgeCenterApp/controllers/TILTController.js"></script>
+<script src="./knowledgeCenterApp/controllers/GuidesController.js"></script>
+<script src="./knowledgeCenterApp/controllers/PostController.js"></script>
+<script src="./knowledgeCenterApp/controllers/NewPostController.js"></script>
+<script src="./knowledgeCenterApp/controllers/AuthenticationController.js"></script>
+<script src="./knowledgeCenterApp/directives/postrefDirective.js"></script>
+<script src="./knowledgeCenterApp/services/APIService.js"></script>
+<script src="./knowledgeCenterApp/services/AuthenticationService.js"></script>
+<script src="./knowledgeCenterApp/Router.js"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@ var express = require('express');
 var models = require('../DB/models')
 var router = express.Router();
 
-router.get('/get-all-categories', function(req, res) {
+router.get('/get-all-categories/', function(req, res) {
     models.Category.findAllCategories(function(err, categories) {
         res.json(categories)
     })
@@ -67,10 +67,5 @@ router.post('/create-new-comment/', function(req, res) {
             return res.json({comment: comment})
         })
 });
-
-router.get('/is-authenticated', function(req, res) {
-    console.log(req.isAuthenticated())
-    res.json({isAuthenticated: req.isAuthenticated()})
-})
 
 module.exports = router;

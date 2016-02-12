@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     angular
-        .module('knowledgeCenter')
+        .module('KnowledgeCenter')
         .run(run)
         .config(config);
 
@@ -24,42 +24,41 @@
             })
 
             .state('questions', {
-                url: '/questions',
+                url: '/questions/',
                 templateUrl: './templates/posts.html',
-                controller: 'questionsController'
+                controller: 'QuestionsCtrl'
             })
 
             .state('things i learnt today', {
-                url: '/things-I-learnt-today',
+                url: '/things-I-learnt-today/',
                 templateUrl: './templates/posts.html',
-                controller: 'things-i-learnt-todayController'
+                controller: 'TILTCtrl'
             })
 
             .state('links', {
-                url: '/links',
+                url: '/links/',
                 templateUrl: './templates/posts.html',
-                controller: 'linksController'
+                controller: 'LinksCtrl'
             })
 
             .state('guides', {
-                url: '/guides',
+                url: '/guides/',
                 templateUrl: './templates/posts.html',
-                controller: 'guidesController'
+                controller: 'GuidesCtrl'
             })
 
             .state('post', {
                 url: '/post/:postId',
                 templateUrl: './templates/post.html',
-                controller: 'postController'
+                controller: 'PostCtrl'
             })
 
             .state('create-new-post', {
                 url: '/create-new-post/:category',
                 templateUrl: './templates/createPost.html',
-                controller: 'newPostController'
+                controller: 'NewPostCtrl'
             })
 
     }
-
 
 })();

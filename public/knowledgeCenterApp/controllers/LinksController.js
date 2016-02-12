@@ -2,13 +2,13 @@
     'use strict';
 
     angular
-        .module('knowledgeCenter')
-        .controller('linksController', links);
+        .module('KnowledgeCenter')
+        .controller('LinksCtrl', LinksCtrl);
 
-    links.$inject = ['dataService', "$scope"];
+    LinksCtrl.$inject = ["$scope", 'APIService'];
 
     /* @ngInject */
-    function links(dataService, $scope) {
+    function LinksCtrl($scope, APIService) {
         /* jshint validthis: true */
         var vm = $scope;
 
@@ -20,10 +20,8 @@
         ////////////////
 
         function activate() {
-            dataService.getAllPostsFilteredByCategory(vm.category, function(links) {
+            APIService.getAllPostsFilteredByCategory(vm.category, function(links) {
                 vm.dbPosts = links.data
-                console.log("link posts: ")
-                console.log(vm.dbPosts)
             })
         }
     }

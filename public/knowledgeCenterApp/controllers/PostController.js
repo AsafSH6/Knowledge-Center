@@ -2,13 +2,13 @@
     'use strict';
 
     angular
-        .module('knowledgeCenter')
-        .controller('postController', post)
+        .module('KnowledgeCenter')
+        .controller('PostCtrl', PostCtrl)
 
-    post.$inject = ['$window', '$scope', '$stateParams', 'dataService'];
+    PostCtrl.$inject = ['$window', '$scope', '$stateParams', 'APIService'];
 
     /* @ngInject */
-    function post($window, $scope,$stateParams, dataService) {
+    function PostCtrl($window, $scope,$stateParams, APIService) {
         var vm = $scope
 
         vm.activate = activate
@@ -26,20 +26,14 @@
         function activate() {
             vm.postElement = angular.element('#post-text')
             vm.codesCounter = 0
-            vm.post = dataService.getCurrentPost()
+            vm.post = APIService.getCurrentPost()
             if(vm.post == null) {
-                console.log('vm.post is null')
-                console.log($stateParams.postId)
-                dataService.getPostById($stateParams.postId, function(post) {
+                APIService.getPostById($stateParams.postId, function(post) {
                     vm.post = post.data
-                    console.log('displaying post: ')
-                    console.log(vm.post)
                     parseText(vm.post.text)
                 })
             }
             else {
-                console.log('displaying post: ')
-                console.log(vm.post)
                 parseText(vm.post.text)
             }
             vm.randomColor = getRandomColor()
@@ -54,10 +48,8 @@
 
         function submitNewComment(text) {
             console.log(text)
-            dataService.createNewComment(vm.post._id, text, function(comment) {
+            APIService.createNewComment(vm.post._id, text, function(comment) {
                 if(text != undefined) {
-                    console.log("created new comment with id: " + comment._id)
-                    console.log(comment)
                     vm.post.comments.push(comment)
                 }
             })

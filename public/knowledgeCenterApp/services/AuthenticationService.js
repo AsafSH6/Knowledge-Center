@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('knowledgeCenter')
+        .module('KnowledgeCenter')
         .factory('AuthenticationService', AuthenticationService);
 
     AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope'];
@@ -25,8 +25,7 @@
         return service;
 
         function signup(username, password, firstName, lastName, email, callback) {
-            console.log('signup')
-            $http.post('/auth/signup', {username: username, password: password, firstName: firstName, lastName: lastName, email: email})
+            $http.post('/auth/signup/', {username: username, password: password, firstName: firstName, lastName: lastName, email: email})
                 .success(function (response) {
                     callback(null, response);
                 })
@@ -37,35 +36,31 @@
         }
 
         function signin(username, password, callback) {
-            console.log('signin')
+            console.log('signin/')
             console.log(username)
             console.log(password)
-            $http.post('/auth/login', { username: username, password: password })
+            $http.post('/auth/login/', { username: username, password: password })
                 .success(function (response) {
                     callback(null, response);
                 })
                 .error(function() {
-                    console.log('error log in')
                     callback({err: 'authentication failed'}, null)
             });
         }
 
         function signout(callback) {
-            console.log('logout')
-            $http.get('/auth/signout')
+            $http.get('/auth/signout/')
                 .success(function (response) {
                     callback(null, response);
                 })
                 .error(function() {
-                    console.log('error log out')
                     callback({err: 'logout failed'}, null)
                 });
         }
 
         function checkIfAuthenticated() {
-            $http.get('./api/v1/is-authenticated').then(function(response) {
+            $http.get('./auth/is-authenticated/').then(function(response) {
                 if(!response.data.isAuthenticated) {
-                    console.log('not auth')
                     ClearCredentials()
                 }
             })

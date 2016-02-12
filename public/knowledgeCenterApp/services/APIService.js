@@ -2,13 +2,13 @@
     'use strict';
 
     angular
-        .module('knowledgeCenter')
-        .factory('dataService', knowledgeCenterServiceCtrl);
+        .module('KnowledgeCenter')
+        .factory('APIService', APIService);
 
-    knowledgeCenterServiceCtrl.$inject = ['$http'];
+    APIService.$inject = ['$http'];
 
     /* @ngInject */
-    function knowledgeCenterServiceCtrl($http) {
+    function APIService($http) {
         var dbPosts = null
         var dbCategories = null
         var currentPost = null
@@ -29,14 +29,18 @@
     ////////////////
 
     function getAllCategories(callback) {
-        $http.get('./api/v1/get-all-categories').then(function(categories) {
+        $http.get('./api/v1/get-all-categories/').then(function(categories) {
             dbCategories = categories.data
+            console.log('loaded categories:')
+            console.log(dbCategories)
             callback(categories);
         });
     }
     function getAllPostsFilteredByCategory(category, callback) {
         $http.get('./api/v1/get-all-posts-filtered-by-category/' + category).then(function(posts) {
             dbPosts = posts.data
+            console.log('all posts of category: ' + category)
+            console.log(dbPosts)
             callback(posts);
         });
     }
@@ -56,7 +60,7 @@
         })
     }
     function createNewComment(postId, text, callback) {
-        $http.post('./api/v1/create-new-comment', {postId: postId, text: text}).then(function(res) {
+        $http.post('./api/v1/create-new-comment/', {postId: postId, text: text}).then(function(res) {
             callback(res.data.comment)
         })
     }

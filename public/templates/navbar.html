@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default" ng-controller="navbarController as navbarCtrl">
+<nav class="navbar navbar-default" ng-controller="NavbarCtrl as navbarCtrl">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -20,7 +20,7 @@
                     <a ui-sref="{{ category.name | lowercase }}" ng-click="navbarCtrl.setActive($index)"> {{ category.name }} </a>
                 </li>
             </ul>
-            <div class="authentication" ng-controller="authenticationController as authCtrl">
+            <div class="authentication" ng-controller="AuthenticationCtrl as authCtrl">
                 <ul class="nav navbar-nav navbar-right" ng-hide="globals.loggedIn">
                     <li class="dropdown">
                         <a class="dropdown-toggle" href="" data-toggle="dropdown">

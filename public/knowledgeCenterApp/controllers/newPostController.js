@@ -2,13 +2,13 @@
     'use strict';
 
     angular
-        .module('knowledgeCenter')
-        .controller('newPostController', newPostController)
+        .module('KnowledgeCenter')
+        .controller('NewPostCtrl', NewPostCtrl)
 
-    newPostController.$inject = ['$window', '$scope', '$location', '$stateParams', 'dataService'];
+    NewPostCtrl.$inject = ['$window', '$scope', '$location', '$stateParams', 'APIService'];
 
     /* @ngInject */
-    function newPostController($window, $scope, $location, $stateParams, dataService) {
+    function NewPostCtrl($window, $scope, $location, $stateParams, APIService) {
         var vm = $scope
 
         vm.activate = activate
@@ -28,8 +28,7 @@
         }
 
         function submitNewPost() {
-            dataService.createNewPost(vm.category, null, vm.title, vm.text, function(post) {
-                console.log("created new post with id: " + post._id)
+            APIService.createNewPost(vm.category, null, vm.title, vm.text, function(post) {
                 $location.path('post/' + post._id)
             })
         }
