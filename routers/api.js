@@ -29,7 +29,6 @@ router.get('/get-post-by-id/:id', function(req, res) {
         if(err!=null) {
             console.log(err)
         }
-        console.log(post)
         res.json(post)
     })
 });
@@ -54,9 +53,19 @@ router.post('/create-new-post/', function(req, res) {
                               req.body.tags,
                               req.body.title,
                               req.body.text,
-                              function(post) {
+                              function(err, post) {
                                   return res.json({post: post})
                               })
+});
+
+router.post('/create-new-comment/', function(req, res) {
+    models.Comment.createNewCommentAndPushToPost(req.user._id,
+        req.body.postId,
+        req.body.text,
+        function(err, comment) {
+            console.log('created comment')
+            return res.json({comment: comment})
+        })
 });
 
 router.get('/is-authenticated', function(req, res) {

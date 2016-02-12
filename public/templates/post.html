@@ -22,40 +22,8 @@
                         <time>{{ post.user.points }} Points</time>
                     </p>
                 </div>
-                    <p id="post-text" class="text-light fs-mini m"></p>
-                </div>
-            <!--<footer class="bg-body-light">-->
-            <!--<ul class="post-links">-->
-            <!--<li><a href="#">1 hour</a></li>-->
-            <!--<li><a href="#"><span class="text-danger"><i class="fa fa-heart"></i> Like</span></a></li>-->
-            <!--<li><a href="#">Comment</a></li>-->
-            <!--</ul>-->
-            <!--<ul class="post-comments mt mb-0">-->
-            <!--<li>-->
-            <!--<span class="thumb-xs avatar pull-left mr-sm">-->
-            <!--<img class="img-circle" src="http://bootdey.com/img/Content/user_2.jpg" alt="...">-->
-            <!--</span>-->
-
-            <!--<div class="comment-body">-->
-            <!--<h6 class="author fw-semi-bold">Margaret Awoentg-->
-            <!--<small>6 mins ago</small>-->
-            <!--</h6>-->
-            <!--<p>Hey, this is snippet is on bootdey.com. ok?</p>-->
-            <!--</div>-->
-            <!--</li>-->
-            <!--<li>-->
-            <!--<span class="thumb-xs avatar pull-left mr-sm">-->
-            <!--<img class="img-circle" src="http://bootdey.com/img/Content/user_3.jpg" alt="...">-->
-            <!--</span>-->
-
-            <!--<div class="comment-body">-->
-            <!--<input class="form-control input-sm" type="text"-->
-            <!--placeholder="Write your comment...">-->
-            <!--</div>-->
-            <!--</li>-->
-            <!--</ul>-->
-            <!--</footer>-->
-            <!--</section>-->
+                    <p id="post-text" class="text-light fs-mini m text"></p>
+            </div>
             <div class="container-comments bootstrap snippet">
                 <div class="row">
                     <div class="col-md-12">
@@ -68,9 +36,7 @@
                                         <p class="meta">
                                             <a href="#">{{ comment.user.username }} </a>
                                             {{ comment.creation_date | date}}
-                                        <p>
-                                            {{ comment.text }}
-                                        </p>
+                                        <p class="text">{{ comment.text }}</p>
                                     </div>
                                 </li>
                             </ul>
@@ -79,5 +45,9 @@
                 </div>
             </div>
         </section>
+        <div ng-if="globals.loggedIn">
+            <textarea id="new-comment" ng-model="text" rows="5" placeholder="Write your comment here..."></textarea>
+            <button ng-click="submitNewComment(text); text=''" type="button" class="btn btn-info btn-lg">Submit</button>
+        </div>
     </div>
 </div>

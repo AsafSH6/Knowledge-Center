@@ -48,7 +48,7 @@
             }
             var splitedTextByAfterCodeAreas = splitedTextByBeginningCodeAreas[1].split('</code>')
             var programmingLanguage = splitedTextByAfterCodeAreas[0].split('>', 1)[0]
-            var programmingCode = splitedTextByAfterCodeAreas[0].replace(programmingLanguage + '>', "").slice(2, -1)
+            var programmingCode = splitedTextByAfterCodeAreas[0].replace(programmingLanguage + '>', "").slice(1, -1)
             var beginningOfNextText = splitedTextByAfterCodeAreas.slice(1, splitedTextByAfterCodeAreas.length).join("")
             var endingOfNextText = splitedTextByBeginningCodeAreas.slice(2, splitedTextByBeginningCodeAreas.length).join("")
             var middleOfNextText = (endingOfNextText.indexOf('</code>') != -1 ? '<code ' : '')
@@ -72,11 +72,13 @@
             vm.codesCounter = 0
         }
 
+        // TODO: create element </a> and then inject the text
         function markLinks(text) {
             var newText = ''
             while(true) {
                 var p = text.split('<link=', 2)
                 newText += p[0]
+                text = text.replace(p[0], '')
                 if(p.length == 1) {
                     break
                 }

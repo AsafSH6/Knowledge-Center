@@ -4,9 +4,14 @@ body{
     margin-top:20px;
 }
 
-#post-text {
+.text {
     white-space: pre;
     font-size: medium;
+    direction: ltr;
+}
+
+#new-comment {
+    width: 100%;
 }
 
 .editor .CodeMirror{

@@ -19,6 +19,7 @@
             updateCurrentPost: updateCurrentPost,
             getCurrentPost: getCurrentPost,
             createNewPost: createNewPost,
+            createNewComment: createNewComment,
             dbPosts: dbPosts,
             dbCategories: dbCategories,
         };
@@ -54,6 +55,12 @@
             callback(currentPost)
         })
     }
+    function createNewComment(postId, text, callback) {
+        $http.post('./api/v1/create-new-comment', {postId: postId, text: text}).then(function(res) {
+            callback(res.data.comment)
+        })
+    }
+
     function updateCurrentPost(index) {
         currentPost = dbPosts[index]
         IncreaseViewByOne(currentPost._id)

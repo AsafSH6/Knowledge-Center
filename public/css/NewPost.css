@@ -11,6 +11,7 @@
 }
 #new-post-preview {
     margin-top: 5%;
+    white-space: pre;
 }
 
 .link a{

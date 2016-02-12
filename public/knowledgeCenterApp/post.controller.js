@@ -43,11 +43,24 @@
                 parseText(vm.post.text)
             }
             vm.randomColor = getRandomColor()
+            enableTab()
+            vm.submitNewComment = submitNewComment
         }
 
 
         function getRandomColor() {
             return vm.randomBackroundColor[Math.floor((Math.random() * vm.randomBackroundColor.length))]
+        }
+
+        function submitNewComment(text) {
+            console.log(text)
+            dataService.createNewComment(vm.post._id, text, function(comment) {
+                if(text != undefined) {
+                    console.log("created new comment with id: " + comment._id)
+                    console.log(comment)
+                    vm.post.comments.push(comment)
+                }
+            })
         }
 
         function parseText(text) {
@@ -86,6 +99,7 @@
             while(true) {
                 var p = text.split('<link=', 2)
                 newText += p[0]
+                text = text.replace(p[0], '')
                 if(p.length == 1) {
                     break
                 }
@@ -99,6 +113,27 @@
                 text = text.replace('<link=' + q[0] + '>', '')
             }
             return newText
+        }
+
+        function enableTab() {
+            $(document).delegate('#new-comment', 'keydown', function(e) {
+                var keyCode = e.keyCode || e.which;
+
+                if (keyCode == 9) {
+                    e.preventDefault();
+                    var start = $(this).get(0).selectionStart;
+                    var end = $(this).get(0).selectionEnd;
+
+                    // set textarea value to: text before caret + tab + text after caret
+                    $(this).val($(this).val().substring(0, start)
+                        + "\t"
+                        + $(this).val().substring(end));
+
+                    // put caret at right position again
+                    $(this).get(0).selectionStart =
+                        $(this).get(0).selectionEnd = start + 1;
+                }
+            });
         }
     }
 })();
