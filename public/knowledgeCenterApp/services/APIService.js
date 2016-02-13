@@ -21,6 +21,7 @@
             getCurrentPost: getCurrentPost,
             createNewPost: createNewPost,
             createNewComment: createNewComment,
+            changeSolvedStatus: changeSolvedStatus,
             dbPosts: dbPosts,
             dbCategories: dbCategories,
         };
@@ -70,6 +71,10 @@
         $http.post('./api/v1/create-new-comment/', {postId: postId, text: text}).then(function(res) {
             callback(res.data.comment)
         })
+    }
+
+    function changeSolvedStatus(postId, solved, callback) {
+        $http.post('./api/v1/update-solved-status/', {postId: postId, solved: solved}).then(callback)
     }
 
     function updateCurrentPost(index) {

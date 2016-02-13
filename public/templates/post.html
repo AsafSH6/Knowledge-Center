@@ -2,9 +2,9 @@
     <div class="col-md-6 col-xs-12 container">
         <section class="widget">
             <div class="widget-controls">
-                <a ><i class=""> {{  post.creation_date | date }} </i></a>
+                <a ><i> {{  post.creation_date | date }} </i></a>
             </div>
-            <div class="widget-body">
+            <div id="post-div" class="widget-body">
                 <div ng-class="randomColor" class="widget-top-overflow windget-padding-md clearfix text-white">
                     <h3 class="mt-lg mb-lg"><span class="fw-semi-bold">{{ post.title }}</span></h3>
                     <ul class="tags text-white pull-right" ng-repeat="tag in post.tags track by $index">
@@ -18,10 +18,26 @@
                     <h5 class="mt-sm fw-normal text-white">{{ post.user.username }}</h5>
 
                     <p class="fs-mini text-muted">
-                        <time>{{ post.user.points }} Points</time>
+                        <a ng-if="isPublisher()" ng-click="changeSolvedStatus()" href="">
+                            <i ng-if="post.solved" class="glyphicon glyphicon-ok">
+                                solved
+                            </i>
+                            <i ng-if="!post.solved" class="glyphicon glyphicon-remove">
+                                open question
+                            </i>
+                        </a>
+                        <a ng-if="!isPublisher()">
+                            <i ng-if="post.solved" class="glyphicon glyphicon-ok">
+                                solved
+                            </i>
+                            <i ng-if="!post.solved" class="glyphicon glyphicon-remove">
+                                open question
+                            </i>
+                        </a>
+                        <!--<time>{{ post.user.points }} Points</time>-->
                     </p>
                 </div>
-                    <p id="post-text" class="text-light fs-mini m text"></p>
+                    <post-directive></post-directive>
             </div>
             <div class="container-comments bootstrap snippet">
                 <div class="row">
@@ -34,7 +50,9 @@
                                         <p class="meta">
                                             <a href="#">{{ comment.user.username }} </a>
                                             {{ comment.creation_date | date}}
-                                        <p class="text">{{ comment.text }}</p>
+                                        <!--<p id="comment{{$index}}" class="text">{{ comment.text }}</p>-->
+                                        <!--<p id="comment-0" class="text-light fs-mini m text"></p>-->
+                                        <comment-directive></comment-directive>
                                     </div>
                                 </li>
                             </ul>

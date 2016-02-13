@@ -2,7 +2,7 @@ var models = require('../DB/models')
 var mongoose = require('mongoose');
 var dbConfig = require('./config');
 
-mongoose.connect(dbConfig.url, function() {
+mongoose.connect(dbConfig.local_url, function() {
     console.log('connected')
 });
 
@@ -234,6 +234,11 @@ function insertFakeDataToDB() {
     //});
 }
 
+//function deletePostsAndComments() {
+//    models.Post.find({}).remove().exec();
+//    models.Comment.find({}).remove().exec();
+//}
+//deletePostsAndComments()
 //function(){mongoose.disconnect()}
 //insertFakeDataToDB()
 

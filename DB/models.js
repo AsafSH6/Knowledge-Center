@@ -147,6 +147,18 @@ commentSchema.statics.createNewCommentAndPushToPost = function(userId, postId, t
     })
 }
 
+
+postSchema.statics.updateSolvedStatus = function(userId, postId, solvedStatus, callback) {
+    this.findById(postId, function(err, post) {
+        if(post.user.equals(userId)) {
+            post.update({$set: {solved: solvedStatus}}, callback)
+        }
+        else {
+            callback('error')
+        }
+    })
+}
+
 postSchema.methods.increasePostViewByOne = function(callback) {
     this.update({views: (this.views + 1)}, function(err) {
         if(err!=null) {

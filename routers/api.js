@@ -73,12 +73,28 @@ router.post('/create-new-post/', function(req, res) {
 
 router.post('/create-new-comment/', function(req, res) {
     models.Comment.createNewCommentAndPushToPost(req.user._id,
-        req.body.postId,
-        req.body.text,
-        function(err, comment) {
-            console.log('created comment')
-            return res.json({comment: comment})
-        })
+                                                 req.body.postId,
+                                                 req.body.text,
+                                                 function(err, comment) {
+                                                     console.log('created comment')
+                                                     return res.json({comment: comment})
+                                                 })
+});
+
+router.post('/update-solved-status/', function(req, res) {
+    console.log('update-solved-status')
+    console.log(req.body.solved)
+
+    models.Post.updateSolvedStatus(req.user._id,
+                                   req.body.postId,
+                                   req.body.solved,
+                                   function(err) {
+                                       console.log(err)
+                                       if(err)
+                                           return res.sendStatus(500)
+                                       else
+                                            return res.sendStatus(200)
+                                   })
 });
 
 module.exports = router;

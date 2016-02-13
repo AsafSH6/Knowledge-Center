@@ -3,23 +3,24 @@
 
     angular
         .module('KnowledgeCenter')
-        .controller('QuestionsCtrl', QuestionsCtrl);
+        .controller('PostsCtrl', PostsCtrl);
 
-    QuestionsCtrl.$inject = ['$scope', 'APIService'];
+    PostsCtrl.$inject = ['$scope', '$stateParams', 'APIService'];
 
     /* @ngInject */
-    function QuestionsCtrl($scope, APIService) {
+    function PostsCtrl($scope, $stateParams, APIService) {
         /* jshint validthis: true */
         var vm = $scope;
 
         vm.activate = activate;
-        vm.category = 'Questions';
 
         activate();
 
         ////////////////
 
         function activate() {
+            console.log('posts controller')
+            vm.category = $stateParams.category
             APIService.getAllPostsFilteredByCategory(vm.category, function(questions) {
                 vm.dbPosts = questions.data
             })

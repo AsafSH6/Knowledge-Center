@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-
+    // TODO: REQUIRE TITLE!!
     angular
         .module('KnowledgeCenter')
         .controller('NewPostCtrl', NewPostCtrl)
@@ -69,6 +69,8 @@
         function displayPreview() {
             vm.postPreviewElement.empty()
             parseText(vm.text)
+            vm.prewiew = true
+            vm.codesCounter = 0
         }
 
         function addCode(language) {
@@ -80,7 +82,7 @@
         function parseText(text) {
             var splitedTextByBeginningCodeAreas = text.split('<code ')
             var beginningText = splitedTextByBeginningCodeAreas[0]
-            vm.postPreviewElement.append('<p>' + markLinks(beginningText) + '</p>')
+            markLinks(beginningText, vm.postPreviewElement)
             if(splitedTextByBeginningCodeAreas.length == 1) {
                 return
             }
@@ -107,28 +109,28 @@
             });
             vm.codesCounter += 1
             parseText(fullNextText)
-            vm.prewiew = true
-            vm.codesCounter = 0
         }
 
-        // TODO: create element </a> and then inject the text
-        function markLinks(text) {
+        function markLinks(text, element) {
             var newText = ''
+            var newElement = $('<p></p>').appendTo(element)
+
             while(true) {
                 var p = text.split('<link=', 2)
-                newText += p[0]
-                text = text.replace(p[0], '')
-                if(p.length == 1) {
-                    break
-                }
-                var q = p[1].split('>')
-                if(q[0].indexOf('http') != -1) {
-                    newText += '<a target="_blank" href="' + q[0] + '"' + '>' + q[0] + '</a>'
-                }
-                else {
-                    newText += '<a target="_blank" href="http://' + q[0] + '"' + '>' + q[0] + '</a>'
-                }
-                text = text.replace('<link=' + q[0] + '>', '')
+                var textBeforeLink =  p[0]
+                var spanWithText = $('<span></span>').text(textBeforeLink)
+                newElement.append(spanWithText)
+                text = text.replace(textBeforeLink, '')
+                if(p.length == 1) { break }
+
+                var linkURL = p[1].split('>')[0]
+                var aTagWithHref = $('<a target="_blank"></a>').text(linkURL)
+
+                if(linkURL.indexOf('http') != -1) { aTagWithHref.attr('href', linkURL) }
+                else { aTagWithHref.attr('href', 'http://' + linkURL) }
+
+                newElement.append(aTagWithHref)
+                text = text.replace('<link=' + linkURL + '>', '')
             }
             return newText
         }
