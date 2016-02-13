@@ -4,6 +4,20 @@ body{
     margin-top:20px;
 }
 
+.text {
+    white-space: pre;
+    font-size: medium;
+    direction: ltr;
+}
+
+#new-comment {
+    width: 100%;
+}
+
+.editor .CodeMirror{
+    height: auto;
+}
+
 .widget {
     position: relative;
     margin-bottom: 30px;

@@ -38,7 +38,7 @@ var postSchema = new Schema({
     creation_date: { type: Date, default: Date.now },
     views: {type: Number, default: 0},
     user: {type: Schema.Types.ObjectId, ref: 'User'},
-    comments: [commentSchema],
+    comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}],
     categories: [categorySchema],
     tags: [tagSchema],
     solved: {type: Boolean, default: false}
@@ -50,15 +50,33 @@ categorySchema.statics.findAllCategories = function(callback) {
 
 postSchema.statics.findAllPostsFilteredByCategory = function(category, callback) {
     return this.find({'categories.name': category})
+        .sort('-creation_date')
         .populate('user', 'username points')
-        .populate('comments.user', 'username points')
-        .exec(callback)
+        .populate('comments')
+        .exec(function(err, posts) {
+            mongoose.model('Comment').populate(posts, {
+                path: 'comments.user',
+                select: 'username points',
+                model: mongoose.model('User')
+            }, callback)
+        })
+}
+
+tagSchema.statics.findAllTagsFilteredByCategory = function(category, callback) {
+    return this.find({'categories.name': category}, callback)
 }
 
 postSchema.statics.findPostById = function(postId, callback) {
     return this.findById(postId)
         .populate('user', 'username points')
-        .exec(callback)
+        .populate('comments')
+        .exec(function(err, posts) {
+            mongoose.model('Comment').populate(posts, {
+                path: 'comments.user',
+                select: 'username points',
+                model: mongoose.model('User')
+            }, callback)
+        })
 }
 
 postSchema.statics.createNewPost = function(userId, category, tags, title, text, callback) {
@@ -68,23 +86,76 @@ postSchema.statics.createNewPost = function(userId, category, tags, title, text,
             console.log('could not find category')
             return false
         }
-        var post = new createNewPost({
-            user: userId,
-            categories: [category],
-            //tags: [],
-            title: title,
-            text: text
-        })
-
-        post.save(function(err) {
+        mongoose.model('Tag').find({name: {$in: tags}}, function(err, tags) {
             if(err) {
-                console.log('could not save post')
+                console.log('could not find tags')
                 return false
             }
-            console.log('saved post')
-            callback(post)
-            return post._id
+            var post = new createNewPost({
+                user: userId,
+                categories: [category],
+                tags: tags,
+                title: title,
+                text: text
+            })
+
+            post.save(function(err) {
+                if(err) {
+                    console.log('could not save post')
+                    return false
+                }
+                console.log('saved post')
+                createNewPost.findById(post._id)
+                    .populate('user', 'username points')
+                    .exec(callback)
+                return post._id
+            })
         })
+
+    })
+}
+
+commentSchema.statics.createNewCommentAndPushToPost = function(userId, postId, text, callback) {
+    var createNewCommentAndPushToPost = this
+    mongoose.model('Post').findById(postId, function(err, post) {
+        if (err) {
+            console.log('could not find post')
+            return false
+        }
+        var comment = createNewCommentAndPushToPost({
+            user: userId,
+            category: post.categories,
+            text: text
+        })
+        comment.save(function (err) {
+            if (err) {
+                console.log("error: couldn't save the comment")
+                return false
+            }
+            post.update({$push: {comments: comment._id}}, function (err) {
+                if (err) {
+                    console.log("couldn't update post")
+                }
+                else {
+                    console.log("updated post.")
+                    mongoose.model('Comment').findById(comment._id)
+                        .populate('user', 'username points')
+                        .exec(callback)
+                }
+            });
+        })
+    })
+}
+
+
+postSchema.statics.updateSolvedStatus = function(userId, postId, solvedStatus, callback) {
+    this.findById(postId, function(err, post) {
+        if(post.user.equals(userId)) {
+            post.update({$set: {solved: solvedStatus}}, callback)
+        }
+        else {
+            callback('error')
+        }
     })
 }
 

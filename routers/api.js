@@ -5,7 +5,7 @@ var express = require('express');
 var models = require('../DB/models')
 var router = express.Router();
 
-router.get('/get-all-categories', function(req, res) {
+router.get('/get-all-categories/', function(req, res) {
     models.Category.findAllCategories(function(err, categories) {
         res.json(categories)
     })
@@ -23,16 +23,28 @@ router.get('/get-all-posts-filtered-by-category/:category', function(req, res) {
     })
 });
 
+router.get('/get-all-tags-filtered-by-category/:category', function(req, res) {
+    console.log('aaaa')
+    console.log(req.params['category'])
+    models.Tag.findAllTagsFilteredByCategory(req.params['category'], function(err, tags) {
+        if(err!=null) {
+            console.log(err)
+        }
+        else {
+            res.json(tags)
+        }
+    })
+});
 router.get('/get-post-by-id/:id', function(req, res) {
     console.log(req.params['id'])
     models.Post.findPostById(req.params['id'], function(err, post) {
         if(err!=null) {
             console.log(err)
         }
-        console.log(post)
         res.json(post)
     })
 });
+
 
 router.get('/increase-view-by-one/:id', function(req, res) {
     models.Post.findPostById(req.params['id'], function(err, post) {
@@ -54,14 +66,35 @@ router.post('/create-new-post/', function(req, res) {
                               req.body.tags,
                               req.body.title,
                               req.body.text,
-                              function(post) {
-                                  return res.sendStatus(200)
+                              function(err, post) {
+                                  return res.json({post: post})
                               })
 });
 
-router.get('/is-authenticated', function(req, res) {
-    console.log(req.isAuthenticated())
-    res.json({isAuthenticated: req.isAuthenticated()})
-})
+router.post('/create-new-comment/', function(req, res) {
+    models.Comment.createNewCommentAndPushToPost(req.user._id,
+                                                 req.body.postId,
+                                                 req.body.text,
+                                                 function(err, comment) {
+                                                     console.log('created comment')
+                                                     return res.json({comment: comment})
+                                                 })
+});
+
+router.post('/update-solved-status/', function(req, res) {
+    console.log('update-solved-status')
+    console.log(req.body.solved)
+
+    models.Post.updateSolvedStatus(req.user._id,
+                                   req.body.postId,
+                                   req.body.solved,
+                                   function(err) {
+                                       console.log(err)
+                                       if(err)
+                                           return res.sendStatus(500)
+                                       else
+                                            return res.sendStatus(200)
+                                   })
+});
 
 module.exports = router;

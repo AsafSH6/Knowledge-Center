@@ -2,13 +2,13 @@
     'use strict';
 
     angular
-        .module('knowledgeCenter')
-        .controller('navbarController', navbar);
+        .module('KnowledgeCenter')
+        .controller('NavbarCtrl', NavbarCtrl);
 
-    navbar.$inject = ['dataService'];
+    NavbarCtrl.$inject = ['APIService'];
 
     /* @ngInject */
-    function navbar(dataService) {
+    function NavbarCtrl(APIService) {
         /* jshint validthis: true */
         var vm = this;
 
@@ -22,9 +22,8 @@
         ////////////////
 
         function activate() {
-            dataService.getAllCategories(function(categories) {
+            APIService.getAllCategories(function(categories) {
                 vm.dbCategories = categories.data
-                console.log(vm.dbCategories)
             })
             vm.setActive = setActivate;
             vm.checkActive = checkActive;

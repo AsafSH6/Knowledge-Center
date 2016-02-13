@@ -5,13 +5,13 @@
     'use strict';
 
     angular
-        .module('knowledgeCenter')
-        .controller('authenticationController', authenticationController);
+        .module('KnowledgeCenter')
+        .controller('AuthenticationCtrl', AuthenticationCtrl);
 
-    authenticationController.$inject = ['$rootScope', 'AuthenticationService'];
+    AuthenticationCtrl.$inject = ['AuthenticationService'];
 
     /* @ngInject */
-    function authenticationController($rootScope, AuthenticationService)
+    function AuthenticationCtrl(AuthenticationService)
     {
         /* jshint validthis: true */
         var vm = this;
@@ -33,13 +33,10 @@
 
         function signin() {
             AuthenticationService.signin(vm.username, vm.password, function (err, response) {
-                console.log('at signin')
                 if(err!= null) {
-                    console.log('err!=null')
                     vm.authenticationFailed = true
                 }
                 else {
-                    console.log('auth successed')
                     vm.authenticationFailed = false
                     AuthenticationService.SetCredentials(response.id, vm.username, vm.password);
                     clearDetails()
@@ -48,10 +45,9 @@
         }
 
         function signout() {
-            console.log('signout')
             AuthenticationService.signout(function(err, response) {
                 if(err!= null) {
-                    console.log('err!=null')
+                    return
                 }
                 else {
                     AuthenticationService.ClearCredentials()
@@ -60,14 +56,11 @@
         }
 
         function signup() {
-            console.log('singup')
             AuthenticationService.signup(vm.username, vm.password, vm.firstName, vm.lastName, vm.email, function(err, response) {
                 if(err!= null) {
-                    console.log('err!=null')
                     vm.signupFailed = true
                 }
                 else {
-                    console.log('signup succeeded')
                     vm.signupFailed = false
                     AuthenticationService.SetCredentials(response.id, vm.username, vm.password);
                     clearDetails()

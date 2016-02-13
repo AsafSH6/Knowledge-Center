@@ -17,6 +17,7 @@
     "angular": "~1.4.8",
     "ui-router": "~0.2.15",
     "angular-cookies": "~1.4.8",
-    "codemirror": "~5.10.0"
+    "codemirror": "~5.10.0",
+    "angular-bootstrap": "~1.1.2"
   }
 }

@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     angular
-        .module('knowledgeCenter')
+        .module('KnowledgeCenter')
         .run(run)
         .config(config);
 
@@ -24,38 +24,22 @@
                 controller: 'homeController'
 
             })
-
-            .state('questions', {
-                url: '/questions',
+            .state('posts', {
+                url: '/:category',
                 templateUrl: './templates/posts.html',
-                controller: 'questionsController'
+                controller: 'PostsCtrl'
             })
-
-            .state('things i learnt today', {
-                url: '/things-I-learnt-today',
-                templateUrl: './templates/posts.html',
-                controller: 'things-i-learnt-todayController'
-            })
-
-            .state('links', {
-                url: '/links',
-                templateUrl: './templates/posts.html',
-                controller: 'linksController'
-            })
-
-            .state('guides', {
-                url: '/guides',
-                templateUrl: './templates/posts.html',
-                controller: 'guidesController'
-            })
-
             .state('post', {
                 url: '/post/:postId',
                 templateUrl: './templates/post.html',
-                controller: 'postController'
+                controller: 'PostCtrl'
+            })
+            .state('create-new-post', {
+                url: '/create-new-post/:category',
+                templateUrl: './templates/createPost.html',
+                controller: 'NewPostCtrl'
             })
 
     }
-
 
 })();

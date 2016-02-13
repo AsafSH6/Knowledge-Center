@@ -1,82 +1,69 @@
-    <div class="row">
-            <div class="col-md-6 col-xs-12 container">
-                <section class="widget">
-                    <div class="widget-controls">
-                    <a ><i class=""> {{  post.creation_date | date }} </i></a>
-                    <!--<a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>-->
-                    </div>
-                    <div class="widget-body">
-                        <div ng-class="randomColor" class="widget-top-overflow windget-padding-md clearfix text-white">
-                            <h3 class="mt-lg mb-lg"><span class="fw-semi-bold">{{ post.title }}</span></h3>
-                            <ul class="tags text-white pull-right" ng-repeat="tag in post.tags track by $index">
-                                <li><a href="#">{{ tag.name }}</a></li>
+<div class="row">
+    <div class="col-md-6 col-xs-12 container">
+        <section class="widget">
+            <div class="widget-controls">
+                <a ><i> {{  post.creation_date | date }} </i></a>
+            </div>
+            <div id="post-div" class="widget-body">
+                <div ng-class="randomColor" class="widget-top-overflow windget-padding-md clearfix text-white">
+                    <h3 class="mt-lg mb-lg"><span class="fw-semi-bold">{{ post.title }}</span></h3>
+                    <ul class="tags text-white pull-right" ng-repeat="tag in post.tags track by $index">
+                        <li><a href="#">{{ tag.name }}</a></li>
+                    </ul>
+                </div>
+                <div class="post-user mt-n-lg">
+                    <span class="thumb-lg pull-left mr">
+                        <img class="img-circle" src="http://bootdey.com/img/Content/user_1.jpg" alt="...">
+                    </span>
+                    <h5 class="mt-sm fw-normal text-white">{{ post.user.username }}</h5>
+
+                    <p class="fs-mini text-muted">
+                        <a ng-if="isPublisher()" ng-click="changeSolvedStatus()" href="">
+                            <i ng-if="post.solved" class="glyphicon glyphicon-ok">
+                                solved
+                            </i>
+                            <i ng-if="!post.solved" class="glyphicon glyphicon-remove">
+                                open question
+                            </i>
+                        </a>
+                        <a ng-if="!isPublisher()">
+                            <i ng-if="post.solved" class="glyphicon glyphicon-ok">
+                                solved
+                            </i>
+                            <i ng-if="!post.solved" class="glyphicon glyphicon-remove">
+                                open question
+                            </i>
+                        </a>
+                        <!--<time>{{ post.user.points }} Points</time>-->
+                    </p>
+                </div>
+                    <post-directive></post-directive>
+            </div>
+            <div class="container-comments bootstrap snippet">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="blog-comment">
+                            <ul class="comments">
+                                <li class="clearfix" ng-repeat="comment in post.comments track by $index">
+                                    <img src="http://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="">
+                                    <div class="post-comments">
+                                        <p class="meta">
+                                            <a href="#">{{ comment.user.username }} </a>
+                                            {{ comment.creation_date | date}}
+                                        <!--<p id="comment{{$index}}" class="text">{{ comment.text }}</p>-->
+                                        <!--<p id="comment-0" class="text-light fs-mini m text"></p>-->
+                                        <comment-directive></comment-directive>
+                                    </div>
+                                </li>
                             </ul>
-                        </div>
-                        <div class="post-user mt-n-lg">
-                            <span class="thumb-lg pull-left mr">
-                                <img class="img-circle" src="http://bootdey.com/img/Content/user_1.jpg" alt="...">
-                            </span>
-                            <h5 class="mt-sm fw-normal text-white">{{ post.user.username }}</h5>
-
-                            <p class="fs-mini text-muted">
-                                <time>{{ post.user.points }} Points</time>
-                            </p>
-                        </div>
-                        <p class="text-light fs-mini m"> <h4>{{ post.text }}</h4> </p>
-                    </div>
-                    <!--<footer class="bg-body-light">-->
-                        <!--<ul class="post-links">-->
-                            <!--<li><a href="#">1 hour</a></li>-->
-                            <!--<li><a href="#"><span class="text-danger"><i class="fa fa-heart"></i> Like</span></a></li>-->
-                            <!--<li><a href="#">Comment</a></li>-->
-                        <!--</ul>-->
-                        <!--<ul class="post-comments mt mb-0">-->
-                            <!--<li>-->
-                                <!--<span class="thumb-xs avatar pull-left mr-sm">-->
-                                    <!--<img class="img-circle" src="http://bootdey.com/img/Content/user_2.jpg" alt="...">-->
-                                <!--</span>-->
-
-                                <!--<div class="comment-body">-->
-                                    <!--<h6 class="author fw-semi-bold">Margaret Awoentg-->
-                                        <!--<small>6 mins ago</small>-->
-                                    <!--</h6>-->
-                                    <!--<p>Hey, this is snippet is on bootdey.com. ok?</p>-->
-                                <!--</div>-->
-                            <!--</li>-->
-                            <!--<li>-->
-                                <!--<span class="thumb-xs avatar pull-left mr-sm">-->
-                                    <!--<img class="img-circle" src="http://bootdey.com/img/Content/user_3.jpg" alt="...">-->
-                                <!--</span>-->
-
-                                <!--<div class="comment-body">-->
-                                    <!--<input class="form-control input-sm" type="text"-->
-                                           <!--placeholder="Write your comment...">-->
-                                <!--</div>-->
-                            <!--</li>-->
-                        <!--</ul>-->
-                    <!--</footer>-->
-                <!--</section>-->
-                <div class="container-comments bootstrap snippet">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="blog-comment">
-                                <!--<hr/>-->
-                                <ul class="comments">
-                                    <li class="clearfix" ng-repeat="comment in post.comments track by $index">
-                                        <img src="http://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="">
-                                        <div class="post-comments">
-                                            <p class="meta">
-                                                <a href="#">{{ comment.user.username }} </a>
-                                                {{ comment.creation_date | date}}
-                                            <p>
-                                                {{ comment.text }}
-                                            </p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
+        <div ng-if="globals.loggedIn">
+            <textarea id="new-comment" ng-model="text" rows="5" placeholder="Write your comment here..."></textarea>
+            <button ng-click="submitNewComment(text); text=''" type="button" class="btn btn-info btn-lg">Submit</button>
+        </div>
     </div>
+</div>

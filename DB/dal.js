@@ -237,6 +237,11 @@ function insertFakeDataToDB() {
     //});
 }
 
+//function deletePostsAndComments() {
+//    models.Post.find({}).remove().exec();
+//    models.Comment.find({}).remove().exec();
+//}
+//deletePostsAndComments()
 //function(){mongoose.disconnect()}
 //insertFakeDataToDB()
 

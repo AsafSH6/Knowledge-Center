@@ -17,66 +17,26 @@ module.exports = function(passport){
 
 
     /* Handle Login POST */
-    router.post('/login', passport.authenticate('login'), function(req, res) {
+    router.post('/login/', passport.authenticate('login'), function(req, res) {
         res.json({status: 200, id: req.user._id})
     })
 
     /* Handle Registration POST */
-    router.post('/signup', passport.authenticate('signup'), function(req, res) {
+    router.post('/signup/', passport.authenticate('signup'), function(req, res) {
             res.json({status: 200, id: req.user._id})
     });
 
     /* Handle Logout */
-    router.get('/signout', function(req, res) {
+    router.get('/signout/', function(req, res) {
         req.logout();
         //res.redirect('/');
         res.json({status: 200})
     });
 
-    //router.post('/login', function(req, res) {
-    //    console.log('login')
-    //})
-
-
-    //    function(req, res, next) {
-    //    console.log('login')
-    //    passport.authenticate('login', function(err, userId, info) {
-    //        if(err) {
-    //            console.log('error')
-    //            return next(err)
-    //        }
-    //        else if(!userId){
-    //            return res.send(info)
-    //        }
-    //        else {
-    //            req.login(userId, function(err) {
-    //                if(err) {
-    //                    return next(err)
-    //                }
-    //                console.log('sending 200')
-    //                console.log(userId)
-    //                return res.sendStatus(200)
-    //            })
-    //        }
-    //    })(req, res, next)
-    //});
-
-    /* GET login page. */
-    router.get('/', function(req, res) {
-        // Display the Login page with any flash message, if any
-        res.render('index', { message: req.flash('message') });
-    });
-
-    /* GET Registration Page */
-    router.get('/signup', function(req, res){
-        res.render('register',{message: req.flash('message')});
-    });
-
-    /* GET Home Page */
-    router.get('/home', isAuthenticated, function(req, res){
-        res.render('home', { user: req.user });
-    });
-
+    router.get('/is-authenticated/', function(req, res) {
+        console.log(req.isAuthenticated())
+        res.json({isAuthenticated: req.isAuthenticated()})
+    })
 
     return router;
 }

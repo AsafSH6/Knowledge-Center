@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default" ng-controller="navbarController as navbarCtrl">
+<nav class="navbar navbar-default" ng-controller="NavbarCtrl as navbarCtrl">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -17,10 +17,10 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li ng-class="{'active':navbarCtrl.checkActive($index)}" ng-repeat="category in navbarCtrl.dbCategories track by $index">
-                    <a ui-sref="{{ category.name | lowercase }}" ng-click="navbarCtrl.setActive($index)"> {{ category.name }} </a>
+                    <a ui-sref="posts({category: category.name})" ng-click="navbarCtrl.setActive($index)"> {{ category.name }} </a>
                 </li>
             </ul>
-            <div class="authentication" ng-controller="authenticationController as authCtrl">
+            <div class="authentication" ng-controller="AuthenticationCtrl as authCtrl">
                 <ul class="nav navbar-nav navbar-right" ng-hide="globals.loggedIn">
                     <li class="dropdown">
                         <a class="dropdown-toggle" href="" data-toggle="dropdown">
@@ -61,16 +61,16 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right" ng-hide="!globals.loggedIn">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             Welcome {{ globals.currentUser.username }}
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Profile</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
+                            <li><a href="">Profile</a></li>
+                            <li><a href="">Another action</a></li>
+                            <li><a href="">Something else here</a></li>
                             <li role="separator" class="divider"></li>
-                            <li class="pad-buttom" ng-click="authCtrl.signout()"><a href="#">Log out</a></li>
+                            <li class="pad-buttom" ng-click="authCtrl.signout()"><a href="">Log out</a></li>
                         </ul>
                     </li>
                 </ul>

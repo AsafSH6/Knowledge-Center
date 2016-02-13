@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="knowledgeCenter">
+<html ng-app="KnowledgeCenter">
 <head lang="en">
     <meta charset="UTF-8">
     <title>Knowledge Center </title>
@@ -9,9 +9,12 @@
     <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./bower_components/ui-router/release/angular-ui-router.min.js"></script>
     <script src="./bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="./bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="./css/post.css">
+    <link rel="stylesheet" href="./css/posts.css">
+    <link rel="stylesheet" href="./css/newPost.css">
     <link rel="stylesheet" href="./css/comment.css">
     <link rel="stylesheet" href="./css/login.css">
     <link rel="stylesheet" href="./css/home.css">
@@ -27,15 +30,23 @@
 
     <!-- add Javascript-mode dependencies -->
     <script src="bower_components/codemirror/mode/javascript/javascript.js" type="text/javascript" charset="utf-8"></script>
-
-    <!-- add PHP-mode dependencies (replace dependency loading by require.js!) -->
     <script src="bower_components/codemirror/mode/xml/xml.js" type="text/javascript" charset="utf-8"></script>
     <script src="bower_components/codemirror/mode/htmlmixed/htmlmixed.js" type="text/javascript" charset="utf-8"></script>
     <script src="bower_components/codemirror/mode/clike/clike.js" type="text/javascript" charset="utf-8"></script>
     <script src="bower_components/codemirror/mode/python/python.js" type="text/javascript" charset="utf-8"></script>
+    <script src="bower_components/codemirror/mode/css/css.js" type="text/javascript" charset="utf-8"></script>
+    <script src="bower_components/codemirror/mode/groovy/groovy.js" type="text/javascript" charset="utf-8"></script>
+    <script src="bower_components/codemirror/mode/go/go.js" type="text/javascript" charset="utf-8"></script>
+    <script src="bower_components/codemirror/mode/http/http.js" type="text/javascript" charset="utf-8"></script>
+    <script src="bower_components/codemirror/mode/nginx/nginx.js" type="text/javascript" charset="utf-8"></script>
+    <script src="bower_components/codemirror/mode/php/php.js" type="text/javascript" charset="utf-8"></script>
+    <script src="bower_components/codemirror/mode/pig/pig.js" type="text/javascript" charset="utf-8"></script>
+    <script src="bower_components/codemirror/mode/shell/shell.js" type="text/javascript" charset="utf-8"></script>
+    <script src="bower_components/codemirror/mode/sql/sql.js" type="text/javascript" charset="utf-8"></script>
+    <script src="bower_components/codemirror/mode/swift/swift.js" type="text/javascript" charset="utf-8"></script>
+    <script src="bower_components/codemirror/mode/perl/perl.js" type="text/javascript" charset="utf-8"></script>
 
-    <!-- add SPARQL-mode dependencies -->
-    <script src="bower_components/codemirror/mode/sparql/sparql.js" type="text/javascript" charset="utf-8"></script>
+
 
 
 </head>
@@ -45,18 +56,18 @@
 </div>
 <div id="content" ui-view>
 </div>
-<script src="./knowledgeCenterApp/knowledgeCenterModule.js"></script>
-<script src="./knowledgeCenterApp/navbar.controller.js"></script>
-<script src="./knowledgeCenterApp/questions.controller.js"></script>
-<script src="./knowledgeCenterApp/links.controller.js"></script>
-<script src="./knowledgeCenterApp/things_i_learnt_today.controller.js"></script>
-<script src="./knowledgeCenterApp/guides.controller.js"></script>
-<script src="./knowledgeCenterApp/post.controller.js"></script>
-<script src="./knowledgeCenterApp/AuthenticationController.js"></script>
-<script src="./knowledgeCenterApp/postref.directive.js"></script>
-<script src="./knowledgeCenterApp/knowledge_center.service.js"></script>
-<script src="./knowledgeCenterApp/authentication.service.js"></script>
-<script src="./knowledgeCenterApp/user.service.js"></script>
-<script src="./knowledgeCenterApp/knowledge_center.router.js"></script>
+<script src="./knowledgeCenterApp/app.js"></script>
+<script src="./knowledgeCenterApp/controllers/NavbarController.js"></script>
+<script src="./knowledgeCenterApp/controllers/PostsController.js"></script>
+<script src="./knowledgeCenterApp/controllers/PostController.js"></script>
+<script src="./knowledgeCenterApp/controllers/NewPostController.js"></script>
+<script src="./knowledgeCenterApp/controllers/AuthenticationController.js"></script>
+<script src="./knowledgeCenterApp/directives/postrefDirective.js"></script>
+<script src="./knowledgeCenterApp/directives/tagsDirective.js"></script>
+<script src="./knowledgeCenterApp/directives/postDirective.js"></script>
+<script src="./knowledgeCenterApp/directives/commentDirective.js"></script>
+<script src="./knowledgeCenterApp/services/APIService.js"></script>
+<script src="./knowledgeCenterApp/services/AuthenticationService.js"></script>
+<script src="./knowledgeCenterApp/Router.js"></script>
 </body>
 </html>
