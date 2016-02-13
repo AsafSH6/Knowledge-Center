@@ -38,6 +38,12 @@
                 controller: 'postsController'
             })
 
+            .state('edit', {
+                url: '/edit/:userIndex',
+                templateUrl: './templates/admin-edit-user.html',
+                controller: 'editController'
+            })
+
 
 
     }

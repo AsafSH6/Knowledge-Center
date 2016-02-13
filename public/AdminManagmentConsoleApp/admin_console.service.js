@@ -11,6 +11,7 @@
     function adminConsoleService($http) {
 
         var service;
+        var users = null;
         service = {
             getAllUsers: getAllUsers,
             removeUser: removeUser,
@@ -19,7 +20,8 @@
             getAllCategories: getAllCategories,
             getAllPostsFilteredByCategory: getAllPostsFilteredByCategory,
             getPostById: getPostById,
-            createNewPost: createNewPost
+            createNewPost: createNewPost,
+            users: users
         };
 
         return service;
@@ -28,7 +30,8 @@
         function getAllUsers(callback){
             //TODO- change to the local API.
             $http.get('http://api.randomuser.me/0.4/?results=20', callback).then(function(res) {
-                console.log(res)
+                console.log(res);
+                users = res.data.results;
                 callback(res.data)
             })
 

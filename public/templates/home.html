@@ -2,100 +2,94 @@
 <head>
     <title>CodeMirror in Action</title>
 
-
-    <style type="text/css" media="screen">
-
-        #container {
-            padding: 15px;
-        }
-        h5 {
-            margin: 7px 0px;
-        }
-        #editor1-pane,
-        #editor2-pane {
-            position:relative;
-            display: block;
-            width: 600px;
-            height: 200px;
-            border: solid 1px #bbb;
-        }
-
-        #editor1,
-        #editor2 {
-            font-size: 9pt;
-        }
-        #editor1 .CodeMirror {
-            height: 198px;
-        }
-
-        #editor2 .CodeMirror {
-            height: 198px;
-        }
-    </style>
 </head>
 <body>
-<div id="container">
+ <!-- Header -->
+    <div class="intro-header">
+        <div class="container">
 
-    <h5>PHP editor</h5>
-    <div id="editor1-pane">
-        <div id="editor1"></div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="intro-message">
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
     </div>
 
-    <h5>SPARQL editor</h5>
-    <div id="editor2-pane">
-        <div id="editor2"></div>
-    </div>
+ <!-- "user_id": 12356,
+  "title": "title",
+  "creation_date": {
+    "$date": "date the created by using 'new Date()'"
+  },
+  "views": 123214,
+  "tags": [1, 2, 3],
+  "comments": [1, 2, 34, 55],
+  "text": "blablabla",
+  "category_id": "questions"
+} -->
 
-</div>
 
-<script type="text/javascript">
-    var code = $("#php-sample-1").html().split('<code>')[1].split('</code>')
-    console.log(code)
-//    var beginning = code[1]
-//    console.log()
-    $(document).ready(function () {
-        window.codemirror1 = CodeMirror($('#editor1').get(0), {
-            value: code[0],
-            mode:  "python",
-            styleActiveLine: true,
-            lineNumbers: true,
-        });
-        window.codemirror2 = CodeMirror($('#editor2').get(0), {
-            value: $("#sparql-sample-1").html(),
-            mode:  "sparql",
-            styleActiveLine: true,
-            lineNumbers: true,
-        });
-        window.codemirror2.on('blur', function (editor) {
-            console.debug ('codemirror2 changed:');
-            console.debug (editor);
-            console.debug ('value is: ' + editor.getValue());
+ <!-- Page Content -->
+ <div class="container">
 
-        });
-    })
-</script>
+     <div class="row">
 
-<script type="text/sparql" id="sparql-sample-1">
-            PREFIX au:<http://inspire.jrc.ec.europa.eu/schemas/au/3.0/>
-            PREFIX geo:<http://www.opengis.net/ont/geosparql#>
+         <!-- Blog Entries Column -->
+         <div class="col-md-8">
 
-            # This is a comment
+             <h1 class="page-header">
+                 latest Posts
+             </h1>
 
-    SELECT ?nCode
-            WHERE {
-        ?f au:nationalCode ?nCode .
-                ?f geo:hasGeometry ?fGeom .
-                ?fGeom geo:asWKT ?fWKT . FILTER (bif:st_contains ( ?fWKT , bif:st_point (22.952149, 40.582051), 0.1))
-    }
-</script>
+             <!-- First Blog Post -->
+             <div class="post" ng-repeat="post in newPosts">
+             <h2>
+                 <a href="#">{{post.title}}</a>
+             </h2>
+             <p class="lead">
+                 by {{post.username}} </a>
+             </p>
+             <p><span class="glyphicon glyphicon-time"></span> Posted on {{post.creation_date |date}}</p>
+             <p>{{post.text | limitTo : 0 : 20}}}</p>
+             <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                 </div>
 
-<script type="text/python" id="php-sample-1">
-heyheyhey print def self
-<code>
-    def test(self, a):
-        print a
-</code>
-</script>
+             <hr>
 
+
+
+         </div>
+
+         <!-- Blog Sidebar Widgets Column -->
+         <div class="col-md-4">
+
+
+             <!-- Blog Categories Well -->
+             <div class="well">
+                 <h4>Blog Categories</h4>
+                 <div class="row">
+                     <div class="col-lg-6">
+                         <ul class="list-unstyled">
+                             <li ng-repeat="category in dbCategories"><a ui-sref="{{ category.name | lowercase }}" > {{ category.name }} </a>
+                         </ul>
+                     </div>
+
+                     </div>
+                     <!-- /.col-lg-6 -->
+                 </div>
+                 <!-- /.row -->
+             </div>
+
+         </div>
+
+     </div>
+     <!-- /.row -->
+ </div>
+ <!-- /.container -->
 </body>
 </html>

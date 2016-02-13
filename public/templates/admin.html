@@ -1,80 +1,32 @@
 
+ <div class="nav-side-menu" ng-controller="sidebarController as sidebarCtrl">
+     <div class="brand"> Admin Dashboard </div>
+     <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
 
+     <div class="menu-list">
 
- <div id="wrapper" ng-controller="sidebarController as sidebarCtrl">
-    <div class="overlay"></div>
+         <ul id="menu-content" class="menu-content collapse out">
+             <li>
+                 <a href="#">
+                     <i class="fa fa-dashboard fa-lg"></i> Home
+                 </a>
+             </li>
 
-    <!-- Sidebar -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
-        <ul class="nav sidebar-nav">
-            <li class="sidebar-brand">
-                <a href="#">
-                    Admin Dashboard
-                </a>
-            </li>
-            <li>
-                <a href="#">Home</a>
-            </li>
-            <li>
-                <a ui-sref ="users">Users</a>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Posts <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li class="dropdown-header">sort by</li>
-                    <li ng-repeat="category in sidebarCtrl.dbCategories">
-                        <a ui-sref="{{ category.name | lowercase }}"> {{ category.name }} </a>
-                    </li>
-                </ul>
-            </li>
+             <li  data-toggle="collapse" data-target="#products" class="collapsed active">
+                 <a href="#"><i class="fa fa-gift fa-lg"></i> Posts <span class="arrow"></span></a>
+             </li>
+             <ul class="sub-menu collapse" id="products">
+                 <li ng-repeat="category in sidebarCtrl.dbCategories">
+                     <a ui-sref="{{ category.name | lowercase }}" > {{ category.name }} </a>
+                 </li>
+             </ul>
 
-        </ul>
-    </nav>
-    <!-- /#sidebar-wrapper -->
+             <li>
+                 <a  ui-sref ="users">
+                     <i class="fa fa-user fa-lg"></i> Users
+                 </a>
+             </li>
 
-    <!-- Page Content -->
-    <div id="page-content-wrapper">
-        <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
-            <span class="hamb-top"></span>
-            <span class="hamb-middle"></span>
-            <span class="hamb-bottom"></span>
-        </button>
-
-            </div>
-        </div>
-    </div>
-    <!-- /#page-content-wrapper -->
-
-    </div>
-    <!-- /#wrapper -->
-
- <script>
-     $(document).ready(function () {
-         var trigger = $('.hamburger'),
-                 overlay = $('.overlay'),
-                 isClosed = false;
-
-         trigger.click(function () {
-             hamburger_cross();
-         });
-
-         function hamburger_cross() {
-
-             if (isClosed == true) {
-                 overlay.hide();
-                 trigger.removeClass('is-open');
-                 trigger.addClass('is-closed');
-                 isClosed = false;
-             } else {
-                 overlay.show();
-                 trigger.removeClass('is-closed');
-                 trigger.addClass('is-open');
-                 isClosed = true;
-             }
-         }
-
-         $('[data-toggle="offcanvas"]').click(function () {
-             $('#wrapper').toggleClass('toggled');
-         });
-     });
- </script>
+         </ul>
+     </div>
+ </div>

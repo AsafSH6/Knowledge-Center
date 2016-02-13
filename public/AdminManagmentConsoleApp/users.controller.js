@@ -16,14 +16,24 @@
         var vm = $scope;
 
         dataService.getAllUsers(function(response){
-            vm.users = response;
+            vm.users = response.results;
             $('#loader').hide();
             $('#userList').show();
         });
 
 
-        $scope.showDetail = function (u) {
-            $scope.active = u.username;
+        $scope.deleteUser = function(index){
+
+            var deleted = $scope.users.splice(index,1);
+
+            //TODO send 'deleted' to the server to delete.
+
         };
+
+
+
+
+
     }
+
 })();
