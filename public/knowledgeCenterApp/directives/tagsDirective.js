@@ -15,7 +15,7 @@
             'typeahead-select-on-blur="true"' +
             'typeahead-on-select=add()>' +
             '<div class="tags-directive">' +
-                '<a href="" ng-repeat="(idx, tag) in chosenTags" class="tag" ng-click="remove(idx)">{{tag}}</a>' +
+                '<a href="" ng-repeat="(idx, tag) in chosenTags" class="tag" ng-click="remove(idx)">{{ tag }} </a>' +
             '</div>',
             link: function ( $scope ) {
 

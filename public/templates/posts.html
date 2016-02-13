@@ -1,5 +1,5 @@
 <button ng-if="globals.loggedIn" ui-sref="create-new-post({category: category})" id="new-post" type="button" class="btn btn-info btn-lg">Create New Post</button>
-<div class="row center" ng-repeat="post in dbPosts track by $index">
+<div class="row center" ng-repeat="post in posts track by $index">
     <div class="col-sm-6 col-md-4">
         <div class="thumbnail">
             <!--<img src="..." alt="...">-->
@@ -25,4 +25,7 @@
         </div>
     </div>
 </div>
-
+<ul class="pager">
+    <li><a href="" ng-click="previousPage()">Previous</a></li>
+    <li><a href="" ng-click="nextPage()">Next</a></li>
+</ul>
