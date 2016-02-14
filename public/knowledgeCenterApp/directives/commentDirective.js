@@ -13,14 +13,13 @@
         return {
             restrict: 'E',
             template:
-            '<p id="comment-{{index}}"></p>',
+            '<p></p>',
             link: function ( $scope, $element ) {
-
+                $scope.addEditModeFalseToComment($scope.comment)
                 function render() {
                     parseText($scope.comment.text, $element)
                 }
                 render()
-
                 function parseText(text, element) {
                     var splitedTextByBeginningCodeAreas = text.split('<code ')
                     var beginningText = splitedTextByBeginningCodeAreas[0]

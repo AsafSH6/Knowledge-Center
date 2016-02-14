@@ -1,4 +1,3 @@
-
 body{
     background:#eee;
     margin-top:20px;
@@ -14,8 +13,25 @@ body{
     width: 100%;
 }
 
+.post-edit-btn {
+    width: 100% !important;
+    padding-left: 2% !important;
+}
+
+.font-medium {
+    font-size: medium;
+}
+
 .editor .CodeMirror{
     height: auto;
+}
+
+.comment-edit-btn {
+    color: black !important;
+}
+
+#comment-edit-text {
+    width: 100%;
 }
 
 .widget {

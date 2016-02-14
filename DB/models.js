@@ -147,6 +147,47 @@ commentSchema.statics.createNewCommentAndPushToPost = function(userId, postId, t
     })
 }
 
+postSchema.statics.updatePost = function (userId, updatedPost, callback) {
+    var postSchema = this
+    this.findById(updatedPost._id, function(err, post) {
+        if(err) {
+            console.log('could not update post')
+        }
+        else {
+            console.log(userId)
+            console.log(post.user)
+            if(userId.equals(post.user)) {
+                mongoose.model('Tag').find({name: {$in: updatedPost.tags}}, function(err, tags) {
+                    if (err) {
+                        console.log('could not find tags')
+                    }
+                    else {
+                        post.update({$set: {title: updatedPost.title, text: updatedPost.text, tags: tags}}, function(err) {
+                            postSchema.findPostById(post._id, callback)
+                        })
+                    }
+                })
+            }
+        }
+    })
+}
+
+commentSchema.statics.updateComment = function (userId, updatedComment, callback) {
+    var commentSchema = this
+    this.findById(updatedComment._id, function(err, comment) {
+        if(err) {
+            console.log('could not update comment')
+        }
+        else {
+            console.log(userId)
+            console.log(comment.user)
+            if(userId.equals(comment.user)) {
+                comment.update({$set: {text: updatedComment.text}}, callback)
+            }
+        }
+    })
+}
+
 
 postSchema.statics.updateSolvedStatus = function(userId, postId, solvedStatus, callback) {
     this.findById(postId, function(err, post) {

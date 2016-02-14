@@ -32,6 +32,10 @@
             })
         }
 
+        function editPost() {
+
+        }
+
         function nextPage() {
             console.log('next page')
             if((vm.currentPage + 1) * vm.postsPerPage >= vm.dbPosts.length)

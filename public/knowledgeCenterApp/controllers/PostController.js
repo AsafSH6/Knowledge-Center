@@ -26,8 +26,12 @@
         function activate() {
             vm.post = APIService.getCurrentPost()
             if(vm.post != null) {
-                vm.isPublisher = isPublisher
+                vm.isPostPublisher = isPostPublisher
+                vm.isCommentPublisher = isCommentPublisher
                 vm.changeSolvedStatus = changeSolvedStatus
+                vm.addEditModeFalseToComment = addEditModeFalseToComment
+                vm.updateComment = updateComment
+                vm.edit = edit
             }
             vm.randomColor = getRandomColor()
             vm.codesCounter = 0
@@ -35,6 +39,7 @@
             vm.increaseCodeCounter = increaseCodeCounter
             vm.submitNewComment = submitNewComment
             enableTab()
+            activeToolTip()
 
             function getRandomColor() {
                 return vm.randomBackroundColor[Math.floor((Math.random() * vm.randomBackroundColor.length))]
@@ -49,17 +54,64 @@
                 })
             }
 
+            function deletePost() {
+                APIService.deletePost(vm.post._id, function() {
+
+                })
+            }
+
             function increaseCodeCounter() {
                 vm.codesCounter += 1
             }
 
-            function isPublisher() {
-                if ($rootScope.globals.loggedIn) {
-                    if ($rootScope.globals.currentUser.id == vm.post.user._id) {
+            function isPostPublisher() {
+                if($rootScope.globals.loggedIn) {
+                    if($rootScope.globals.currentUser.id == vm.post.user._id) {
                         return true
                     }
                 }
                 return false
+            }
+
+            function isCommentPublisher(comment) {
+                if($rootScope.globals.loggedIn) {
+                    if($rootScope.globals.currentUser.id == comment.user._id) {
+                        return true
+                    }
+                }
+                return false
+            }
+
+            function edit(comment) {
+                if(comment.editMode == false) {
+                    comment.editMode = true
+                    comment.editedText = comment.text
+                    comment.edit_or_cancel = 'cancel'
+                }
+                else {
+                    comment.editMode = false
+                    comment.edit_or_cancel = 'edit'
+                }
+            }
+
+            function updateComment($index) {
+                if(vm.post.comments[$index].editedText != undefined) {
+                    vm.post.comments[$index].text = vm.post.comments[$index].editedText
+                    APIService.updateComment(vm.post.comments[$index], function () {
+                        vm.post.comments[$index].editMode = false
+                    })
+                }
+            }
+
+            function activeToolTip() {
+                $(document).ready(function() {
+                    $('[data-toggle="tooltip"]').tooltip()
+                })
+            }
+
+            function addEditModeFalseToComment(comment) {
+                comment.editMode = false
+                comment.edit_or_cancel = 'edit'
             }
 
             function changeSolvedStatus() {
@@ -71,8 +123,12 @@
             function loadPost(callback) {
                 APIService.getPostById($stateParams.postId, function (post) {
                     vm.post = post.data
-                    vm.isPublisher = isPublisher
+                    vm.isPostPublisher = isPostPublisher
+                    vm.isCommentPublisher = isCommentPublisher
                     vm.changeSolvedStatus = changeSolvedStatus
+                    vm.addEditModeFalseToComment = addEditModeFalseToComment
+                    vm.updateComment = updateComment
+                    vm.edit = edit
                     callback()
                 })
             }

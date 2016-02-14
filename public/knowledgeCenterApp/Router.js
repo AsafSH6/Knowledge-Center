@@ -33,7 +33,12 @@
                 controller: 'PostCtrl'
             })
             .state('create-new-post', {
-                url: '/create-new-post/:category',
+                url: '/create-new-post/:category?originalPostId',
+                params: {
+                    originalPostId: {
+                        value: null,
+                    }
+                },
                 templateUrl: './templates/createPost.html',
                 controller: 'NewPostCtrl'
             })

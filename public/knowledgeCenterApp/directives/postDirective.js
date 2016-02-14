@@ -5,18 +5,16 @@
         .module('KnowledgeCenter')
         .directive('postDirective', postDirective);
 
-    postDirective.$inject = ['$window', '$compile'];
+    postDirective.$inject = ['$window'];
 
 
-    function postDirective($window, $compile) {
+    function postDirective($window) {
 
         return {
             restrict: 'E',
             template:
                 '<p id="post-text" class="text-light fs-mini m text"></p>',
             link: function ( $scope, $element ) {
-
-
                 function render() {
                     if($scope.post == null)
                     $scope.loadPost(function() {

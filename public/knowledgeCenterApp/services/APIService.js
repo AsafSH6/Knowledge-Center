@@ -21,6 +21,8 @@
             getCurrentPost: getCurrentPost,
             createNewPost: createNewPost,
             createNewComment: createNewComment,
+            updatePost: updatePost,
+            updateComment: updateComment,
             changeSolvedStatus: changeSolvedStatus,
             dbPosts: dbPosts,
             dbCategories: dbCategories,
@@ -51,9 +53,9 @@
             callback(res)
         })
     }
-
     function getPostById(postId, callback) {
         $http.get('./api/v1/get-post-by-id/' + postId).then(function(post) {
+            currentPost = post.data
             console.log("get post by id: " + post.data)
             callback(post)
         })
@@ -72,13 +74,31 @@
             callback(res.data.comment)
         })
     }
+    function updatePost(post, callback) {
+        $http.post('./api/v1/update-post/', {post: post}).then(function(res) {
+            currentPost = res.data
+            callback()
+        })
+    }
+    function updateComment(comment, callback) {
+        $http.post('./api/v1/update-comment', {comment: comment}).then(function(res) {
+            if(res.status == 200) {
+                callback()
+            }
+            else {
+                console.log('error update comment')
+            }
+        })
+    }
 
     function changeSolvedStatus(postId, solved, callback) {
         $http.post('./api/v1/update-solved-status/', {postId: postId, solved: solved}).then(callback)
     }
 
-    function updateCurrentPost(index) {
-        currentPost = dbPosts[index]
+    function updateCurrentPost(postId) {
+        currentPost = dbPosts.filter(function(post){
+            return post._id === postId
+        })[0]
         IncreaseViewByOne(currentPost._id)
     }
     function getCurrentPost() {

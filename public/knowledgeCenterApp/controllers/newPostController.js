@@ -21,17 +21,29 @@
         function activate() {
             vm.postPreviewElement = angular.element('#new-post-preview')
             vm.category = $stateParams.category
+            console.log(vm.category)
             APIService.getAllTagsFilteredByCategory(vm.category, function(tags) {
                 vm.dbTags = tags.data
-                console.log(vm.dbTags)
                 vm.chosenTags = []
+                vm.editMode = false
+                vm.text = ''
+                if($stateParams.originalPostId != null) {
+                    vm.editMode = true
+                    vm.post = APIService.getCurrentPost()
+                    vm.text = vm.post.text
+                    vm.title = vm.post.title
+                    vm.chosenTags = []
+                    for(var tag in vm.post.tags) {
+                        vm.chosenTags.push(vm.post.tags[tag].name)
+                    }
+                }
             })
+
             enableTab()
             vm.submitNewPost = submitNewPost
             vm.displayPreview = displayPreview
             vm.addCode = addCode
             vm.prewiew = false
-            vm.text = ''
             vm.supportedLanguages = {
                 'Python': 'python',
                 'Java Script': 'javascript',
@@ -61,9 +73,19 @@
         }
 
         function submitNewPost() {
-            APIService.createNewPost(vm.category, vm.chosenTags, vm.title, vm.text, function(post) {
-                $location.path('post/' + post._id)
-            })
+            if(!vm.editMode) {
+                APIService.createNewPost(vm.category, vm.chosenTags, vm.title, vm.text, function (post) {
+                    $location.path('post/' + post._id)
+                })
+            }
+            else {
+                vm.post.text = vm.text
+                vm.post.title = vm.title
+                vm.post.tags = vm.chosenTags
+                APIService.updatePost(vm.post, function() {
+                    $location.path('post/' + vm.post._id)
+                })
+            }
         }
 
         function displayPreview() {

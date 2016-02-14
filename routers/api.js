@@ -81,6 +81,30 @@ router.post('/create-new-comment/', function(req, res) {
                                                  })
 });
 
+router.post('/update-post/', function(req, res) {
+    models.Post.updatePost(req.user._id,
+                           req.body.post,
+                           function(err, post) {
+                               if(err) {
+                                   console.log(err)
+                                   return res.sendStatus(500)
+                               }
+                              return res.json(post)
+                           })
+});
+
+router.post('/update-comment/', function(req, res) {
+    models.Comment.updateComment(req.user._id,
+        req.body.comment,
+        function(err) {
+            if(err) {
+                console.log(err)
+                return res.sendStatus(500)
+            }
+            return res.sendStatus(200)
+        })
+});
+
 router.post('/update-solved-status/', function(req, res) {
     console.log('update-solved-status')
     console.log(req.body.solved)

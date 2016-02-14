@@ -4,12 +4,6 @@
     <meta charset="UTF-8">
     <title>Knowledge Center </title>
     <title>TEST</title>
-    <script src="./bower_components/jquery/dist/jquery.js"></script>
-    <script src="./bower_components/angular/angular.min.js"></script>
-    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="./bower_components/ui-router/release/angular-ui-router.min.js"></script>
-    <script src="./bower_components/angular-cookies/angular-cookies.min.js"></script>
-    <script src="./bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="./css/post.css">
@@ -50,23 +44,29 @@
 
 </head>
 <body>
-<div id="navbar">
-<ng-include src="'./templates/navbar.html'"></ng-include>
-</div>
-<div id="content" ui-view>
-</div>
-<script src="./knowledgeCenterApp/app.js"></script>
-<script src="./knowledgeCenterApp/controllers/NavbarController.js"></script>
-<script src="./knowledgeCenterApp/controllers/PostsController.js"></script>
-<script src="./knowledgeCenterApp/controllers/PostController.js"></script>
-<script src="./knowledgeCenterApp/controllers/NewPostController.js"></script>
-<script src="./knowledgeCenterApp/controllers/AuthenticationController.js"></script>
-<script src="./knowledgeCenterApp/directives/postrefDirective.js"></script>
-<script src="./knowledgeCenterApp/directives/tagsDirective.js"></script>
-<script src="./knowledgeCenterApp/directives/postDirective.js"></script>
-<script src="./knowledgeCenterApp/directives/commentDirective.js"></script>
-<script src="./knowledgeCenterApp/services/APIService.js"></script>
-<script src="./knowledgeCenterApp/services/AuthenticationService.js"></script>
-<script src="./knowledgeCenterApp/Router.js"></script>
+    <div id="navbar">
+        <ng-include src="'./templates/navbar.html'"></ng-include>
+    </div>
+    <div id="content" ui-view>
+    </div>
+    <script src="./bower_components/jquery/dist/jquery.js"></script>
+    <script src="./bower_components/angular/angular.min.js"></script>
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./bower_components/ui-router/release/angular-ui-router.min.js"></script>
+    <script src="./bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="./bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="./knowledgeCenterApp/app.js"></script>
+    <script src="./knowledgeCenterApp/controllers/NavbarController.js"></script>
+    <script src="./knowledgeCenterApp/controllers/PostsController.js"></script>
+    <script src="./knowledgeCenterApp/controllers/PostController.js"></script>
+    <script src="./knowledgeCenterApp/controllers/NewPostController.js"></script>
+    <script src="./knowledgeCenterApp/controllers/AuthenticationController.js"></script>
+    <script src="./knowledgeCenterApp/directives/postrefDirective.js"></script>
+    <script src="./knowledgeCenterApp/directives/tagsDirective.js"></script>
+    <script src="./knowledgeCenterApp/directives/postDirective.js"></script>
+    <script src="./knowledgeCenterApp/directives/commentDirective.js"></script>
+    <script src="./knowledgeCenterApp/services/APIService.js"></script>
+    <script src="./knowledgeCenterApp/services/AuthenticationService.js"></script>
+    <script src="./knowledgeCenterApp/Router.js"></script>
 </body>
 </html>

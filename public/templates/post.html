@@ -1,8 +1,14 @@
 <div class="row">
     <div class="col-md-6 col-xs-12 container">
         <section class="widget">
-            <div class="widget-controls">
+            <div ng-if="isPostPublisher()" class="widget-controls post-edit-btn">
+                <!--<a href=""><i> delete </i></a>-->
                 <a ><i> {{  post.creation_date | date }} </i></a>
+                <!--<a ui-sref="create-new-post({category: post.categories[0].name, originalPostId: post._id})" href=""><i> edit </i></a>-->
+            </div>
+            <div class="widget-controls">
+                <a data-toggle="tooltip" title="Edit" ui-sref="create-new-post({category: post.categories[0].name, originalPostId: post._id})" href=""><i class="glyphicon glyphicon-edit text-white font-medium"></i></a>
+                <a href="" data-toggle="tooltip" title="Delete"><i class="glyphicon glyphicon-trash text-white font-medium"></i></a>
             </div>
             <div id="post-div" class="widget-body">
                 <div ng-class="randomColor" class="widget-top-overflow windget-padding-md clearfix text-white">
@@ -18,7 +24,7 @@
                     <h5 class="mt-sm fw-normal text-white">{{ post.user.username }}</h5>
 
                     <p class="fs-mini text-muted">
-                        <a ng-if="isPublisher()" ng-click="changeSolvedStatus()" href="">
+                        <a ng-if="isPostPublisher()" ng-click="changeSolvedStatus()" href="">
                             <i ng-if="post.solved" class="glyphicon glyphicon-ok">
                                 solved
                             </i>
@@ -26,7 +32,7 @@
                                 open question
                             </i>
                         </a>
-                        <a ng-if="!isPublisher()">
+                        <a ng-if="!isPostPublisher()">
                             <i ng-if="post.solved" class="glyphicon glyphicon-ok">
                                 solved
                             </i>
@@ -50,9 +56,16 @@
                                         <p class="meta">
                                             <a href="#">{{ comment.user.username }} </a>
                                             {{ comment.creation_date | date}}
+                                            <div class="widget-controls">
+                                                <a ng-if="isCommentPublisher(comment)" ng-click="edit(comment)" href=""><i class="comment-edit-btn"> {{comment.edit_or_cancel}} </i></a>
+                                            </div>
                                         <!--<p id="comment{{$index}}" class="text">{{ comment.text }}</p>-->
                                         <!--<p id="comment-0" class="text-light fs-mini m text"></p>-->
-                                        <comment-directive></comment-directive>
+                                        <comment-directive ng-if="!comment.editMode" id="comment-{{$index}}"></comment-directive>
+                                        <div ng-if="comment.editMode">
+                                            <textarea ng-model="comment.editedText" id="comment-edit-text" rows="{{comment.text.split('\n').length + 2}}"></textarea>
+                                            <button ng-click="updateComment($index)" type="button" class="btn btn-info btn-lg">Update</button>
+                                        </div>
                                     </div>
                                 </li>
                             </ul>
