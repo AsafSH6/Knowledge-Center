@@ -12,38 +12,40 @@
 
         var service;
         var users = null;
+        var dbPosts = null;
         service = {
             getAllUsers: getAllUsers,
-            removeUser: removeUser,
+           // removeUser: removeUser,
             updateUser: updateUser,
             createUser: createUser,
             getAllCategories: getAllCategories,
             getAllPostsFilteredByCategory: getAllPostsFilteredByCategory,
             getPostById: getPostById,
             createNewPost: createNewPost,
-            users: users
+            users: users,
+            dbPosts: dbPosts
         };
 
         return service;
 
 
         function getAllUsers(callback){
-            //TODO- change to the local API.
-            $http.get('http://api.randomuser.me/0.4/?results=20', callback).then(function(res) {
+            //TODO- change the function to get credentials
+            $http.get('./api/v1/get-all-users/', callback).then(function(res) {
                 console.log(res);
-                users = res.data.results;
+                users = res.data;
                 callback(res.data)
             })
 
         }
 
-        function removeUser(username,password, user_id, callback){
-            $http.post('./api/v1/remove-user/', {username: username, password: password, user_id: user_id}).then(function(res) {
-                console.log(res)
-                callback(res.data)
-            })
-
-        }
+        //function removeUser(user_id, callback){
+        //    $http.post('./api/v1/remove-user/', {user_id: user_id}).then(function(res) {
+        //        console.log(res)
+        //        callback(res.data)
+        //    })
+        //
+        //}
 
         function updateUser(adminusername,adminpassword, username, userpassword, useremail, callback){
             $http.post('./api/v1/update-user/', {adminUsername: adminusername, adminPassword: adminpassword, username: username, userPassword: userpassword, userEmail: useremail})
@@ -70,9 +72,12 @@
 
         }
         function getAllPostsFilteredByCategory(category, callback) {
-            $http.get('./api/v1/get-all-posts-filtered-by-category/' + category).then(function(posts) {
 
-                callback(posts);
+            $http.get('./api/v1/get-all-posts-filtered-by-category/' + category).then(function(res) {
+                dbPosts = res.data
+                console.log('all posts of category: ' + category)
+                console.log(dbPosts)
+                callback(res);
             });
         }
         function getPostById(postId, callback) {
@@ -84,8 +89,8 @@
 
         function createNewPost(category, tags, title, text, callback) {
             $http.post('./api/v1/create-new-post/', {category: category, tags: tags, title: title, text: text}).then(function(res) {
-                console.log(res)
-                callback(res.data)
+                console.log(res.data)
+                callback(res)
             })
         }
 

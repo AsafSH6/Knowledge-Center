@@ -62,6 +62,15 @@ postSchema.statics.findAllPostsFilteredByCategory = function(category, callback)
         })
 }
 
+user.statics.getAllUsersAdmin = function(callback){//TODO - add admin password and username, also add picture
+    return this.find({}, callback);
+}
+
+user.statics.removeUserAdmin= function(user_id, callback) {//TODO - add admin password and username, also add picture
+    this.findById({_id: user_id}).remove(callback);
+
+}
+
 tagSchema.statics.findAllTagsFilteredByCategory = function(category, callback) {
     return this.find({'categories.name': category}, callback)
 }

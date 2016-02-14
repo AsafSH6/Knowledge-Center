@@ -7,7 +7,7 @@
 
          <ul id="menu-content" class="menu-content collapse out">
              <li>
-                 <a href="#">
+                 <a ui-sref="home">
                      <i class="fa fa-dashboard fa-lg"></i> Home
                  </a>
              </li>
@@ -17,7 +17,7 @@
              </li>
              <ul class="sub-menu collapse" id="products">
                  <li ng-repeat="category in sidebarCtrl.dbCategories">
-                     <a ui-sref="{{ category.name | lowercase }}" > {{ category.name }} </a>
+                     <a ui-sref="posts({category: category.name})" > {{ category.name }} </a>
                  </li>
              </ul>
 

@@ -10,11 +10,11 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Profile image</th>
                 <th>User Name</th>
                 <th>Password</th>
                 <th>E-mail</th>
-                <th>Points</th>
+                <th>Creation Date</th>
+
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
@@ -23,11 +23,11 @@
             <tbody >
             <tr ng-repeat="u in users track by $index">
                 <td>{{$index +1}}</td>
-                <td><img src={{u.user.picture}} border=3 height=40 width=40/></td>
-                <td>{{u.user.name.first}}</td>
-                <td>{{u.user.password}}</td>
-                <td>{{u.user.email}}</td>
-                <td>{{u.user.location.zip}}</td>
+                <!--td><img src={{u.user.picture}} border=3 height=40 width=40/></td-->
+                <td>{{u.username}}</td>
+                <td>{{u.password}}</td>
+                <td>{{u.email}}</td>
+                <td>{{u.creation_date | date}}</td>
                 <td ><a ui-sref="edit({userIndex: $index})" class="btn btn-xs btn-warning edit-button">Edit</a></td>
                 <td><a ng-click="deleteUser($index)" class="btn btn-xs btn-danger" id="delete" >Delete</a></td>
             </tr>

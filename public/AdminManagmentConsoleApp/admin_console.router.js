@@ -21,9 +21,11 @@
             .otherwise('/');
 
         $stateProvider
-            .state('admin', {
-                url: '/admin',
-                templateUrl: './templates/admin.html'
+
+            .state('home', {
+                url: '/',
+                templateUrl: './templates/admin-home.html',
+                controller: 'homeController'
             })
 
             .state('users', {
@@ -33,8 +35,8 @@
             })
 
             .state('posts', {
-                url: '/posts',
-                templateUrl: './templates/posts.html',
+                url: '/posts/:category',
+                templateUrl: './templates/admin-posts.html',
                 controller: 'postsController'
             })
 

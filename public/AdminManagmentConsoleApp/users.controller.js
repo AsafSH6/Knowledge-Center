@@ -16,7 +16,7 @@
         var vm = $scope;
 
         dataService.getAllUsers(function(response){
-            vm.users = response.results;
+            vm.users = response;
             $('#loader').hide();
             $('#userList').show();
         });
@@ -26,6 +26,9 @@
 
             var deleted = $scope.users.splice(index,1);
 
+         //dataService.removeUser(deleted._id, function(res){
+         //       console.log(res);
+         //   }
             //TODO send 'deleted' to the server to delete.
 
         };

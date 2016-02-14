@@ -5,25 +5,25 @@
     'use strict';
 
     angular
-        .module('knowledgeCenter')
-        .controller('homeController', links);
+        .module('KnowledgeCenter')
+        .controller('homeCtrl', homeCtrl);
 
-    links.$inject = ['dataService', "$scope"];
+    homeCtrl.$inject = ['APIService', "$scope"];
 
     /* @ngInject */
-    function links(dataService, $scope) {
+    function homeCtrl(APIService, $scope) {
         /* jshint validthis: true */
         var vm = $scope;
 
         vm.activate = activate;
-        vm.dbCategories = dataService.dbCategories;
+        vm.dbCategories = APIService.dbCategories;
 
         activate();
 
         ////////////////
 
         function activate() {
-            dataService.getAllNewPosts( function(links) {
+            APIService.getAllNewPosts( function(links) {
                 vm.newPosts = links.data
                 console.log(vm.newPosts)
             })

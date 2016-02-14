@@ -21,7 +21,7 @@
             .state('home', {
                 url: '/',
                 templateUrl: './templates/home.html',
-                controller: 'homeController'
+                controller: 'HomeCtrl'
 
             })
             .state('posts', {
