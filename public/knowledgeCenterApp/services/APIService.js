@@ -20,6 +20,7 @@
             updateCurrentPost: updateCurrentPost,
             getCurrentPost: getCurrentPost,
             createNewPost: createNewPost,
+            getAllNewPosts: getAllNewPosts,
             createNewComment: createNewComment,
             updatePost: updatePost,
             updateComment: updateComment,
@@ -40,7 +41,15 @@
             callback(categories);
         });
     }
+        function getAllNewPosts(callback) {
+            $http.get('./api/v1/get-all-new-posts').then(function(posts) {
+
+                callback(posts);
+            });
+
+        }
     function getAllPostsFilteredByCategory(category, callback) {
+
         $http.get('./api/v1/get-all-posts-filtered-by-category/' + category).then(function(res) {
             dbPosts = res.data
             console.log('all posts of category: ' + category)
@@ -56,7 +65,6 @@
     function getPostById(postId, callback) {
         $http.get('./api/v1/get-post-by-id/' + postId).then(function(post) {
             currentPost = post.data
-            console.log("get post by id: " + post.data)
             callback(post)
         })
     }
@@ -65,6 +73,7 @@
     }
     function createNewPost(category, tags, title, text, callback) {
         $http.post('./api/v1/create-new-post/', {category: category, tags: tags, title: title, text: text}).then(function(res) {
+
             currentPost = res.data.post
             callback(currentPost)
         })
@@ -100,9 +109,10 @@
             return post._id === postId
         })[0]
         IncreaseViewByOne(currentPost._id)
+
     }
     function getCurrentPost() {
-        return currentPost
+        return currentPost;
     }
 }
 })

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="adminConsole">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Knowledge Center - Admin Console </title>
+    <script src="./bower_components/jquery/dist/jquery.js"></script>
+    <script src="./bower_components/angular/angular.min.js"></script>
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./bower_components/ui-router/release/angular-ui-router.min.js"></script>
+    <script src="./bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="./css/simple-sidebar.css">
+    <link rel="stylesheet" href="./css/admin-posts-style.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+    <!-- More examples at http://codemirror.net/demo/ -->
+
+    <!-- add basic CodeMirror functionality -->
+    <script src="bower_components/codemirror/lib/codemirror.js" type="text/javascript" charset="utf-8"></script>
+    <script src="bower_components/codemirror/addon/selection/active-line.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="bower_components/codemirror/lib/codemirror.css" />
+
+    <!-- add Javascript-mode dependencies -->
+    <script src="bower_components/codemirror/mode/javascript/javascript.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- add PHP-mode dependencies (replace dependency loading by require.js!) -->
+    <script src="bower_components/codemirror/mode/xml/xml.js" type="text/javascript" charset="utf-8"></script>
+    <script src="bower_components/codemirror/mode/htmlmixed/htmlmixed.js" type="text/javascript" charset="utf-8"></script>
+    <script src="bower_components/codemirror/mode/clike/clike.js" type="text/javascript" charset="utf-8"></script>
+    <script src="bower_components/codemirror/mode/python/python.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- add SPARQL-mode dependencies -->
+    <script src="bower_components/codemirror/mode/sparql/sparql.js" type="text/javascript" charset="utf-8"></script>
+
+
+</head>
+<body>
+<div id="navbar">
+    <ng-include src="'./templates/admin.html'"></ng-include>
+</div>
+<div id="content" ui-view>
+</div>
+<script src="./adminManagmentConsoleApp/adminConsoleModule.js"></script>
+<script src="./adminManagmentConsoleApp/sidebar.controller.js"></script>
+<script src="./adminManagmentConsoleApp/edit.controller.js"></script>
+<script src="./adminManagmentConsoleApp/home.controller.js"></script>
+<script src="./adminManagmentConsoleApp/users.controller.js"></script>
+<script src="./adminManagmentConsoleApp/posts.controller.js"></script>
+<script src="./adminManagmentConsoleApp/admin_console.service.js"></script>
+<script src="./adminManagmentConsoleApp/admin_console.router.js"></script>
+
+</body>
+</html>

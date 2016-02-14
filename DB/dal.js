@@ -4,6 +4,7 @@ var dbConfig = require('./config');
 
 mongoose.connect(dbConfig.local_url, function() {
     console.log('connected')
+    insertFakeDataToDB();
 });
 
 function createNewUser(username, email, callback) {
@@ -213,16 +214,18 @@ function insertFakeDataToDB() {
         });
         });
     });
-    //createNewCategory('Links', '/links', function(){});
-    //createNewCategory('Things I learnt today', '/things-I-learnt-today', function(){});
+
+
+   // createNewCategory('Links', '/links', function(){});
+   // createNewCategory('Things I learnt today', '/things-I-learnt-today', function(){});
     //createNewCategory('Guides', '/guides', function(){});
     //createNewTag('Python', ['Questions', 'Links', 'Things I learnt today'], function(){});
     //createNewTag('Java', ['Questions', 'Links'], function(){});
     //createNewTag('StyleFrame', ['Questions', 'Links'], function(){});
     //createNewTag('Pandas', ['Things I learnt today'], function(){});
-    //createNewPost('Asaf', '1+1=?', "5!!", ['Questions'], ['Python', 'Pandas', 'StyleFrame'], function(post){
+   // createNewPost('Asaf', '1+1=?', "5!!", ['Questions'], ['Python', 'Pandas', 'StyleFrame'], function(post){
     //createNewCommentAndPushToPost('Asaf', post._id, "Cool!", function(){});
-    //createNewCommentAndPushToPost('Asaf', post._id, "Thanks!!", function(){});
+   // createNewCommentAndPushToPost('Asaf', post._id, "Thanks!!", function(){});
     //createNewCommentAndPushToPost('Asaf', post._id, "Awesome!", function(){});
     //});
     //createNewPost('Asaf', 'Python is awesome', 'you should try it!', ['Things I learnt today'], ['Python'], function(post){

@@ -1,0 +1,45 @@
+<i class="fa fa-spin fa-refresh fa-5x" id="loader"></i>
+<div class="container">
+
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">{{category}}</div>
+
+        <!-- Table -->
+        <table class="table" id="userList">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Creation Date</th>
+                <th>User</th>
+                <th>Solved</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+
+            <tbody >
+            <tr ng-repeat="post in posts">
+                <td>{{$index +1}}</td>
+                <td>{{post.title}}</td>
+                <td>{{post.creation_date | date}}</td>
+                <td>{{post.user.username}}</td>
+                <td ><i ng-if="post.solved" class="fa fa-check"></i></td>
+
+                <td><a ng-click="deletePost($index)" class="btn btn-xs btn-danger" id="delete" >Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div><!--/container-->
+
+<!-- title: String,
+    text: String,
+    creation_date: { type: Date, default: Date.now },
+    views: {type: Number, default: 0},
+    user: {type: Schema.Types.ObjectId, ref: 'User'},
+    comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}],
+    categories: [categorySchema],
+    tags: [tagSchema],
+    solved: {type: Boolean, default: false}-->

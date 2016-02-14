@@ -11,6 +11,21 @@ router.get('/get-all-categories/', function(req, res) {
     })
 });
 
+//TODO- move to admin router
+router.get('/get-all-users/', function(req, res) {
+    models.User.getAllUsersAdmin(function(err, users) {
+        res.json(users)
+    })
+});
+
+//router.post('/remove-user/', function(req, res) {// TODO- What to return
+//    models.User.removeUserAdmin(req.body.user_id, function(res, err){
+//        log(err);
+//        res.json("OK");
+//    });
+//});
+
+
 router.get('/get-all-posts-filtered-by-category/:category', function(req, res) {
     console.log(req.params['category'])
     models.Post.findAllPostsFilteredByCategory(req.params['category'], function(err, posts) {
@@ -18,6 +33,7 @@ router.get('/get-all-posts-filtered-by-category/:category', function(req, res) {
             console.log(err)
         }
         else {
+            console.log(posts);
             res.json(posts)
         }
     })
