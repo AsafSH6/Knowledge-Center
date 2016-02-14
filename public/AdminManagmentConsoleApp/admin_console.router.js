@@ -24,25 +24,25 @@
 
             .state('home', {
                 url: '/',
-                templateUrl: './templates/admin-home.html',
+                templateUrl: '/templates/admin-home.html',
                 controller: 'homeController'
             })
 
             .state('users', {
                 url: '/users',
-                templateUrl: './templates/admin-users.html',
+                templateUrl: '/templates/admin-users.html',
                 controller: 'usersController'
             })
 
             .state('posts', {
                 url: '/posts/:category',
-                templateUrl: './templates/admin-posts.html',
+                templateUrl: '/templates/admin-posts.html',
                 controller: 'postsController'
             })
 
             .state('edit', {
                 url: '/edit/:userIndex',
-                templateUrl: './templates/admin-edit-user.html',
+                templateUrl: '/templates/admin-edit-user.html',
                 controller: 'editController'
             })
 

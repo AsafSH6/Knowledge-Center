@@ -5,7 +5,7 @@
     'use strict';
 angular
     .module('adminConsole')
-    .controller('homeController', 'homeCtrl');
+    .controller('homeController', homeCtrl);
 
 homeCtrl.$inject = ['$scope', 'dataService'];
 

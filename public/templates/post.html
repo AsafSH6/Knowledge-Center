@@ -1,12 +1,10 @@
 <div class="row">
     <div class="col-md-6 col-xs-12 container">
         <section class="widget">
-            <div ng-if="isPostPublisher()" class="widget-controls post-edit-btn">
-                <!--<a href=""><i> delete </i></a>-->
+            <div class="widget-controls post-edit-btn">
                 <a ><i> {{  post.creation_date | date }} </i></a>
-                <!--<a ui-sref="create-new-post({category: post.categories[0].name, originalPostId: post._id})" href=""><i> edit </i></a>-->
             </div>
-            <div class="widget-controls">
+            <div  ng-if="isPostPublisher()" class="widget-controls">
                 <a data-toggle="tooltip" title="Edit" ui-sref="create-new-post({category: post.categories[0].name, originalPostId: post._id})" href=""><i class="glyphicon glyphicon-edit text-white font-medium"></i></a>
                 <a href="" data-toggle="tooltip" title="Delete"><i class="glyphicon glyphicon-trash text-white font-medium"></i></a>
             </div>
@@ -14,7 +12,7 @@
                 <div ng-class="randomColor" class="widget-top-overflow windget-padding-md clearfix text-white">
                     <h3 class="mt-lg mb-lg"><span class="fw-semi-bold">{{ post.title }}</span></h3>
                     <ul class="tags text-white pull-right" ng-repeat="tag in post.tags track by $index">
-                        <li><a href="#">{{ tag.name }}</a></li>
+                        <li><a href="">{{ tag.name }}</a></li>
                     </ul>
                 </div>
                 <div class="post-user mt-n-lg">

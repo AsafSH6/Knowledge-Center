@@ -14,7 +14,7 @@
     function adminPosts(dataService,$stateParams, $scope) {
 
         var vm = $scope;
-        $scope.category = $stateParams.category.toLowerCase();
+        $scope.category = $stateParams.category;
 
 
         dataService.getAllPostsFilteredByCategory($scope.category, function(questions){
