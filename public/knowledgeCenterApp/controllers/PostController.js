@@ -26,13 +26,7 @@
         function activate() {
             vm.post = APIService.getCurrentPost()
             if(vm.post != null) {
-                vm.isPostPublisher = isPostPublisher
-                vm.isCommentPublisher = isCommentPublisher
-                vm.changeSolvedStatus = changeSolvedStatus
-                vm.addEditModeFalseToComment = addEditModeFalseToComment
-                vm.updateComment = updateComment
-                vm.edit = edit
-                vm.deletePost = deletePost
+                setPostFunctionsInScope()
             }
             vm.randomColor = getRandomColor()
             vm.codesCounter = 0
@@ -57,7 +51,14 @@
 
             function deletePost() {
                 APIService.deletePost(vm.post._id, function() {
-                    $location.path(vm.post.categories[0].name)
+                    $location.path(vm.post.category.name)
+                })
+            }
+
+            function deleteComment($index) {
+                APIService.deleteComment(vm.post.comments[$index]._id, function() {
+                    var comment = vm.post.comments.splice($index, 1)[0]
+                    console.log(comment.text)
                 })
             }
 
@@ -95,11 +96,14 @@
                 }
             }
 
-            function updateComment($index) {
-                if(vm.post.comments[$index].editedText != undefined) {
-                    vm.post.comments[$index].text = vm.post.comments[$index].editedText
-                    APIService.updateComment(vm.post.comments[$index], function () {
-                        vm.post.comments[$index].editMode = false
+            function updateComment(commentId) {
+                var comment = vm.post.comments.filter(function(comment){
+                    return comment._id === commentId
+                })[0]
+                if(comment.editedText != undefined) {
+                    comment.text = comment.editedText
+                    APIService.updateComment(comment, function () {
+                        comment.editMode = false
                     })
                 }
             }
@@ -124,15 +128,20 @@
             function loadPost(callback) {
                 APIService.getPostById($stateParams.postId, function (post) {
                     vm.post = post.data
-                    vm.isPostPublisher = isPostPublisher
-                    vm.isCommentPublisher = isCommentPublisher
-                    vm.changeSolvedStatus = changeSolvedStatus
-                    vm.addEditModeFalseToComment = addEditModeFalseToComment
-                    vm.updateComment = updateComment
-                    vm.edit = edit
-                    vm.deletePost = deletePost
+                    setPostFunctionsInScope()
                     callback()
                 })
+            }
+
+            function setPostFunctionsInScope() {
+                vm.isPostPublisher = isPostPublisher
+                vm.isCommentPublisher = isCommentPublisher
+                vm.changeSolvedStatus = changeSolvedStatus
+                vm.addEditModeFalseToComment = addEditModeFalseToComment
+                vm.updateComment = updateComment
+                vm.edit = edit
+                vm.deletePost = deletePost
+                vm.deleteComment = deleteComment
             }
 
             function enableTab() {

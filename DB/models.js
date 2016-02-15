@@ -29,7 +29,7 @@ var commentSchema = new Schema({
     creation_date: { type: Date, default: Date.now },
     up_votes: {type: Number, default: 0},
     user: {type: Schema.Types.ObjectId, ref: 'User'},
-    categories: [categorySchema]
+    category: categorySchema
 }, {strict: true})
 
 var postSchema = new Schema({
@@ -39,7 +39,7 @@ var postSchema = new Schema({
     views: {type: Number, default: 0},
     user: {type: Schema.Types.ObjectId, ref: 'User'},
     comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}],
-    categories: [categorySchema],
+    category: categorySchema,
     tags: [tagSchema],
     solved: {type: Boolean, default: false}
 }, {strict: true})
@@ -49,7 +49,7 @@ categorySchema.statics.findAllCategories = function(callback) {
 }
 
 postSchema.statics.findAllPostsFilteredByCategory = function(category, callback) {
-    return this.find({'categories.name': category})
+    return this.find({'category.name': category})
         .sort('-creation_date')
         .populate('user', 'username points')
         .populate('comments')
@@ -102,7 +102,7 @@ postSchema.statics.createNewPost = function(userId, category, tags, title, text,
             }
             var post = new createNewPost({
                 user: userId,
-                categories: [category],
+                category: category,
                 tags: tags,
                 title: title,
                 text: text
@@ -163,7 +163,7 @@ commentSchema.statics.createNewCommentAndPushToPost = function(userId, postId, t
         }
         var comment = createNewCommentAndPushToPost({
             user: userId,
-            category: post.categories,
+            category: post.category,
             text: text
         })
         comment.save(function (err) {

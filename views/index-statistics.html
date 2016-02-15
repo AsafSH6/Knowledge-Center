@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="ChartsApp">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/bower_components/angular-chart.js/dist/angular-chart.css">
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/Chart.js/Chart.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-chart.js/dist/angular-chart.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
 </head>
 <body>
+    <div ng-controller="ChartsCtrl as ChartsCtrl">
+        <canvas id="polar-area" class="chart chart-polar-area"></canvas>
+    </div>
 
+    <script src="/StatisticsApp/StatisticModule.js"></script>
+    <script src="/StatisticsApp/StatisticsService.js"></script>
+    <script src="/StatisticsApp/ChartsController.js"></script>
 </body>
 </html>

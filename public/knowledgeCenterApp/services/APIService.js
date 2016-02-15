@@ -25,6 +25,7 @@
             updatePost: updatePost,
             updateComment: updateComment,
             deletePost: deletePost,
+            deleteComment: deleteComment,
             changeSolvedStatus: changeSolvedStatus,
             dbPosts: dbPosts,
             dbCategories: dbCategories,
@@ -110,6 +111,9 @@
                 console.log('error delete post')
             }
         })
+    }
+    function deleteComment(commentId, callback) {
+        callback()
     }
     function changeSolvedStatus(postId, solved, callback) {
         $http.post('./api/v1/update-solved-status/', {postId: postId, solved: solved}).then(callback)

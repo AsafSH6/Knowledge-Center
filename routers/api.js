@@ -147,4 +147,11 @@ router.post('/update-solved-status/', function(req, res) {
                                    })
 });
 
+router.get('/get-categories-and-number-of-related-posts/', function(req, res) {
+    models.Post.aggregate({$group: {_id: '$category.name', count: {$sum: 1}}}, function(err, result) {
+        console.log(result)
+        return res.json(result)
+    })
+})
+
 module.exports = router;
