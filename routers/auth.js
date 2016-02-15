@@ -21,6 +21,15 @@ module.exports = function(passport){
         res.json({status: 200, id: req.user._id})
     })
 
+    router.post('/login/admin/', passport.authenticate('login'), function(req, res) {
+        if(req.user.is_admin) {
+            res.json({status: 200, id: req.user._id})
+        }
+        else {
+            res.json({status: 403})
+        }
+    })
+
     /* Handle Registration POST */
     router.post('/signup/', passport.authenticate('signup'), function(req, res) {
             res.json({status: 200, id: req.user._id})

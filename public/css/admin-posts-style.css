@@ -12,10 +12,6 @@ hr {
 }
 
 
-#userList {
-    display:none;
-}
-
 #loader {
     position:absolute;
     z-index:2;

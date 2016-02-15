@@ -12,16 +12,15 @@
 
     /* @ngInject */
     function adminPosts(dataService,$stateParams, $scope) {
+        console.log("posts")
 
-        var vm = $scope;
+
         $scope.category = $stateParams.category;
 
 
         dataService.getAllPostsFilteredByCategory($scope.category, function(questions){
-            vm.dbPosts = questions.data
-            console.log(vm.dbPosts);
-            $('#loader').hide();
-            $('#userList').show();
+            $scope.posts = questions.data;
+            console.log($scope.dbPosts);
         });
 
         $scope.deletePost = function(index){

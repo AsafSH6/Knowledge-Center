@@ -11,6 +11,34 @@ router.get('/get-all-categories/', function(req, res) {
     })
 });
 
+
+router.get('/get-all-tags/', function(req, res) {
+    models.Tag.getAllTags(function(err, tags) {
+        console.log(tags);
+        res.json(tags)
+    })
+});
+
+router.post('/delete-tag/', function(req, res) {
+    models.Tag.removeTags(req.body.tagId, function(err) {
+        if(err) {
+            return res.sendStatus(500)
+        }
+        else {
+            return res.sendStatus(200)
+        }
+    })
+})
+
+router.post('/add-tag/', function(req, res) {
+    models.Tag.createNewTag(req.body.tagName, function(tag) {
+
+            return res.json(tag)
+
+    })
+})
+
+
 //TODO- move to admin router
 router.get('/get-all-users/', function(req, res) {
     models.User.getAllUsersAdmin(function(err, users) {
