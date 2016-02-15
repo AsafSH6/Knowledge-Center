@@ -15,6 +15,9 @@
         var dbPosts = null;
         service = {
             getAllUsers: getAllUsers,
+            getAllTags: getAllTags,
+            addTag: addTag,
+            removeTag: removeTag,
            // removeUser: removeUser,
             updateUser: updateUser,
             createUser: createUser,
@@ -36,7 +39,38 @@
                 users = res.data;
                 callback(res.data)
             })
+        }
 
+        function getAllTags(callback){
+            //TODO- change the function to get credentials
+            $http.get('/api/v1/get-all-tags/', callback).then(function(res) {
+                console.log(res);
+                users = res.data;
+                callback(res.data)
+            })
+
+        }
+
+        function removeTag (tagId, callback){
+            $http.post('/api/v1/delete-tag/', {'tagId':tagId} , callback).then(function(res) {
+
+                console.log(res.status);
+                callback(res.status)
+            })
+        }
+
+
+        function addTag (tagName, callback){
+            $http.post('/api/v1/add-tag/', {'tagName':tagName} , callback).then(function(res) {
+                if(res.status != 200) {
+                    callback('error', null)
+                }
+                else {
+                    console.log(res.status);
+                    callback(null, res.data)
+                }
+
+            })
         }
 
         //function removeUser(user_id, callback){

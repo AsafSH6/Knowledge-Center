@@ -8,6 +8,7 @@ var imageSchema = new Schema({
 var user = new Schema({
     username: String,
     password: String,
+    is_admin: {type: Boolean, default: false},
     email: String,
     points: Number,
     creation_date: { type: Date, default: Date.now },
@@ -43,6 +44,59 @@ var postSchema = new Schema({
     tags: [tagSchema],
     solved: {type: Boolean, default: false}
 }, {strict: true})
+
+tagSchema.statics.getAllTags = function(callback){
+    return this.find({}, callback);
+}
+
+tagSchema.statics.removeTags = function(tagId, callback){
+    this.findById(tagId, function(err, tag) {
+        mongoose.model("Post").update({'tags._id': tag._id}, {$pull: {'tags': tag}}, function(err, posts) {
+            console.log(posts)
+            tag.remove(function(err) {
+                if(err) {
+                    callback(err)
+                }
+                else {
+                    console.log('removed tag')
+                    callback(null)
+                }
+            })
+        })
+    })
+
+}
+
+
+tagSchema.statics.createNewTag= function(name, callback){
+    var tagSchema = this
+    this.findOne({name: name}, function(err, tag) {
+        if(tag) {
+            console.log("tag already exists: " + tag);
+            //mongoose.disconnect();
+            return false;
+        }
+        else {
+
+
+                    var tag = new tagSchema({name: name});
+                    tag.save(function (err) {
+                        if (err) {
+                            console.log("error: couldn't save the tag");
+                            //mongoose.disconnect();
+                            return false;
+                        }
+                        else {
+                            console.log("saved tag: " +  tag);
+                            callback(tag);
+                            //mongoose.disconnect();
+                            return tag._id;
+                        }
+                    })
+                }
+    })
+}
+
 
 categorySchema.statics.findAllCategories = function(callback) {
     return this.find({}, callback)

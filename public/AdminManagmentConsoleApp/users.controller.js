@@ -13,12 +13,13 @@
     /* @ngInject */
     function adminPosts(dataService, $scope) {
 
-        var vm = $scope;
+
 
         dataService.getAllUsers(function(response){
-            vm.users = response;
-            $('#loader').hide();
-            $('#userList').show();
+            $scope.users = response;
+            console.log('users')
+            console.log($scope.users);
+
         });
 
 
@@ -32,10 +33,6 @@
             //TODO send 'deleted' to the server to delete.
 
         };
-
-
-
-
 
     }
 
