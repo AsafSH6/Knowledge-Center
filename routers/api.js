@@ -149,8 +149,32 @@ router.post('/update-solved-status/', function(req, res) {
 
 router.get('/get-categories-and-number-of-related-posts/', function(req, res) {
     models.Post.aggregate({$group: {_id: '$category.name', count: {$sum: 1}}}, function(err, result) {
-        console.log(result)
         return res.json(result)
+    })
+})
+
+router.get('/get-tags-and-number-of-related-posts/', function(req, res) {
+    var map = function() {
+        var tags = this.tags
+        for(var tag in tags) {
+            emit(tags[tag].name, {sum: 1})
+        }
+    }
+
+    var reduce = function(id, arr) {
+        var sum = 0
+        for(var i=0; i < arr.length; i++) {
+            sum += arr[i].sum
+        }
+        return { sum: sum }
+    }
+    models.Post.mapReduce({map: map, reduce: reduce}, function(err, results) {
+        if(err) {
+            return res.sendStatus(500)
+        }
+        else {
+            return res.json(results)
+        }
     })
 })
 

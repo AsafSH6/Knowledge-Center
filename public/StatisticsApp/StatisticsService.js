@@ -12,14 +12,14 @@
 
     /* @ngInject */
     function chartFact($http) {
-        var posts = null
-        var dbCategories = null
 
         var service = {
-            getNumberOfPostGroupedByCategory: getNumberOfPostGroupedByCategory
+            getNumberOfPostGroupedByCategory: getNumberOfPostGroupedByCategory ,
+            getTagsofPost: getTagsofPost
         }
 
         return service
+
 
         function getNumberOfPostGroupedByCategory(callback) {
             $http.get('/api/v1/get-categories-and-number-of-related-posts/').then(function(res) {
@@ -27,6 +27,15 @@
                 callback(res.data)
             })
         }
+
+        function getTagsofPost(callback) {
+            $http.get('/api/v1/get-tags-and-number-of-related-posts/').then(function(res) {
+                console.log(res)
+                callback(res.data)
+            })
+        }
+
+
 
     }
 })();
