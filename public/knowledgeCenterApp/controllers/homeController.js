@@ -6,7 +6,7 @@
 
     angular
         .module('KnowledgeCenter')
-        .controller('homeCtrl', homeCtrl);
+        .controller('HomeCtrl', homeCtrl);
 
     homeCtrl.$inject = ['APIService', "$scope"];
 
@@ -23,10 +23,10 @@
         ////////////////
 
         function activate() {
-            APIService.getAllNewPosts( function(links) {
-                vm.newPosts = links.data
-                console.log(vm.newPosts)
-            })
+            //APIService.getAllNewPosts( function(links) {
+            //    vm.newPosts = links.data
+            //    console.log(vm.newPosts)
+            //})
 
 
         }

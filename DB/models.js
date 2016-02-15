@@ -124,6 +124,36 @@ postSchema.statics.createNewPost = function(userId, category, tags, title, text,
     })
 }
 
+postSchema.statics.deletePost = function (userId, postId, callback) {
+    console.log(postId)
+    this.findById(postId, function(err, post) {
+        if(err) {
+            callback('error')
+        }
+        else {
+            if(userId.equals(post.user)) {
+                console.log(post.comments)
+                mongoose.model('Comment').remove({_id: {$in: post.comments}}, function(err) {
+                    console.log('removed comments')
+                    if(err) {
+                        callback('error')
+                    }
+                    else {
+                        post.remove(function(err) {
+                            if(err) {
+                                callback('error')
+                            }
+                            else {
+                                callback(null)
+                            }
+                        })
+                    }
+                })
+            }
+        }
+    })
+}
+
 commentSchema.statics.createNewCommentAndPushToPost = function(userId, postId, text, callback) {
     var createNewCommentAndPushToPost = this
     mongoose.model('Post').findById(postId, function(err, post) {
@@ -182,7 +212,6 @@ postSchema.statics.updatePost = function (userId, updatedPost, callback) {
 }
 
 commentSchema.statics.updateComment = function (userId, updatedComment, callback) {
-    var commentSchema = this
     this.findById(updatedComment._id, function(err, comment) {
         if(err) {
             console.log('could not update comment')

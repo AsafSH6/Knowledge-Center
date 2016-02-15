@@ -40,7 +40,6 @@ router.get('/get-all-posts-filtered-by-category/:category', function(req, res) {
 });
 
 router.get('/get-all-tags-filtered-by-category/:category', function(req, res) {
-    console.log('aaaa')
     console.log(req.params['category'])
     models.Tag.findAllTagsFilteredByCategory(req.params['category'], function(err, tags) {
         if(err!=null) {
@@ -121,10 +120,21 @@ router.post('/update-comment/', function(req, res) {
         })
 });
 
-router.post('/update-solved-status/', function(req, res) {
-    console.log('update-solved-status')
-    console.log(req.body.solved)
+router.post('/delete-post/', function(req, res) {
+    console.log('DELETE POST')
+    models.Post.deletePost(req.user._id, req.body.postId, function(err) {
+        console.log(err)
+        if(err) {
+            return res.sendStatus(500)
+        }
+        else {
+            console.log('returned 200')
+            return res.sendStatus(200)
+        }
+    })
+})
 
+router.post('/update-solved-status/', function(req, res) {
     models.Post.updateSolvedStatus(req.user._id,
                                    req.body.postId,
                                    req.body.solved,

@@ -24,6 +24,7 @@
             createNewComment: createNewComment,
             updatePost: updatePost,
             updateComment: updateComment,
+            deletePost: deletePost,
             changeSolvedStatus: changeSolvedStatus,
             dbPosts: dbPosts,
             dbCategories: dbCategories,
@@ -99,7 +100,17 @@
             }
         })
     }
-
+    function deletePost(postId, callback) {
+        $http.post('./api/v1/delete-post/', {postId: postId}).then(function(res) {
+            console.log(res)
+            if(res.status == 200) {
+                callback()
+            }
+            else {
+                console.log('error delete post')
+            }
+        })
+    }
     function changeSolvedStatus(postId, solved, callback) {
         $http.post('./api/v1/update-solved-status/', {postId: postId, solved: solved}).then(callback)
     }

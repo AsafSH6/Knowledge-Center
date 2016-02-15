@@ -5,10 +5,10 @@
         .module('KnowledgeCenter')
         .controller('PostCtrl', PostCtrl)
 
-    PostCtrl.$inject = ['$window', '$rootScope', '$scope', '$stateParams', '$compile', 'APIService'];
+    PostCtrl.$inject = ['$window', '$rootScope', '$scope', '$stateParams', '$compile', '$location', 'APIService'];
 
     /* @ngInject */
-    function PostCtrl($window, $rootScope, $scope, $stateParams, $compile, APIService) {
+    function PostCtrl($window, $rootScope, $scope, $stateParams, $compile, $location, APIService) {
         var vm = $scope
 
         vm.activate = activate
@@ -32,6 +32,7 @@
                 vm.addEditModeFalseToComment = addEditModeFalseToComment
                 vm.updateComment = updateComment
                 vm.edit = edit
+                vm.deletePost = deletePost
             }
             vm.randomColor = getRandomColor()
             vm.codesCounter = 0
@@ -56,7 +57,7 @@
 
             function deletePost() {
                 APIService.deletePost(vm.post._id, function() {
-
+                    $location.path(vm.post.categories[0].name)
                 })
             }
 
@@ -129,6 +130,7 @@
                     vm.addEditModeFalseToComment = addEditModeFalseToComment
                     vm.updateComment = updateComment
                     vm.edit = edit
+                    vm.deletePost = deletePost
                     callback()
                 })
             }
