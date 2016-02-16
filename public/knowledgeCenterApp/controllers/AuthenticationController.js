@@ -56,7 +56,7 @@
         }
 
         function signup() {
-            AuthenticationService.signup(vm.username, vm.password, vm.firstName, vm.lastName, vm.email, function(err, response) {
+            AuthenticationService.signup(vm.username, vm.password, vm.firstName, vm.lastName, vm.email,vm.street, vm.city, function(err, response) {
                 if(err!= null) {
                     vm.signupFailed = true
                 }

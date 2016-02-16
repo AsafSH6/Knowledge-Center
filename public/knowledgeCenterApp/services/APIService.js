@@ -17,6 +17,7 @@
             getAllPostsFilteredByCategory: getAllPostsFilteredByCategory,
             getAllTagsFilteredByCategory: getAllTagsFilteredByCategory,
             getPostById: getPostById,
+            getHomePosts:getHomePosts,
             updateCurrentPost: updateCurrentPost,
             getCurrentPost: getCurrentPost,
             createNewPost: createNewPost,
@@ -25,6 +26,7 @@
             updatePost: updatePost,
             updateComment: updateComment,
             deletePost: deletePost,
+            deleteComment: deleteComment,
             changeSolvedStatus: changeSolvedStatus,
             dbPosts: dbPosts,
             dbCategories: dbCategories,
@@ -32,7 +34,7 @@
 
     return service;
 
-    ////////////////
+    /////////////////
 
     function getAllCategories(callback) {
         $http.get('./api/v1/get-all-categories/').then(function(categories) {
@@ -42,6 +44,15 @@
             callback(categories);
         });
     }
+
+        function getHomePosts(callback) {
+            $http.get('./api/v1/get-home-posts/').then(function(posts) {
+
+                console.log('loaded home posts:')
+                console.log(posts);
+                callback(posts.data);
+            });
+        }
         function getAllNewPosts(callback) {
             $http.get('./api/v1/get-all-new-posts').then(function(posts) {
 
@@ -110,6 +121,9 @@
                 console.log('error delete post')
             }
         })
+    }
+    function deleteComment(commentId, callback) {
+        callback()
     }
     function changeSolvedStatus(postId, solved, callback) {
         $http.post('./api/v1/update-solved-status/', {postId: postId, solved: solved}).then(callback)

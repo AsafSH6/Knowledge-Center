@@ -1,10 +1,4 @@
 
-<html lang="en">
-<head>
-    <title>CodeMirror in Action</title>
-
-</head>
-<body>
  <!-- Header -->
     <div class="intro-header">
         <div class="container">
@@ -22,76 +16,79 @@
 
     </div>
 
- <!-- "user_id": 12356,
-  "title": "title",
-  "creation_date": {
-    "$date": "date the created by using 'new Date()'"
-  },
-  "views": 123214,
-  "tags": [1, 2, 3],
-  "comments": [1, 2, 34, 55],
-  "text": "blablabla",
-  "category_id": "questions"
-} -->
 
-
- <!--
  <div class="container">
 
-     <div class="row">
+     <h1 class="page-header">
+         Latest posts
+     </h1>
 
-         <!-- Blog Entries Column --
+     <div class="row" ng-repeat="post in newPosts">
+
+
+
+         <!-- Blog Entries Column -->
          <div class="col-md-8">
-
-             <h1 class="page-header">
-                 latest Posts
-             </h1>
-
-             <!-- First Blog Post --
-             <div class="post" ng-repeat="post in newPosts">
+             <div class="well">
+             <!-- First Blog Post -->
              <h2>
-                 <a href="#">{{post.title}}</a>
+                 {{post.title}}
              </h2>
              <p class="lead">
-                 by {{post.username}} </a>
+                 by {{post.user.username}}
              </p>
-             <p><span class="glyphicon glyphicon-time"></span> Posted on {{post.creation_date |date}}</p>
-             <p>{{post.text | limitTo : 0 : 20}}}</p>
-             <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-                 </div>
+             <p><span class="glyphicon glyphicon-time"></span> Posted on {{post.creation_date | date}}</p>
 
-             <hr>
+             <p>{{post.text.substring(0,30)}}</p>
+             <a class="btn btn-primary" ui-sref="post({postId: post._id})">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
-
-
+             </div>
          </div>
+     </div>
+ </div>
 
-         <!-- Blog Sidebar Widgets Column --
-         <div class="col-md-4">
-
-
-             <!-- Blog Categories Well --
-             <div class="well">
-                 <h4>Blog Categories</h4>
-                 <div class="row">
-                     <div class="col-lg-6">
-                         <ul class="list-unstyled">
-                             <li ng-repeat="category in dbCategories"><a ui-sref="{{ category.name | lowercase }}" > {{ category.name }} </a>
-                         </ul>
+ <!-- Footer -->
+ <div class="footer">
+     <div class="container">
+         <div class="row">
+             <div class="col-footer col-md-3 col-xs-6">
+                 <h3>Learn AngularJS</h3>
+                 <div class="portfolio-item">
+                     <div class="portfolio-image">
+                         <a  href="https://www.youtube.com/watch?v=QETUuZ27N0w"><img src="/img/banner-bg.png" alt=" project name" width="170" height="170"></a>
                      </div>
-
-                     </div>
-                     <!-- /.col-lg-6 --
                  </div>
-                 <!-- /.row --
+             </div>
+
+             <div class="col-footer col-md-4 col-xs-6">
+                 <h3>Contacts</h3>
+                 <p class="contact-us-details">
+                     <b>Address:</b> 123 Fake Street, LN1 2ST, Rishon Lezion, Israel<br />
+                     <b>Phone:</b> +972-055-123-456<br />
+                     <b>Fax:</b> +872-03-1234567<br />
+                     <b>Email:</b> <a href="mailto:ErZiAs@com.com">ErZiAs@gmail.com</a>
+                 </p>
+             </div>
+             <div class="col-footer col-md-2 col-xs-6">
+                 <h3>Stay Connected</h3>
+                 <ul class="footer-stay-connected no-list-style">
+                     <li><a href="#" class="facebook"></a></li>
+                     <li><a href="#" class="twitter"></a></li>
+                     <li><a href="#" class="googleplus"></a></li>
+                 </ul>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-md-12">
+                 <div class="footer-copyright">&copy; Eran, Ziv & Asaf 2015. All rights reserved.</div>
              </div>
 
          </div>
-
      </div>
-     <!-- /.row --
+ </div>
+ </div>
  </div>
 
- <!-- /.container -->
-</body>
-</html>
+
+
+

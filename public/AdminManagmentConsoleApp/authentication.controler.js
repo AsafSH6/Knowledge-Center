@@ -50,6 +50,7 @@
                     return
                 }
                 else {
+                    $location.path('/');
                     AuthenticationService.ClearCredentials()
                 }
             })

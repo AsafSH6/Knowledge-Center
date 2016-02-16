@@ -12,10 +12,14 @@
     <link rel="stylesheet" href="/css/comment.css">
     <link rel="stylesheet" href="/css/login.css">
     <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/navbar.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
 
     <!-- More examples at http://codemirror.net/demo/ -->
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+
 
     <!-- add basic CodeMirror functionality -->
     <script src="bower_components/codemirror/lib/codemirror.js" type="text/javascript" charset="utf-8"></script>
@@ -42,17 +46,21 @@
 
 </head>
 <body>
+
     <div id="navbar">
         <ng-include src="'/templates/navbar.html'"></ng-include>
     </div>
-    <div id="content" ui-view>
-    </div>
+    <div id="content" ui-view></div>
+
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/angular/angular.min.js"></script>
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/bower_components/ui-router/release/angular-ui-router.min.js"></script>
     <script src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
     <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+
+
+
     <script src="/knowledgeCenterApp/app.js"></script>
     <script src="/knowledgeCenterApp/controllers/HomeController.js"></script>
     <script src="/knowledgeCenterApp/controllers/NavbarController.js"></script>
@@ -67,5 +75,6 @@
     <script src="/knowledgeCenterApp/services/APIService.js"></script>
     <script src="/knowledgeCenterApp/services/AuthenticationService.js"></script>
     <script src="/knowledgeCenterApp/Router.js"></script>
+
 </body>
 </html>

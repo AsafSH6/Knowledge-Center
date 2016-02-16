@@ -17,17 +17,24 @@
         var users = dataService.users;
 
         var user = users.splice($stateParams,1);
-
-        $scope.user.name = user.name.first;
+        $scope.err = false;
+        $scope.user.name = user.username;
         $scope.user.email = user.email;
         $scope.user.password = user.password;
-        $scope.user.picture = user.picture;
+
 
         $scope.update = function(user){
-
             //$scope.user = user;
-            $location.path('users');
-            //TODO send the updated user to the server.
+
+            dataService.updatUser(user.username, user.password, user.email, function(err){
+                if(err != 200){
+                    $scope.err = true;
+                    $scope.errorMessage = "Could not update user"
+                }
+                else{
+                    $location.path('users/');
+                }
+            })
         }
 
 

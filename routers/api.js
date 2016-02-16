@@ -19,31 +19,62 @@ router.get('/get-all-tags/', function(req, res) {
     })
 });
 
-router.post('/delete-tag/', function(req, res) {
-    models.Tag.removeTags(req.body.tagId, function(err) {
-        if(err) {
-            return res.sendStatus(500)
-        }
-        else {
-            return res.sendStatus(200)
-        }
+router.get('/get-all-addresses/', function(req, res) {
+    models.User.getAddress(function(addr) {
+        console.log(addr);
+        res.json(addr);
     })
+});
+
+router.get('/get-home-posts/', function(req, res) {
+    models.Post.getPostsHomePage(function(posts) {
+        console.log(posts);
+        res.json(posts);
+    })
+});
+
+router.post('/delete-tag/', function(req, res) {
+
+  // if(reg.user.is_admin) {
+       models.Tag.removeTags(req.body.tagId, function (err) {
+           if (err) {
+               return res.sendStatus(500)
+           }
+           else {
+               return res.sendStatus(200)
+           }
+       })
+   //}
+    //else{
+      // return res.sendStatus(500)
+   //}
 })
 
 router.post('/add-tag/', function(req, res) {
+
+    //if(reg.user.is_admin) {
     models.Tag.createNewTag(req.body.tagName, function(tag) {
 
             return res.json(tag)
 
     })
+    //}
+    //else{
+      //  return res.sendStatus(500)
+    //}
 })
 
 
-//TODO- move to admin router
+
 router.get('/get-all-users/', function(req, res) {
+    //if(res.user.is_admin) {
     models.User.getAllUsersAdmin(function(err, users) {
         res.json(users)
     })
+    //}
+    //else{
+       // return res.sendStatus(500)
+    //}
 });
 
 //router.post('/remove-user/', function(req, res) {// TODO- What to return
@@ -148,6 +179,18 @@ router.post('/update-comment/', function(req, res) {
         })
 });
 
+router.post('/update-user-admin/', function(req, res) {
+    models.User.updateUserAdmin(req.body.username,
+        req.body.password, req.body.email, req.body.userId,
+        function(err) {
+            if(err) {
+                console.log(err)
+                return res.sendStatus(500)
+            }
+            return res.sendStatus(200)
+        })
+});
+
 router.post('/delete-post/', function(req, res) {
     console.log('DELETE POST')
     models.Post.deletePost(req.user._id, req.body.postId, function(err) {
@@ -174,5 +217,36 @@ router.post('/update-solved-status/', function(req, res) {
                                             return res.sendStatus(200)
                                    })
 });
+
+router.get('/get-categories-and-number-of-related-posts/', function(req, res) {
+    models.Post.aggregate({$group: {_id: '$category.name', count: {$sum: 1}}}, function(err, result) {
+        return res.json(result)
+    })
+})
+
+router.get('/get-tags-and-number-of-related-posts/', function(req, res) {
+    var map = function() {
+        var tags = this.tags
+        for(var tag in tags) {
+            emit(tags[tag].name, {sum: 1})
+        }
+    }
+
+    var reduce = function(id, arr) {
+        var sum = 0
+        for(var i=0; i < arr.length; i++) {
+            sum += arr[i].sum
+        }
+        return { sum: sum }
+    }
+    models.Post.mapReduce({map: map, reduce: reduce}, function(err, results) {
+        if(err) {
+            return res.sendStatus(500)
+        }
+        else {
+            return res.json(results)
+        }
+    })
+})
 
 module.exports = router;

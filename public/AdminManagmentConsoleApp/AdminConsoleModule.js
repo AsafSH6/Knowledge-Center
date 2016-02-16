@@ -5,5 +5,5 @@
     'use strict';
 
     angular
-        .module('adminConsole', ['ui.router', 'ngCookies', 'GoogleMapsNative']);
+        .module('adminConsole', ['ui.router', 'ngCookies', 'ngMap']);
 })();

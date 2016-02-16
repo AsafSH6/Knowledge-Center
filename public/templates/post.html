@@ -5,7 +5,7 @@
                 <a ><i> {{  post.creation_date | date }} </i></a>
             </div>
             <div  ng-if="isPostPublisher()" class="widget-controls">
-                <a data-toggle="tooltip" title="Edit" ui-sref="create-new-post({category: post.categories[0].name, originalPostId: post._id})" href=""><i class="glyphicon glyphicon-edit text-white font-medium"></i></a>
+                <a data-toggle="tooltip" title="Edit" ui-sref="create-new-post({category: post.category.name, originalPostId: post._id})" href=""><i class="glyphicon glyphicon-edit text-white font-medium"></i></a>
                 <a href="" data-toggle="tooltip" title="Delete" ng-click="deletePost()"><i class="glyphicon glyphicon-trash text-white font-medium"></i></a>
             </div>
             <div id="post-div" class="widget-body">
@@ -52,17 +52,16 @@
                                     <img src="http://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="">
                                     <div class="post-comments">
                                         <p class="meta">
-                                            <a href="#">{{ comment.user.username }} </a>
+                                            <a href="">{{ comment.user.username }} </a>
                                             {{ comment.creation_date | date}}
-                                            <div class="widget-controls">
-                                                <a ng-if="isCommentPublisher(comment)" ng-click="edit(comment)" href=""><i class="comment-edit-btn"> {{comment.edit_or_cancel}} </i></a>
+                                            <div ng-if="isCommentPublisher(comment)" class="widget-controls">
+                                                <a ng-click="edit(comment)" href=""><i class="comment-edit-btn"> {{comment.edit_or_cancel}} </i></a>
+                                                <a ng-if="!comment.editMode" ng-click="deleteComment($index)" href=""><i class="comment-edit-btn"> delete </i></a>
                                             </div>
-                                        <!--<p id="comment{{$index}}" class="text">{{ comment.text }}</p>-->
-                                        <!--<p id="comment-0" class="text-light fs-mini m text"></p>-->
-                                        <comment-directive ng-if="!comment.editMode" id="comment-{{$index}}"></comment-directive>
+                                        <comment-directive ng-if="!comment.editMode" id="comment-{{comment._id}}"></comment-directive>
                                         <div ng-if="comment.editMode">
                                             <textarea ng-model="comment.editedText" id="comment-edit-text" rows="{{comment.text.split('\n').length + 2}}"></textarea>
-                                            <button ng-click="updateComment($index)" type="button" class="btn btn-info btn-lg">Update</button>
+                                            <button ng-click="updateComment(comment._id)" type="button" class="btn btn-info btn-lg">Update</button>
                                         </div>
                                     </div>
                                 </li>

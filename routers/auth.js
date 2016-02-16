@@ -22,7 +22,10 @@ module.exports = function(passport){
     })
 
     router.post('/login/admin/', passport.authenticate('login'), function(req, res) {
-        if(req.user.is_admin) {
+
+        if(req.user.is_admin){
+
+            console.log(req.user.is_admin)
             res.json({status: 200, id: req.user._id})
         }
         else {

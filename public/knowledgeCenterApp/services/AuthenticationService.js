@@ -24,8 +24,8 @@
 
         return service;
 
-        function signup(username, password, firstName, lastName, email, callback) {
-            $http.post('/auth/signup/', {username: username, password: password, firstName: firstName, lastName: lastName, email: email})
+        function signup(username, password, firstName, lastName, email, street, city, callback) {
+            $http.post('/auth/signup/', {username: username, password: password, firstName: firstName, lastName: lastName, email: email, street_addr: street, city_addr:city})
                 .success(function (response) {
                     callback(null, response);
                 })

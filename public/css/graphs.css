@@ -1,0 +1,22 @@
+*{
+/*//background-image : url("../img/grid.png")  ;*/
+    background-repeat: no-repeat;
+    background-color: wheat;
+}
+#pie {
+    width: 50% !important;
+    height: 100% !important;
+    height: 100px;
+    float:right;
+align-content: center;
+
+}
+
+#polar-area {
+    width: 50% !important;
+    height: 100% !important;
+    float:left;
+    align-content: center;
+
+
+}

@@ -10,6 +10,8 @@ var user = new Schema({
     password: String,
     is_admin: {type: Boolean, default: false},
     email: String,
+    street_addr: String,
+    city_addr: String,
     points: Number,
     creation_date: { type: Date, default: Date.now },
     profile_image: {type: Schema.Types.ObjectId, ref: 'Image'}
@@ -30,7 +32,7 @@ var commentSchema = new Schema({
     creation_date: { type: Date, default: Date.now },
     up_votes: {type: Number, default: 0},
     user: {type: Schema.Types.ObjectId, ref: 'User'},
-    categories: [categorySchema]
+    category: categorySchema
 }, {strict: true})
 
 var postSchema = new Schema({
@@ -40,14 +42,55 @@ var postSchema = new Schema({
     views: {type: Number, default: 0},
     user: {type: Schema.Types.ObjectId, ref: 'User'},
     comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}],
-    categories: [categorySchema],
+    category: categorySchema,
     tags: [tagSchema],
     solved: {type: Boolean, default: false}
 }, {strict: true})
 
+postSchema.statics.getPostsHomePage = function(callback){
+    this.find({}).sort('-creation_date').populate('user', 'username').limit(3)
+        .exec(function(err, posts) {
+
+                callback(posts);
+
+    });
+}
+
 tagSchema.statics.getAllTags = function(callback){
     return this.find({}, callback);
 }
+
+user.statics.getAddress = function(callback){
+    this.find({}, 'username street_addr city_addr', function (err, addr) {
+        console.log(addr);
+        callback(addr);
+    });
+}
+user.statics.checkIfAdmin = function(username, password, callback){
+
+    this.findOne({'username': username, 'password': password},function(err, user){
+
+        if(user.is_admin){
+            callback(user);
+        }
+        else{
+            callback(null);
+        }
+    })
+}
+user.statics.updateUserAdmin = function(username, password, email, userId, callback){
+
+    this.findOneAndUpdate({'_id': userId}, {'username': username, 'password': password, 'email': email},function(err){
+        if(err){
+            callback(false);
+        }
+        else{
+            callback(true);
+        }
+    })
+
+}
+
 
 tagSchema.statics.removeTags = function(tagId, callback){
     this.findById(tagId, function(err, tag) {
@@ -103,7 +146,7 @@ categorySchema.statics.findAllCategories = function(callback) {
 }
 
 postSchema.statics.findAllPostsFilteredByCategory = function(category, callback) {
-    return this.find({'categories.name': category})
+    return this.find({'category.name': category})
         .sort('-creation_date')
         .populate('user', 'username points')
         .populate('comments')
@@ -156,7 +199,7 @@ postSchema.statics.createNewPost = function(userId, category, tags, title, text,
             }
             var post = new createNewPost({
                 user: userId,
-                categories: [category],
+                category: category,
                 tags: tags,
                 title: title,
                 text: text
@@ -217,7 +260,7 @@ commentSchema.statics.createNewCommentAndPushToPost = function(userId, postId, t
         }
         var comment = createNewCommentAndPushToPost({
             user: userId,
-            category: post.categories,
+            category: post.category,
             text: text
         })
         comment.save(function (err) {
