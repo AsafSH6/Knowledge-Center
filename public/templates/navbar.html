@@ -7,7 +7,7 @@
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-body" style="padding:40px 50px;">
-                        <a ng-repeat="image in navbarCtrl.dbImages track by $index" ng-click="authCtrl.chooseImage(image)" href=""><img class="img-circle image" ng-src="{{image.imageURL}}" alt="..."></a>
+                        <a ng-repeat="image in navbarCtrl.dbImages track by $index" ng-click="authCtrl.chooseImage(image)" href=""><img class="choose-image img-circle image" ng-src="{{image.imageURL}}" alt="..."></a>
                     </div>
                 </div>
                 <button ng-hide="true" id="close-modal" type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>

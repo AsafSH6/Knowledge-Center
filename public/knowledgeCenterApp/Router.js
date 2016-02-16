@@ -15,7 +15,7 @@
 
     function config($stateProvider, $urlRouterProvider) {
         $urlRouterProvider
-            .otherwise('/');
+            .otherwise('/error/');
 
         $stateProvider
             .state('home', {

@@ -6,7 +6,6 @@ mongoose.connect(dbConfig.local_url, function() {
     console.log('connected')
     //insertImages();
     //deletePostsAndComments()
-    ins
 });
 
 function createNewUser(username, email, callback) {
@@ -263,7 +262,15 @@ insertFakeDataToDB()
 //b()
 
 function insertImages() {
-    var images = ['http://bootdey.com/img/Content/user_1.jpg', 'http://bootdey.com/img/Content/user_2.jpg', 'http://bootdey.com/img/Content/user_3.jpg']
+    var images = [//'http://bootdey.com/img/Content/user_1.jpg',
+    //    'http://bootdey.com/img/Content/user_2.jpg',
+    //    'http://bootdey.com/img/Content/user_3.jpg',
+    'http://bootdey.com/img/Content/avatar/avatar1.png',
+    'http://bootdey.com/img/Content/avatar/avatar2.png',
+    'http://bootdey.com/img/Content/avatar/avatar3.png',
+    'http://bootdey.com/img/Content/avatar/avatar4.png',
+    'http://bootdey.com/img/Content/avatar/avatar5.png',
+    ]
     for(var image in images) {
         var image = models.Image({
             imageURL: images[image]

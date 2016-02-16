@@ -50,7 +50,7 @@
                         <div class="blog-comment">
                             <ul class="comments">
                                 <li class="clearfix" ng-repeat="comment in post.comments track by $index">
-                                    <img src="http://bootdey.com/img/Content/user_1.jpg" class="avatar" alt="">
+                                    <img ng-src="{{comment.user.profile_image.imageURL}}" class="avatar" alt="">
                                     <div class="post-comments">
                                         <p class="meta">
                                             <a href="">{{ comment.user.username }} </a>

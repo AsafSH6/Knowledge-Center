@@ -96,7 +96,9 @@
         }
 
         function addCode(language) {
-            if(vm.text.length > 0)
+            if(vm.text == undefined)
+                vm.text = ''
+            else if(vm.text.length > 0)
                 vm.text += '\n'
             vm.text += '<code ' + language + '>\n\n</code>\n'
         }

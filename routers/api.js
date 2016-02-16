@@ -136,6 +136,7 @@ module.exports = function(socketIO) {
             function (err, post) {
                 if (!err) {
                     socketIO.sockets.emit(req.body.category, post)
+                    socketIO.sockets.emit('new-post', post)
                     res.status(200).json(post)
                 }
                 else {
