@@ -18,31 +18,28 @@ module.exports = function(passport){
 
     /* Handle Login POST */
     router.post('/login/', passport.authenticate('login'), function(req, res) {
-        res.json({status: 200, id: req.user._id})
+        res.status(200).json({id: req.user._id})
     })
 
     router.post('/login/admin/', passport.authenticate('login'), function(req, res) {
-
         if(req.user.is_admin){
-
             console.log(req.user.is_admin)
-            res.json({status: 200, id: req.user._id})
+            res.status(200).json({id: req.user._id})
         }
         else {
-            res.json({status: 403})
+            res.sendStatus(403)
         }
     })
 
     /* Handle Registration POST */
     router.post('/signup/', passport.authenticate('signup'), function(req, res) {
-            res.json({status: 200, id: req.user._id})
+            res.status(200).json({id: req.user._id})
     });
 
     /* Handle Logout */
     router.get('/signout/', function(req, res) {
         req.logout();
-        //res.redirect('/');
-        res.json({status: 200})
+        res.sendStatus(200)
     });
 
     router.get('/is-authenticated/', function(req, res) {

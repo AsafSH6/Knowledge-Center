@@ -73,7 +73,7 @@
         }
 
         function submitNewPost() {
-            if(!vm.editMode) {
+            if (!vm.editMode) {
                 APIService.createNewPost(vm.category, vm.chosenTags, vm.title, vm.text, function (post) {
                     $location.path('post/' + post._id)
                 })
@@ -82,7 +82,7 @@
                 vm.post.text = vm.text
                 vm.post.title = vm.title
                 vm.post.tags = vm.chosenTags
-                APIService.updatePost(vm.post, function() {
+                APIService.updatePost(vm.post, function () {
                     $location.path('post/' + vm.post._id)
                 })
             }

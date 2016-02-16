@@ -25,6 +25,7 @@
             vm.signout = signout;
             vm.authenticationFailed = false;
             vm.signupFailed = false;
+            vm.loggedAsAdmin = false;
         }
 
         function signin() {
@@ -34,8 +35,10 @@
                 if(err!= null) {
                     vm.authenticationFailed = true
                     alert('failed')
+                    vm.loggedAsAdmin = false
                 }
                 else {
+                    vm.loggedAsAdmin = true
                     vm.authenticationFailed = false
                     AuthenticationService.SetCredentials(response.id, vm.username, vm.password);
                     clearDetails()

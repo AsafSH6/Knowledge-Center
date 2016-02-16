@@ -53,19 +53,7 @@
             }
 
             function deleteComment($index) {
-                APIService.deleteComment(vm.post.comments[$index]._id, function() {
-                    $timeout(function() {
-                        vm.post.comments.splice($index, 1)
-                        for(var comment in vm.post.comments) {
-                            vm.post.comments[comment].editMode = true
-                        }
-                    })
-                    $timeout(function() {
-                        for(var comment in vm.post.comments) {
-                            vm.post.comments[comment].editMode = false
-                        }
-                    })
-                })
+                APIService.deleteComment(vm.post.comments[$index]._id, vm.post._id, function() {})
             }
 
             function increaseCodeCounter() {
@@ -188,6 +176,24 @@
                         vm.post.comments.push(comment)
                         vm.$apply()
                         console.log(vm.post.comments)
+                    })
+                    socketIO.on('comment-' + vm.post._id, function(commentId) {
+                        $timeout(function() {
+                            for (var comment in vm.post.comments) {
+                                if (vm.post.comments[comment]._id == commentId) {
+                                    vm.post.comments.splice(comment, 1)
+                                    break
+                                }
+                            }
+                            for(var comment in vm.post.comments) {
+                                vm.post.comments[comment].editMode = true
+                            }
+                        })
+                        $timeout(function() {
+                            for(var comment in vm.post.comments) {
+                                vm.post.comments[comment].editMode = false
+                            }
+                        })
                     })
                     console.log('listing to: ' + vm.post._id)
                 }

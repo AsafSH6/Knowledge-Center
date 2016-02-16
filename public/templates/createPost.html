@@ -35,16 +35,16 @@
         </ul>
     </div>
 
-    <div class="form-group new-post">
+    <form ng-submit="submitNewPost()" class="form-group new-post">
         <!--<label class="new-post-title" for="title"><h3><b>Title :</b></h3></label>-->
         <!--<input type="text" id="title" class="form-control input-title">-->
         <label for="title"><h3><b>Title</b></h3></label>
-        <input ng-model="title" id="title" type="text" class="form-control input-text">
+        <input required ng-model="title" id="title" type="text" class="form-control input-text">
         <tags-directive></tags-directive>
-        <textarea id="textbox" ng-model="text" class="form-control input-text" rows="25"></textarea>
-        <button ng-click="submitNewPost()" id="post-submit" type="button" class="btn btn-info btn-lg">Submit</button>
+        <textarea required id="textbox" ng-model="text" class="form-control input-text" rows="25"></textarea>
+        <button id="post-submit" type="submit" class="btn btn-info btn-lg">Submit</button>
         <button ng-click="displayPreview()" id="post-preview-btn" type="button" class="btn btn-info btn-lg">Preview</button>
-    </div>
+    </form>
     <div id="post-preview">
         <h3><b>Preview</b></h3>
         <div id="preview">

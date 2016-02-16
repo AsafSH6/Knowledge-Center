@@ -5,8 +5,8 @@ var dbConfig = require('./config');
 mongoose.connect(dbConfig.local_url, function() {
     console.log('connected')
     //insertImages();
-    deletePostsAndComments()
-    //insertFakeDataToDB()
+    //deletePostsAndComments()
+    ins
 });
 
 function createNewUser(username, email, callback) {
@@ -251,7 +251,7 @@ function insertFakeDataToDB() {
 //}
 //deletePostsAndComments()
 //function(){mongoose.disconnect()}
-//insertFakeDataToDB()
+insertFakeDataToDB()
 
 //function b() {
 //    models.Post.findOne({title: '1+1=?'}).populate('user', 'username points').exec(function(err, post) {
@@ -262,14 +262,14 @@ function insertFakeDataToDB() {
 //}
 //b()
 
-//function insertImages() {
-//    var images = ['http://bootdey.com/img/Content/user_1.jpg', 'http://bootdey.com/img/Content/user_2.jpg', 'http://bootdey.com/img/Content/user_3.jpg']
-//    for(var image in images) {
-//        var image = models.Image({
-//            imageURL: images[image]
-//        })
-//        image.save(function(){})
-//    }
-//}
+function insertImages() {
+    var images = ['http://bootdey.com/img/Content/user_1.jpg', 'http://bootdey.com/img/Content/user_2.jpg', 'http://bootdey.com/img/Content/user_3.jpg']
+    for(var image in images) {
+        var image = models.Image({
+            imageURL: images[image]
+        })
+        image.save(function(){})
+    }
+}
 
 //insertImages()

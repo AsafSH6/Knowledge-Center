@@ -308,7 +308,7 @@ commentSchema.statics.deleteComment = function (userId, commentId, callback) {
             if(userId.equals(comment.user)) {
                 comment.remove(function(err) {
                     if(err) {
-                        callback('error')
+                        callback('error', null)
                     }
                     else {
                         callback(null)

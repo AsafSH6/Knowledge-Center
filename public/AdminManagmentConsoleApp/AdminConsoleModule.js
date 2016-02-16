@@ -5,9 +5,5 @@
     'use strict';
 
     angular
-<<<<<<< HEAD
-        .module('adminConsole', ['ui.router', 'ngCookies']);
-=======
         .module('adminConsole', ['ui.router', 'ngCookies', 'ngMap']);
->>>>>>> origin/Eran-final-project-2.0
 })();

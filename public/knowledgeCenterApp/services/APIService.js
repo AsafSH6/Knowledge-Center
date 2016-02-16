@@ -137,8 +137,8 @@
             $state.go('error')
         });
     }
-    function deleteComment(commentId, callback) {
-        $http.post('/api/v1/delete-comment/', {commentId: commentId}).success(function(res) {
+    function deleteComment(commentId, postId, callback) {
+        $http.post('/api/v1/delete-comment/', {commentId: commentId, postId: postId}).success(function(res) {
                 callback()
         }).error(function(){
             $state.go('error')
@@ -151,9 +151,6 @@
          }).error(function(){
             $state.go('error')
         });
-    }
-    function deleteComment(commentId, callback) {
-        callback()
     }
     function changeSolvedStatus(postId, solved, callback) {
         $http.post('/api/v1/update-solved-status/', {postId: postId, solved: solved}).then(callback)

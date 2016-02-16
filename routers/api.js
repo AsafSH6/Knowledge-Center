@@ -216,8 +216,8 @@ module.exports = function(socketIO) {
     router.post('/delete-comment/', function (req, res) {
         console.log('DELETE COMMENT')
         models.Comment.deleteComment(req.user._id, req.body.commentId, function (err) {
-            console.log(err)
             if (!err) {
+                socketIO.sockets.emit('comment-' + req.body.postId, req.body.commentId)
                 return res.sendStatus(200)
             }
             else {

@@ -8,10 +8,10 @@
         .module('KnowledgeCenter')
         .controller('HomeCtrl', homeCtrl);
 
-    homeCtrl.$inject = ['APIService', "$scope", $sce];
+    homeCtrl.$inject = ['APIService', "$scope"];
 
     /* @ngInject */
-    function homeCtrl(APIService, $scope, $sce) {
+    function homeCtrl(APIService, $scope) {
         /* jshint validthis: true */
 
         APIService.getHomePosts( function(posts) {
