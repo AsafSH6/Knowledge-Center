@@ -22,7 +22,7 @@
             console.log('posts controller')
             vm.category = $stateParams.category
             if(vm.category == 'Search') {
-                vm.postsPerPage = 5
+                vm.postsPerPage = 9
                 vm.currentPage = 0
                 console.log($stateParams.posts)
                 vm.dbPosts = $stateParams.posts

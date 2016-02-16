@@ -12,7 +12,7 @@
             template:
             '<input type="text" class="form-control input-text" placeholder="Add a tag..." ng-model="new_value" ' +
             'uib-typeahead="tag.name for tag in dbTags | filter:$viewValue | limitTo:5"' +
-            'typeahead-select-on-blur="true"' +
+            'typeahead-select-on-blur="true"' + 'typeahead-focus-first="false"' +
             'typeahead-on-select=add()>' +
             '<div class="tags-directive">' +
                 '<a href="" ng-repeat="(idx, tag) in chosenTags" class="tag" ng-click="remove(idx)">{{ tag }} </a>' +
