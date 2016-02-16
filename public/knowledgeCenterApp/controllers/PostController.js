@@ -27,6 +27,7 @@
             vm.post = APIService.getCurrentPost()
             if(vm.post != null) {
                 setPostFunctionsInScope()
+                socketIOListenToNewComments()
             }
             vm.randomColor = getRandomColor()
             vm.codesCounter = 0
@@ -138,6 +139,7 @@
                 APIService.getPostById($stateParams.postId, function (post) {
                     vm.post = post.data
                     setPostFunctionsInScope()
+                    socketIOListenToNewComments()
                     callback()
                 })
             }
@@ -172,6 +174,18 @@
                             $(this).get(0).selectionEnd = start + 1;
                     }
                 });
+            }
+
+            function socketIOListenToNewComments() {
+                if(socketIO != undefined) {
+                    socketIO.on(vm.post._id, function(comment) {
+                        console.log('new comment')
+                        vm.post.comments.push(comment)
+                        vm.$apply()
+                        console.log(vm.post.comments)
+                    })
+                    console.log('listing to: ' + vm.post._id)
+                }
             }
         }
     }

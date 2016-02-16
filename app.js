@@ -1,3 +1,5 @@
+var http = require('http');
+var socketIO = require('socket.io')
 var express = require('express');
 var expressSession = require('express-session');
 var passport = require('passport');
@@ -19,7 +21,9 @@ mongoose.connect(dbConfig.local_url, function(err) {
     }
 });
 
-app = express()
+var app = express()
+var server = http.createServer(app)
+var io = socketIO(server)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -30,7 +34,7 @@ app.set('view engine', 'jade');
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressSession({secret: 'mySecretKey'}));
 app.use(passport.initialize());
@@ -42,10 +46,11 @@ require('./passport/init')(passport);
 // routers
 app.use('/', require('./routers/index'));
 app.use('/auth', require('./routers/auth')(passport))
-app.use('/api/v1', require('./routers/api'));
+app.use('/api/v1', require('./routers/api')(io));
+
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
@@ -53,7 +58,7 @@ app.use(function(req, res, next) {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     console.log('error')
     console.log(err.stack)
     res.status(err.status || 500);
@@ -66,7 +71,7 @@ app.use(function(err, req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
+    app.use(function (err, req, res, next) {
         console.log('error')
         console.log(err.stack)
         res.status(err.status || 500);
@@ -77,4 +82,4 @@ if (app.get('env') === 'development') {
     });
 }
 
-module.exports = app;
+module.exports = server;

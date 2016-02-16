@@ -5,10 +5,10 @@
         .module('KnowledgeCenter')
         .controller('PostsCtrl', PostsCtrl);
 
-    PostsCtrl.$inject = ['$scope', '$stateParams', 'APIService'];
+    PostsCtrl.$inject = ['$rootScope', '$scope', '$stateParams', 'APIService'];
 
     /* @ngInject */
-    function PostsCtrl($scope, $stateParams, APIService) {
+    function PostsCtrl($rootScope, $scope, $stateParams, APIService) {
         /* jshint validthis: true */
         var vm = $scope;
 
@@ -26,9 +26,11 @@
                 vm.currentPage = 0
                 console.log($stateParams.posts)
                 vm.dbPosts = $stateParams.posts
-                vm.posts = vm.dbPosts.slice(0, vm.postsPerPage)
+                if(vm.dbPosts != undefined)
+                    vm.posts = vm.dbPosts.slice(0, vm.postsPerPage)
                 vm.nextPage = nextPage
                 vm.previousPage = previousPage
+                socketIOListenToNewPosts()
             }
             else {
                 APIService.getAllPostsFilteredByCategory(vm.category, function(posts) {
@@ -38,6 +40,7 @@
                     vm.posts = vm.dbPosts.slice(0, vm.postsPerPage)
                     vm.nextPage = nextPage
                     vm.previousPage = previousPage
+                    socketIOListenToNewPosts()
                 })
             }
         }
@@ -70,6 +73,19 @@
                 end = 1
 
             vm.posts = vm.dbPosts.slice(beginning, end)
+        }
+
+        function socketIOListenToNewPosts() {
+            if(socketIO != undefined) {
+                socketIO.on(vm.category, function(post) {
+                    console.log('new post')
+                    APIService.insertPost(post)
+                    vm.posts.unshift(post)
+                    vm.$apply()
+                    console.log(vm.posts)
+                })
+                console.log('listing to: ' + vm.category)
+            }
         }
     }
 })();

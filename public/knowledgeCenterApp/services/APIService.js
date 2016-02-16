@@ -28,8 +28,7 @@
             deleteComment: deleteComment,
             search: search,
             changeSolvedStatus: changeSolvedStatus,
-            dbPosts: dbPosts,
-            dbCategories: dbCategories,
+            insertPost: insertPost
         };
 
     return service;
@@ -127,8 +126,9 @@
         console.log('service search')
         $http.post('/api/v1/search/', searchParams).then(function(res) {
             if(res.status == 200) {
+                console.log(res.data)
                 dbPosts = res.data
-                callback(res.data)
+                callback(dbPosts)
             }
             else {
                 console.log('search failed')
@@ -138,7 +138,9 @@
     function changeSolvedStatus(postId, solved, callback) {
         $http.post('/api/v1/update-solved-status/', {postId: postId, solved: solved}).then(callback)
     }
-
+    function insertPost(post) {
+        dbPosts.unshift(post)
+    }
     function updateCurrentPost(postId) {
         currentPost = dbPosts.filter(function(post){
             return post._id === postId

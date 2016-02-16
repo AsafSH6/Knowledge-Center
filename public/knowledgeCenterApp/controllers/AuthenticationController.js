@@ -8,10 +8,10 @@
         .module('KnowledgeCenter')
         .controller('AuthenticationCtrl', AuthenticationCtrl);
 
-    AuthenticationCtrl.$inject = ['AuthenticationService'];
+    AuthenticationCtrl.$inject = ['$rootScope', 'AuthenticationService'];
 
     /* @ngInject */
-    function AuthenticationCtrl(AuthenticationService)
+    function AuthenticationCtrl($rootScope, AuthenticationService)
     {
         /* jshint validthis: true */
         var vm = this;
