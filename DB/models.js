@@ -71,10 +71,9 @@ tagSchema.statics.removeTags = function(tagId, callback){
 tagSchema.statics.createNewTag= function(name, callback){
     var tagSchema = this
     this.findOne({name: name}, function(err, tag) {
-        if(tag) {
-            console.log("tag already exists: " + tag);
-            //mongoose.disconnect();
-            return false;
+        if(err) {
+
+           callback(err,null)
         }
         else {
 
@@ -82,14 +81,11 @@ tagSchema.statics.createNewTag= function(name, callback){
                     var tag = new tagSchema({name: name});
                     tag.save(function (err) {
                         if (err) {
-                            console.log("error: couldn't save the tag");
-                            //mongoose.disconnect();
-                            return false;
+                            callback(err,null)
                         }
                         else {
-                            console.log("saved tag: " +  tag);
-                            callback(tag);
-                            //mongoose.disconnect();
+
+                            callback(null,tag);
                             return tag._id;
                         }
                     })
@@ -237,14 +233,24 @@ postSchema.statics.search = function(searchParams, callback) {
     ]}).populate('user', 'username points')
         .populate('comments')
         .exec(function(err, posts) {
+            if(err){
+                callback(err,null)
+            }
+            else{
             mongoose.model('Comment').populate(posts, {
                 path: 'comments.user',
                 select: 'username points',
                 model: mongoose.model('User')
             }, function(err, posts) {
-                callback(posts)
+                if(!err){
+                    callback(null,posts)
+                }
+                else{
+                    callback(err,null)
+                }
+
             })
-        })
+        }})
 }
 
 commentSchema.statics.deleteComment = function (userId, commentId, callback) {

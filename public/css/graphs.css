@@ -1,22 +1,40 @@
 *{
-/*//background-image : url("../img/grid.png")  ;*/
-    background-repeat: no-repeat;
-    background-color: wheat;
-}
-#pie {
-    width: 50% !important;
-    height: 100% !important;
-    height: 100px;
-    float:right;
-align-content: center;
 
 }
 
-#polar-area {
-    width: 50% !important;
-    height: 100% !important;
-    float:left;
+.row1{
+    padding-top: 200px;
+}
+#pie{
+
+    width:500px;
+    height:250px;
+    left: 30%;
+    padding-left: 30px;
+
+}
+
+#polar-area{
+
+    width:500px;
+    height:250px;
+}
+#col1{
+    float: left;
+    margin-left: 10%;
     align-content: center;
+    font-family: cursive
 
+}
 
+#col2 {
+    float: left;
+    margin-left: 27%;
+    font-family: cursive
+}
+#main-div {
+    float: left;
+}
+.h1{
+    font-family: cursive;
 }

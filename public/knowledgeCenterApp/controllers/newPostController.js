@@ -23,7 +23,7 @@
             vm.category = $stateParams.category
             console.log(vm.category)
             APIService.getAllTags(function(tags) {
-                vm.dbTags = tags.data
+                vm.dbTags = tags
                 vm.chosenTags = []
                 vm.editMode = false
                 vm.text = ''

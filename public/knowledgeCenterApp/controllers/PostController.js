@@ -136,7 +136,7 @@
 
             function loadPost(callback) {
                 APIService.getPostById($stateParams.postId, function (post) {
-                    vm.post = post.data
+                    vm.post = post.
                     setPostFunctionsInScope()
                     callback()
                 })
