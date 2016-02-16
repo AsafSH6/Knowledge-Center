@@ -15,11 +15,6 @@
             template:
             '<p></p>',
             link: function ( $scope, $element ) {
-                $scope.$on('delete' + $scope.comment._id, function() {
-                    $element.empty()
-                    render()
-                    console.log('rendered')
-                })
                 $scope.addEditModeFalseToComment($scope.comment)
                 function render() {
                     parseText($scope.comment.text, $element)

@@ -5,10 +5,10 @@
         .module('KnowledgeCenter')
         .controller('PostCtrl', PostCtrl)
 
-    PostCtrl.$inject = ['$window', '$rootScope', '$scope', '$stateParams', '$compile', '$location', 'APIService'];
+    PostCtrl.$inject = ['$timeout', '$window', '$rootScope', '$scope', '$stateParams', '$compile', '$location', 'APIService'];
 
     /* @ngInject */
-    function PostCtrl($window, $rootScope, $scope, $stateParams, $compile, $location, APIService) {
+    function PostCtrl($timeout, $window, $rootScope, $scope, $stateParams, $compile, $location, APIService) {
         var vm = $scope
 
         vm.activate = activate
@@ -57,8 +57,17 @@
 
             function deleteComment($index) {
                 APIService.deleteComment(vm.post.comments[$index]._id, function() {
-                    var comment = vm.post.comments.splice($index, 1)[0]
-                    console.log(comment.text)
+                    $timeout(function() {
+                        vm.post.comments.splice($index, 1)
+                        for(var comment in vm.post.comments) {
+                            vm.post.comments[comment].editMode = true
+                        }
+                    })
+                    $timeout(function() {
+                        for(var comment in vm.post.comments) {
+                            vm.post.comments[comment].editMode = false
+                        }
+                    })
                 })
             }
 

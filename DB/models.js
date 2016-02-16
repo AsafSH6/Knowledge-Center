@@ -102,6 +102,10 @@ categorySchema.statics.findAllCategories = function(callback) {
     return this.find({}, callback)
 }
 
+postSchema.statics.findAllPosts = function(callback) {
+    return this.find({}, callback)
+}
+
 postSchema.statics.findAllPostsFilteredByCategory = function(category, callback) {
     return this.find({'category.name': category})
         .sort('-creation_date')
@@ -201,6 +205,61 @@ postSchema.statics.deletePost = function (userId, postId, callback) {
                                 callback(null)
                             }
                         })
+                    }
+                })
+            }
+        }
+    })
+}
+
+postSchema.statics.search = function(searchParams, callback) {
+    if(searchParams.category == '') {
+        searchParams.categoryQuery = {}
+    }
+    else {
+        searchParams.categoryQuery = {'category.name': searchParams.category}
+    }
+    if(searchParams.tag == '') {
+        searchParams.tagsQuery = {}
+    }
+    else {
+        searchParams.tagsQuery =  {'tags.name': searchParams.tag}
+    }
+    if(searchParams.text == '') {
+        searchParams.textQuery = {}
+    }
+    else {
+        searchParams.textQuery = {$or: [{'text': {$regex : searchParams.text}}, {'title': {$regex : searchParams.text}}]}
+    }
+    this.find({$and: [searchParams.categoryQuery,
+        searchParams.tagsQuery,
+        searchParams.textQuery,
+    ]}).populate('user', 'username points')
+        .populate('comments')
+        .exec(function(err, posts) {
+            mongoose.model('Comment').populate(posts, {
+                path: 'comments.user',
+                select: 'username points',
+                model: mongoose.model('User')
+            }, function(err, posts) {
+                callback(posts)
+            })
+        })
+}
+
+commentSchema.statics.deleteComment = function (userId, commentId, callback) {
+    this.findById(commentId, function(err, comment) {
+        if(err) {
+            callback('error')
+        }
+        else {
+            if(userId.equals(comment.user)) {
+                comment.remove(function(err) {
+                    if(err) {
+                        callback('error')
+                    }
+                    else {
+                        callback(null)
                     }
                 })
             }

@@ -26,6 +26,12 @@
             })
             .state('posts', {
                 url: '/:category',
+                //url: '/:category',
+                params: {
+                    posts: {
+                        array: true,
+                    }
+                },
                 templateUrl: './templates/posts.html',
                 controller: 'PostsCtrl'
             })

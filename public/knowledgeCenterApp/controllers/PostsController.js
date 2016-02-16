@@ -21,19 +21,25 @@
         function activate() {
             console.log('posts controller')
             vm.category = $stateParams.category
-            APIService.getAllPostsFilteredByCategory(vm.category, function(questions) {
+            if(vm.category == 'Search') {
                 vm.postsPerPage = 5
                 vm.currentPage = 0
-                vm.dbPosts = questions.data
-                console.log(vm.dbPosts.length)
+                console.log($stateParams.posts)
+                vm.dbPosts = $stateParams.posts
                 vm.posts = vm.dbPosts.slice(0, vm.postsPerPage)
                 vm.nextPage = nextPage
                 vm.previousPage = previousPage
-            })
-        }
-
-        function editPost() {
-
+            }
+            else {
+                APIService.getAllPostsFilteredByCategory(vm.category, function(posts) {
+                    vm.postsPerPage = 5
+                    vm.currentPage = 0
+                    vm.dbPosts = posts.data
+                    vm.posts = vm.dbPosts.slice(0, vm.postsPerPage)
+                    vm.nextPage = nextPage
+                    vm.previousPage = previousPage
+                })
+            }
         }
 
         function nextPage() {

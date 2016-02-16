@@ -1,3 +1,16 @@
+#search-ul {
+    min-width: 300px;
+}
+
+#search-form {
+    width: 100%;
+}
+
 #search-btn {
-    margin-bottom: 5%;
+    width: 100%;
+    margin-bottom: 3%;
+}
+
+.search {
+    width: 100%;
 }

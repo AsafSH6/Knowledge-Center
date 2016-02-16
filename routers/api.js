@@ -162,6 +162,28 @@ router.post('/delete-post/', function(req, res) {
     })
 })
 
+router.post('/delete-comment/', function(req, res) {
+    console.log('DELETE COMMENT')
+    models.Comment.deleteComment(req.user._id, req.body.commentId, function(err) {
+        console.log(err)
+        if(err) {
+            return res.sendStatus(500)
+        }
+        else {
+            console.log('returned 200')
+            return res.sendStatus(200)
+        }
+    })
+})
+
+router.post('/search/', function(req, res) {
+    console.log('SEARCH')
+    console.log(req.body)
+    models.Post.search(req.body, function(posts) {
+        return res.status(200).json(posts)
+    })
+})
+
 router.post('/update-solved-status/', function(req, res) {
     models.Post.updateSolvedStatus(req.user._id,
                                    req.body.postId,

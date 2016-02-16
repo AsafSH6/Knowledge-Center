@@ -15,7 +15,7 @@
         var service = {
             getAllCategories: getAllCategories,
             getAllPostsFilteredByCategory: getAllPostsFilteredByCategory,
-            getAllTagsFilteredByCategory: getAllTagsFilteredByCategory,
+            getAllTags: getAllTags,
             getPostById: getPostById,
             updateCurrentPost: updateCurrentPost,
             getCurrentPost: getCurrentPost,
@@ -26,6 +26,7 @@
             updateComment: updateComment,
             deletePost: deletePost,
             deleteComment: deleteComment,
+            search: search,
             changeSolvedStatus: changeSolvedStatus,
             dbPosts: dbPosts,
             dbCategories: dbCategories,
@@ -36,7 +37,7 @@
     ////////////////
 
     function getAllCategories(callback) {
-        $http.get('./api/v1/get-all-categories/').then(function(categories) {
+        $http.get('/api/v1/get-all-categories/').then(function(categories) {
             dbCategories = categories.data
             console.log('loaded categories:')
             console.log(dbCategories)
@@ -44,7 +45,7 @@
         });
     }
         function getAllNewPosts(callback) {
-            $http.get('./api/v1/get-all-new-posts').then(function(posts) {
+            $http.get('/api/v1/get-all-new-posts').then(function(posts) {
 
                 callback(posts);
             });
@@ -52,47 +53,47 @@
         }
     function getAllPostsFilteredByCategory(category, callback) {
 
-        $http.get('./api/v1/get-all-posts-filtered-by-category/' + category).then(function(res) {
+        $http.get('/api/v1/get-all-posts-filtered-by-category/' + category).then(function(res) {
             dbPosts = res.data
             console.log('all posts of category: ' + category)
             console.log(dbPosts)
             callback(res);
         });
     }
-    function getAllTagsFilteredByCategory(category, callback) {
-        $http.get('./api/v1/get-all-tags-filtered-by-category/' + category).then(function(res) {
+    function getAllTags(callback) {
+        $http.get('/api/v1/get-all-tags/').then(function(res) {
             callback(res)
         })
     }
     function getPostById(postId, callback) {
-        $http.get('./api/v1/get-post-by-id/' + postId).then(function(post) {
+        $http.get('/api/v1/get-post-by-id/' + postId).then(function(post) {
             currentPost = post.data
             callback(post)
         })
     }
     function IncreaseViewByOne(postId) {
-        $http.get('./api/v1/increase-view-by-one/' + postId)
+        $http.get('/api/v1/increase-view-by-one/' + postId)
     }
     function createNewPost(category, tags, title, text, callback) {
-        $http.post('./api/v1/create-new-post/', {category: category, tags: tags, title: title, text: text}).then(function(res) {
+        $http.post('/api/v1/create-new-post/', {category: category, tags: tags, title: title, text: text}).then(function(res) {
 
             currentPost = res.data.post
             callback(currentPost)
         })
     }
     function createNewComment(postId, text, callback) {
-        $http.post('./api/v1/create-new-comment/', {postId: postId, text: text}).then(function(res) {
+        $http.post('/api/v1/create-new-comment/', {postId: postId, text: text}).then(function(res) {
             callback(res.data.comment)
         })
     }
     function updatePost(post, callback) {
-        $http.post('./api/v1/update-post/', {post: post}).then(function(res) {
+        $http.post('/api/v1/update-post/', {post: post}).then(function(res) {
             currentPost = res.data
             callback()
         })
     }
     function updateComment(comment, callback) {
-        $http.post('./api/v1/update-comment', {comment: comment}).then(function(res) {
+        $http.post('/api/v1/update-comment', {comment: comment}).then(function(res) {
             if(res.status == 200) {
                 callback()
             }
@@ -102,8 +103,7 @@
         })
     }
     function deletePost(postId, callback) {
-        $http.post('./api/v1/delete-post/', {postId: postId}).then(function(res) {
-            console.log(res)
+        $http.post('/api/v1/delete-post/', {postId: postId}).then(function(res) {
             if(res.status == 200) {
                 callback()
             }
@@ -113,10 +113,30 @@
         })
     }
     function deleteComment(commentId, callback) {
-        callback()
+        $http.post('/api/v1/delete-comment/', {commentId: commentId}).then(function(res) {
+            if(res.status == 200) {
+                console.log('deleted comment')
+                callback()
+            }
+            else {
+                console.log('error delete comment')
+            }
+        })
+    }
+    function search(searchParams, callback) {
+        console.log('service search')
+        $http.post('/api/v1/search/', searchParams).then(function(res) {
+            if(res.status == 200) {
+                dbPosts = res.data
+                callback(res.data)
+            }
+            else {
+                console.log('search failed')
+            }
+         })
     }
     function changeSolvedStatus(postId, solved, callback) {
-        $http.post('./api/v1/update-solved-status/', {postId: postId, solved: solved}).then(callback)
+        $http.post('/api/v1/update-solved-status/', {postId: postId, solved: solved}).then(callback)
     }
 
     function updateCurrentPost(postId) {

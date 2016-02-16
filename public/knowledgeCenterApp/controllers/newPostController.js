@@ -22,7 +22,7 @@
             vm.postPreviewElement = angular.element('#new-post-preview')
             vm.category = $stateParams.category
             console.log(vm.category)
-            APIService.getAllTagsFilteredByCategory(vm.category, function(tags) {
+            APIService.getAllTags(function(tags) {
                 vm.dbTags = tags.data
                 vm.chosenTags = []
                 vm.editMode = false
