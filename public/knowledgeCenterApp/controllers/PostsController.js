@@ -36,7 +36,7 @@
                 APIService.getAllPostsFilteredByCategory(vm.category, function(posts) {
                     vm.postsPerPage = 5
                     vm.currentPage = 0
-                    vm.dbPosts = posts.data
+                    vm.dbPosts = posts
                     vm.posts = vm.dbPosts.slice(0, vm.postsPerPage)
                     vm.nextPage = nextPage
                     vm.previousPage = previousPage

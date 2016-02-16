@@ -23,10 +23,10 @@
 
         function activate() {
             APIService.getAllCategories(function(categories) {
-                vm.dbCategories = categories.data
+                vm.dbCategories = categories
             })
             APIService.getAllTags(function(tags) {
-                vm.dbTags = tags.data
+                vm.dbTags = tags
             })
             APIService.getAllImages(function(images) {
                 console.log(images)

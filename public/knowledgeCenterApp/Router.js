@@ -50,6 +50,11 @@
                 templateUrl: './templates/createPost.html',
                 controller: 'NewPostCtrl'
             })
+            .state('error',{
+                url:'/error/',
+                templateUrl:'/templates/404.html'
+
+            })
 
     }
 

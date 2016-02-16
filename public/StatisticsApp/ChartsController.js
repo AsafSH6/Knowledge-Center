@@ -38,7 +38,7 @@
                     pointLabelFontFamily: '"Arial"',
                     pointLabelFontStyle: 'normal',
                     pointLabelFontSize: 10,
-                    pointLabelFontColor: '#666',
+                    pointLabelFontColor: '#000',
                     pointDot: true,
                     pointDotRadius: 3,
                     pointDotStrokeWidth: 1,
@@ -57,10 +57,10 @@
                         datasets: [
                             {
                                 label: "Tags",
-                                fillColor: "rgba(220,220,220,0.5)",
-                                strokeColor: "rgba(220,220,220,0.8)",
+                                fillColor: "rgba(150,150,200,0.8)",
+                                strokeColor: "rgba(100,200,150,0.8)",
                                 highlightFill: "rgba(220,220,220,0.75)",
-                                highlightStroke: "rgba(220,220,220,1)",
+                                highlightStroke: "rgba(0,0,0,1)",
                                 data: $scope.barDataValues
                             }
                         ]
