@@ -28,15 +28,16 @@ module.exports = function(socketIO) {
     });
 
     router.post('/delete-tag/', function(req, res) {
-        models.Tag.removeTags(req.body.tagId, function(err) {
-            if(!err) {
-                 res.sendStatus(200)
+        models.Tag.removeTags(req.body.tagId, function (err) {
+            if (!err) {
+                res.sendStatus(200)
 
             }
             else {
-                 res.sendStatus(500)
+                res.sendStatus(500)
             }
         })
+    })
 
     router.post('/add-tag/', function(req, res) {
         models.Tag.createNewTag(req.body.tagName, function (err, tag) {
