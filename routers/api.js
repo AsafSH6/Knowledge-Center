@@ -229,5 +229,16 @@ module.exports = function(socketIO) {
             }
         })
     })
+
+    router.get('/get-all-images/', function(req, res) {
+        models.Image.findAllImages(function(err, images) {
+            if (err) {
+                res.sendStatus(500)
+            }
+            else {
+                res.status(200).json(images)
+            }
+        })
+    })
     return router
 }

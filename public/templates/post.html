@@ -12,12 +12,13 @@
                 <div ng-class="randomColor" class="widget-top-overflow windget-padding-md clearfix text-white">
                     <h3 class="mt-lg mb-lg"><span class="fw-semi-bold">{{ post.title }}</span></h3>
                     <ul class="tags text-white pull-right" ng-repeat="tag in post.tags track by $index">
-                        <li><a href="">{{ tag.name }}</a></li>
+                        <li><a ng-click="searchByTag(tag.name)" href="">{{ tag.name }}</a></li>
                     </ul>
                 </div>
                 <div class="post-user mt-n-lg">
                     <span class="thumb-lg pull-left mr">
-                        <img class="img-circle" src="http://bootdey.com/img/Content/user_1.jpg" alt="...">
+                        <!--<img class="img-circle" src="http://bootdey.com/img/Content/user_1.jpg" alt="...">-->
+                        <img class="img-circle" ng-src="{{post.user.profile_image.imageURL}}" alt="...">
                     </span>
                     <h5 class="mt-sm fw-normal text-white">{{ post.user.username }}</h5>
 

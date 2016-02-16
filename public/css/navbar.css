@@ -14,3 +14,12 @@
 .search {
     width: 100%;
 }
+
+.image {
+    float: left;
+    margin-right: 10%;
+}
+
+.modal-body {
+    height: 200px;
+}

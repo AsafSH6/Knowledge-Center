@@ -27,8 +27,11 @@
             vm.signin = signin
             vm.signout = signout
             vm.signup = signup
+            vm.chooseImage = chooseImage
+            //vm.chosenImage = null
             vm.authenticationFailed = false;
             vm.signupFailed = false;
+            angular.element(document).ready(loadImageChooseModal)
         }
 
         function signin() {
@@ -56,7 +59,13 @@
         }
 
         function signup() {
-            AuthenticationService.signup(vm.username, vm.password, vm.firstName, vm.lastName, vm.email, function(err, response) {
+            console.log('signup')
+            console.log(vm.chosenImage)
+            if(vm.chosenImage == null) {
+                $('#myBtn').click()
+                return
+            }
+            AuthenticationService.signup(vm.username, vm.password, vm.firstName, vm.lastName, vm.email, vm.chosenImage._id, function(err, response) {
                 if(err!= null) {
                     vm.signupFailed = true
                 }
@@ -68,12 +77,28 @@
             })
         }
 
+        function loadImageChooseModal() {
+            $("#myBtn").click(function(){
+                console.log('modal')
+                $("#myModal").modal();
+            });
+            console.log('ran')
+        }
+
         function clearDetails() {
             vm.username = null
             vm.password = null
             vm.firstName = null
             vm.lastName = null
             vm.email = null
+        }
+
+        function chooseImage(image) {
+            vm.chosenImage = image
+            angular.element('#close-modal').click()
+            signup()
+            console.log('setting image')
+            console.log(vm.chosenImage)
         }
     }
 })();

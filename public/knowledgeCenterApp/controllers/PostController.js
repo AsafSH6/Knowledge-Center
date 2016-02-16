@@ -5,10 +5,10 @@
         .module('KnowledgeCenter')
         .controller('PostCtrl', PostCtrl)
 
-    PostCtrl.$inject = ['$timeout', '$window', '$rootScope', '$scope', '$stateParams', '$compile', '$location', 'APIService'];
+    PostCtrl.$inject = ['$timeout', '$window', '$rootScope', '$scope', '$stateParams', '$state', '$location', 'APIService'];
 
     /* @ngInject */
-    function PostCtrl($timeout, $window, $rootScope, $scope, $stateParams, $compile, $location, APIService) {
+    function PostCtrl($timeout, $window, $rootScope, $scope, $stateParams, $state, $location, APIService) {
         var vm = $scope
 
         vm.activate = activate
@@ -43,11 +43,7 @@
 
             function submitNewComment(text) {
                 console.log(text)
-                APIService.createNewComment(vm.post._id, text, function (comment) {
-                    if (text != undefined) {
-                        vm.post.comments.push(comment)
-                    }
-                })
+                APIService.createNewComment(vm.post._id, text, function () {})
             }
 
             function deletePost() {
@@ -153,6 +149,7 @@
                 vm.edit = edit
                 vm.deletePost = deletePost
                 vm.deleteComment = deleteComment
+                vm.searchByTag = searchByTag
             }
 
             function enableTab() {
@@ -176,10 +173,18 @@
                 });
             }
 
+            function searchByTag(tag) {
+                APIService.search({category: '', tag: tag, text: ''}, function(posts) {
+                    console.log('search callback')
+                    console.log(posts)
+                    $state.go('posts', {category: 'Search', posts: posts})
+                })
+            }
+
             function socketIOListenToNewComments() {
                 if(socketIO != undefined) {
                     socketIO.on(vm.post._id, function(comment) {
-                        console.log('new comment')
+                        console.log(comment)
                         vm.post.comments.push(comment)
                         vm.$apply()
                         console.log(vm.post.comments)

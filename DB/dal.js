@@ -4,14 +4,19 @@ var dbConfig = require('./config');
 
 mongoose.connect(dbConfig.local_url, function() {
     console.log('connected')
-    insertFakeDataToDB();
+    //insertImages();
+    deletePostsAndComments()
+    //insertFakeDataToDB()
 });
 
 function createNewUser(username, email, callback) {
+    models.Image.findById("56c366c440603608c4ce893e", function(err, image) {
+
     var user = new models.User({
         username: username,
         password: "$2a$10$VYwau9CXD2sjTKQD8BGZ4uzaet0VHFY0Mb95R1JT.tlMB17LEqD3i",
         email:  email,
+        profile_image: image,
         points: 0
     });
     user.save(function (err) {
@@ -27,6 +32,8 @@ function createNewUser(username, email, callback) {
             return user._id;
         }
     })
+    })
+
 }
 
 function createNewCategory(name, url, callback) {
@@ -191,28 +198,28 @@ function createNewCommentAndPushToPost(userName, postID, text, callback) {
 
 // RUN ONE BY ONE
 function insertFakeDataToDB() {
-    createNewUser('Asaf1', 'a1@b.c', function(user) {
-        createNewCategory('Questions', '/questions', function(){
-        createNewCategory('Links', '/links', function(){
-            createNewCategory('Things I learnt today', '/things-I-learnt-today', function(){
-                createNewCategory('Guides', '/guides', function(){
-                    createNewTag('Python', ['Questions', 'Links', 'Things I learnt today'], function(){
-                        createNewTag('Java', ['Questions', 'Links'], function(){
-                            createNewTag('StyleFrame', ['Questions', 'Links'], function(){
-                                createNewTag('Pandas', ['Things I learnt today'], function(){
-                                    createNewPost('Asaf', '1+1=?', "5!!", ['Questions'], ['Python', 'Pandas', 'StyleFrame'], function(post){
-                                        createNewCommentAndPushToPost('Asaf', post._id, "Cool!", function(){});
-                                        createNewCommentAndPushToPost('Asaf', post._id, "Thanks!!", function(){});
-                                        createNewCommentAndPushToPost('Asaf', post._id, "Awesome!", function(){console.log('almost done')});
-                                    });
-                                });
-                            });
-                        });
-                    });
-                });
-            });
-        });
-        });
+    createNewUser('Asaf', 'a1@b.c', function(user) {
+        //createNewCategory('Questions', '/questions', function(){
+        //createNewCategory('Links', '/links', function(){
+        //    createNewCategory('Things I learnt today', '/things-I-learnt-today', function(){
+        //        createNewCategory('Guides', '/guides', function(){
+        //            createNewTag('Python', ['Questions', 'Links', 'Things I learnt today'], function(){
+        //                createNewTag('Java', ['Questions', 'Links'], function(){
+        //                    createNewTag('StyleFrame', ['Questions', 'Links'], function(){
+        //                        createNewTag('Pandas', ['Things I learnt today'], function(){
+        //                            createNewPost('Asaf', '1+1=?', "5!!", ['Questions'], ['Python', 'Pandas', 'StyleFrame'], function(post){
+        //                                createNewCommentAndPushToPost('Asaf', post._id, "Cool!", function(){});
+        //                                createNewCommentAndPushToPost('Asaf', post._id, "Thanks!!", function(){});
+        //                                createNewCommentAndPushToPost('Asaf', post._id, "Awesome!", function(){console.log('almost done')});
+        //                            });
+        //                        });
+        //                    });
+        //                });
+        //            });
+        //        });
+        //    });
+        //});
+        //});
     });
 
 
@@ -240,6 +247,7 @@ function insertFakeDataToDB() {
 //function deletePostsAndComments() {
 //    models.Post.find({}).remove().exec();
 //    models.Comment.find({}).remove().exec();
+//    models.User.find({}).remove().exec();
 //}
 //deletePostsAndComments()
 //function(){mongoose.disconnect()}
@@ -253,3 +261,15 @@ function insertFakeDataToDB() {
 //        //console.log(post)
 //}
 //b()
+
+//function insertImages() {
+//    var images = ['http://bootdey.com/img/Content/user_1.jpg', 'http://bootdey.com/img/Content/user_2.jpg', 'http://bootdey.com/img/Content/user_3.jpg']
+//    for(var image in images) {
+//        var image = models.Image({
+//            imageURL: images[image]
+//        })
+//        image.save(function(){})
+//    }
+//}
+
+//insertImages()

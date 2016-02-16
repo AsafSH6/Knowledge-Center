@@ -28,6 +28,10 @@
             APIService.getAllTags(function(tags) {
                 vm.dbTags = tags.data
             })
+            APIService.getAllImages(function(images) {
+                console.log(images)
+                vm.dbImages = images
+            })
             vm.search = {
                 category: "",
                 tag: "",
@@ -53,6 +57,5 @@
                 $state.go('posts', {category: 'Search', posts: posts})
             })
         }
-
     }
 })();

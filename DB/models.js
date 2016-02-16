@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var imageSchema = new Schema({
-    image: { data: Buffer, contentType: String }
+    imageURL: String
 }, {strict: true})
 
 var user = new Schema({
@@ -12,7 +12,7 @@ var user = new Schema({
     email: String,
     points: Number,
     creation_date: { type: Date, default: Date.now },
-    profile_image: {type: Schema.Types.ObjectId, ref: 'Image'}
+    profile_image: imageSchema,
 }, {strict: true})
 
 var categorySchema = new Schema({
@@ -44,6 +44,10 @@ var postSchema = new Schema({
     tags: [tagSchema],
     solved: {type: Boolean, default: false}
 }, {strict: true})
+
+imageSchema.statics.findAllImages = function(callback) {
+    return this.find({}, callback)
+}
 
 tagSchema.statics.getAllTags = function(callback){
     return this.find({}, callback);
@@ -109,12 +113,12 @@ postSchema.statics.findAllPosts = function(callback) {
 postSchema.statics.findAllPostsFilteredByCategory = function(category, callback) {
     return this.find({'category.name': category})
         .sort('-creation_date')
-        .populate('user', 'username points')
+        .populate('user', 'username profile_image')
         .populate('comments')
         .exec(function(err, posts) {
             mongoose.model('Comment').populate(posts, {
                 path: 'comments.user',
-                select: 'username points',
+                select: 'username profile_image',
                 model: mongoose.model('User')
             }, callback)
         })
@@ -135,12 +139,12 @@ tagSchema.statics.findAllTagsFilteredByCategory = function(category, callback) {
 
 postSchema.statics.findPostById = function(postId, callback) {
     return this.findById(postId)
-        .populate('user', 'username points')
+        .populate('user', 'username profile_image')
         .populate('comments')
         .exec(function(err, posts) {
             mongoose.model('Comment').populate(posts, {
                 path: 'comments.user',
-                select: 'username points',
+                select: 'username profile_image',
                 model: mongoose.model('User')
             }, callback)
         })
@@ -173,7 +177,7 @@ postSchema.statics.createNewPost = function(userId, category, tags, title, text,
                 }
                 console.log('saved post')
                 createNewPost.findById(post._id)
-                    .populate('user', 'username points')
+                    .populate('user', 'username profile_image')
                     .exec(callback)
                 return post._id
             })
@@ -229,17 +233,17 @@ postSchema.statics.search = function(searchParams, callback) {
         searchParams.textQuery = {}
     }
     else {
-        searchParams.textQuery = {$or: [{'text': {$regex : searchParams.text}}, {'title': {$regex : searchParams.text}}]}
+        searchParams.textQuery = {$or: [{'text': {$regex : new RegExp(searchParams.text, 'i')}}, {'title': {$regex : new RegExp(searchParams.text, 'i')}}]}
     }
     this.find({$and: [searchParams.categoryQuery,
         searchParams.tagsQuery,
         searchParams.textQuery,
-    ]}).populate('user', 'username points')
+    ]}).populate('user', 'username profile_image')
         .populate('comments')
         .exec(function(err, posts) {
             mongoose.model('Comment').populate(posts, {
                 path: 'comments.user',
-                select: 'username points',
+                select: 'username profile_image',
                 model: mongoose.model('User')
             }, function(err, posts) {
                 callback(posts)
@@ -291,7 +295,7 @@ commentSchema.statics.createNewCommentAndPushToPost = function(userId, postId, t
                 else {
                     console.log("updated post.")
                     mongoose.model('Comment').findById(comment._id)
-                        .populate('user', 'username points')
+                        .populate('user', 'username profile_image')
                         .exec(callback)
                 }
             });

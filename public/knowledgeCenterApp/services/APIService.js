@@ -13,6 +13,7 @@
         var dbCategories = null
         var currentPost = null
         var service = {
+            getAllImages: getAllImages,
             getAllCategories: getAllCategories,
             getAllPostsFilteredByCategory: getAllPostsFilteredByCategory,
             getAllTags: getAllTags,
@@ -34,6 +35,13 @@
     return service;
 
     ////////////////
+    function getAllImages(callback) {
+        $http.get('/api/v1/get-all-images/').success(function(images) {
+            callback(images)
+        }).error(function() {
+            //something
+        })
+    }
 
     function getAllCategories(callback) {
         $http.get('/api/v1/get-all-categories/').then(function(categories) {
