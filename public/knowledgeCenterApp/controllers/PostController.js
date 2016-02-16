@@ -133,7 +133,7 @@
 
             function loadPost(callback) {
                 APIService.getPostById($stateParams.postId, function (post) {
-                    vm.post = post.
+                    vm.post = post
                     setPostFunctionsInScope()
                     socketIOListenToNewComments()
                     callback()

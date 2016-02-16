@@ -11,11 +11,13 @@
     function adminConsoleService($http) {
 
         var service;
+        var addr = null;
         var users = null;
         var dbPosts = null;
         service = {
             getAllUsers: getAllUsers,
             getAllTags: getAllTags,
+            getAllAddresses:getAllAddresses,
             addTag: addTag,
             removeTag: removeTag,
            // removeUser: removeUser,
@@ -26,7 +28,8 @@
             getPostById: getPostById,
             createNewPost: createNewPost,
             users: users,
-            dbPosts: dbPosts
+            dbPosts: dbPosts,
+            addr: addr
         };
 
         return service;
@@ -37,6 +40,15 @@
             $http.get('/api/v1/get-all-users/', callback).then(function(res) {
                 console.log(res);
                 users = res.data;
+                callback(res.data)
+            })
+        }
+
+        function getAllAddresses(callback){
+
+            $http.get('/api/v1/get-all-addresses/', callback).then(function(res) {
+                console.log(res);
+                addr = res.data;
                 callback(res.data)
             })
         }
@@ -73,23 +85,16 @@
             })
         }
 
-        //function removeUser(user_id, callback){
-        //    $http.post('/api/v1/remove-user/', {user_id: user_id}).then(function(res) {
-        //        console.log(res)
-        //        callback(res.data)
-        //    })
-        //
-        //}
 
-        function updateUser(adminusername,adminpassword, username, userpassword, useremail, callback){
-            $http.post('/api/v1/update-user/', {adminUsername: adminusername, adminPassword: adminpassword, username: username, userPassword: userpassword, userEmail: useremail})
+        function updateUser(username, userpassword, useremail, callback){
+            $http.post('/api/v1/update-user-admin/', { username: username, password: userpassword, email: useremail})
                 .then(function(res) {
                 console.log(res)
-                callback(res.data)
+                callback(res.status);
             })
 
         }
-        //TODO- Check with Asaf how we should handle this, with regards to the authentication service.
+
         function createUser(username, password, email, callback){
             $http.post('/api/v1/create-user/', {username: username, password: password, userEmail: email})
                 .then(function(res) {

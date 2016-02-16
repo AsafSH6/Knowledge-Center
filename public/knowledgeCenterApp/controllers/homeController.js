@@ -8,27 +8,16 @@
         .module('KnowledgeCenter')
         .controller('HomeCtrl', homeCtrl);
 
-    homeCtrl.$inject = ['APIService', "$scope"];
+    homeCtrl.$inject = ['APIService', "$scope", $sce];
 
     /* @ngInject */
-    function homeCtrl(APIService, $scope) {
+    function homeCtrl(APIService, $scope, $sce) {
         /* jshint validthis: true */
-        var vm = $scope;
 
-        vm.activate = activate;
-        vm.dbCategories = APIService.dbCategories;
+        APIService.getHomePosts( function(posts) {
+            $scope.newPosts = posts;
+            console.log($scope.newPosts)
+        })
 
-        activate();
-
-        ////////////////
-
-        function activate() {
-            //APIService.getAllNewPosts( function(links) {
-            //    vm.newPosts = links.data
-            //    console.log(vm.newPosts)
-            //})
-
-
-        }
     }
 })();

@@ -36,6 +36,8 @@ module.exports = function(passport){
                                     email: req.body.email,
                                     firstName: req.body.firstName,
                                     lastName: req.body.lastName,
+                                    street_addr: req.body.street_addr,
+                                    city_addr: req.body.city_addr,
                                     profile_image: image
                                 });
                                 newUser.save(function(err) {

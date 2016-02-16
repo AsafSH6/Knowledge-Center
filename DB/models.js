@@ -10,6 +10,8 @@ var user = new Schema({
     password: String,
     is_admin: {type: Boolean, default: false},
     email: String,
+    street_addr: String,
+    city_addr: String,
     points: Number,
     creation_date: { type: Date, default: Date.now },
     profile_image: imageSchema,
@@ -48,10 +50,50 @@ var postSchema = new Schema({
 imageSchema.statics.findAllImages = function(callback) {
     return this.find({}, callback)
 }
+postSchema.statics.getPostsHomePage = function(callback) {
+    this.find({}).sort('-creation_date').populate('user', 'username').limit(3)
+        .exec(function (err, posts) {
+
+            callback(posts);
+
+        });
+}
 
 tagSchema.statics.getAllTags = function(callback){
     return this.find({}, callback);
 }
+
+user.statics.getAddress = function(callback){
+    this.find({}, 'username street_addr city_addr', function (err, addr) {
+        console.log(addr);
+        callback(addr);
+    });
+}
+user.statics.checkIfAdmin = function(username, password, callback){
+
+    this.findOne({'username': username, 'password': password},function(err, user){
+
+        if(user.is_admin){
+            callback(user);
+        }
+        else{
+            callback(null);
+        }
+    })
+}
+user.statics.updateUserAdmin = function(username, password, email, userId, callback){
+
+    this.findOneAndUpdate({'_id': userId}, {'username': username, 'password': password, 'email': email},function(err){
+        if(err){
+            callback(false);
+        }
+        else{
+            callback(true);
+        }
+    })
+
+}
+
 
 tagSchema.statics.removeTags = function(tagId, callback){
     this.findById(tagId, function(err, tag) {

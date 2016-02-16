@@ -18,6 +18,7 @@
             getAllPostsFilteredByCategory: getAllPostsFilteredByCategory,
             getAllTags: getAllTags,
             getPostById: getPostById,
+            getHomePosts:getHomePosts,
             updateCurrentPost: updateCurrentPost,
             getCurrentPost: getCurrentPost,
             createNewPost: createNewPost,
@@ -53,6 +54,15 @@
             $state.go('error')
         });
     }
+
+        function getHomePosts(callback) {
+            $http.get('./api/v1/get-home-posts/').then(function(posts) {
+
+                console.log('loaded home posts:')
+                console.log(posts);
+                callback(posts.data);
+            });
+        }
         function getAllNewPosts(callback) {
             $http.get('/api/v1/get-all-new-posts').success(function(posts) {
                 callback(posts);
@@ -141,6 +151,9 @@
          }).error(function(){
             $state.go('error')
         });
+    }
+    function deleteComment(commentId, callback) {
+        callback()
     }
     function changeSolvedStatus(postId, solved, callback) {
         $http.post('/api/v1/update-solved-status/', {postId: postId, solved: solved}).then(callback)

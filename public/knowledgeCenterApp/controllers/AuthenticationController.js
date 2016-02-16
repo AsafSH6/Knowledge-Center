@@ -65,7 +65,7 @@
                 $('#myBtn').click()
                 return
             }
-            AuthenticationService.signup(vm.username, vm.password, vm.firstName, vm.lastName, vm.email, vm.chosenImage._id, function(err, response) {
+            AuthenticationService.signup(vm.username, vm.password, vm.firstName, vm.lastName, vm.email, vm.street, vm.city, vm.chosenImage._id, function(err, response) {
                 if(err!= null) {
                     vm.signupFailed = true
                 }
