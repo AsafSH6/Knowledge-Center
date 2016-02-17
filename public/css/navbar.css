@@ -17,9 +17,16 @@
 
 .image {
     float: left;
-    margin-right: 10%;
+    margin-right: 12%;
 }
 
 .modal-body {
-    height: 200px;
+    width: 700px;
+    height: 300px;
+}
+
+.choose-image {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 12%;
 }

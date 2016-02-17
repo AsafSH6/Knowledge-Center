@@ -238,3 +238,11 @@ p.copyright {
 .contact-us-details{
     color:black;
 }
+
+.modal-body {
+    height: 350px !important;
+}
+
+#angularImg {
+    width: 100%;
+}

@@ -136,6 +136,7 @@ module.exports = function(socketIO) {
             function (err, post) {
                 if (!err) {
                     socketIO.sockets.emit(req.body.category, post)
+                    socketIO.sockets.emit('new-post', post)
                     res.status(200).json(post)
                 }
                 else {
@@ -300,6 +301,24 @@ module.exports = function(socketIO) {
             }
         })
     })
+
+
+    router.post('/admin/edit-user/', function(req, res) {
+        if(req.user.is_admin) {
+            models.User.updateUserAdmin(req.body.username, req.body.email, req.body.userId, function(err) {
+                if(err) {
+                    res.sendStatus(500)
+                }
+                else {
+                    res.sendStatus(200)
+                }
+            })
+        }
+        else {
+            res.sendStatus(500)
+        }
+    })
+
 
     return router
 }

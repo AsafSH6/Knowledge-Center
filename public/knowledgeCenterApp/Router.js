@@ -26,7 +26,6 @@
             })
             .state('posts', {
                 url: '/:category',
-                //url: '/:category',
                 params: {
                     posts: {
                         array: true,

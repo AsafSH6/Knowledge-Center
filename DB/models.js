@@ -81,17 +81,11 @@ user.statics.checkIfAdmin = function(username, password, callback){
         }
     })
 }
-user.statics.updateUserAdmin = function(username, password, email, userId, callback){
-
-    this.findOneAndUpdate({'_id': userId}, {'username': username, 'password': password, 'email': email},function(err){
-        if(err){
-            callback(false);
-        }
-        else{
-            callback(true);
-        }
-    })
-
+user.statics.updateUserAdmin = function(username, email, userId, callback){
+    console.log(userId)
+    console.log(username)
+    console.log(email)
+    this.findOneAndUpdate({_id: userId},{$set: {'username': username, 'email': email}}, callback)
 }
 
 

@@ -27,9 +27,6 @@ var io = socketIO(server)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
-app.set('view engine', 'jade');
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
@@ -62,10 +59,7 @@ app.use(function (err, req, res, next) {
     console.log('error')
     console.log(err.stack)
     res.status(err.status || 500);
-    res.json({
-        message: err.message,
-        error: {error: err}
-    });
+    res.redirect('/#/error/')
 });
 
 // development error handler

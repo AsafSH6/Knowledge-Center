@@ -34,7 +34,7 @@
             }
             else {
                 APIService.getAllPostsFilteredByCategory(vm.category, function(posts) {
-                    vm.postsPerPage = 5
+                    vm.postsPerPage = 9
                     vm.currentPage = 0
                     vm.dbPosts = posts
                     vm.posts = vm.dbPosts.slice(0, vm.postsPerPage)
