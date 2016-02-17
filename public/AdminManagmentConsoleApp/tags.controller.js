@@ -5,10 +5,10 @@ angular
     .module('adminConsole')
     .controller('tagsController', tagsCtrl);
 
-    tagsCtrl.$inject = ['dataService',"$scope"];
+    tagsCtrl.$inject = ['$rootScope', '$state', 'dataService',"$scope"];
 
 /* @ngInject */
-function tagsCtrl(dataService, $scope) {
+function tagsCtrl($rootScope, $state,dataService, $scope) {
 
 
     dataService.getAllTags(function (tags) {
@@ -42,5 +42,12 @@ function tagsCtrl(dataService, $scope) {
         })
 
     }
+
+    function isLoggedIn() {
+        if(!$rootScope.globals.loggedIn) {
+            $state.go('login')
+        }
+    }
+    isLoggedIn()
 }
 })();

@@ -8,10 +8,10 @@
         .module('adminConsole')
         .controller('usersController', adminPosts);
 
-    adminPosts.$inject = ['dataService', "$scope"];
+    adminPosts.$inject = ['$rootScope', '$state', 'dataService', "$scope"];
 
     /* @ngInject */
-    function adminPosts(dataService, $scope) {
+    function adminPosts($rootScope, $state,dataService, $scope) {
 
 
 
@@ -57,6 +57,15 @@
                 })
             }
         }
+
+        function isLoggedIn() {
+            console.log('is logged in')
+            if(!$rootScope.globals.loggedIn) {
+                console.log('moving to log in')
+                $state.go('login')
+            }
+        }
+        isLoggedIn()
 
     }
 

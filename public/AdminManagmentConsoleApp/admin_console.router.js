@@ -21,13 +21,11 @@
             .otherwise('/');
 
         $stateProvider
-
             .state('login', {
                 url: '/',
                 templateUrl: '/templates/admin-login.html',
-                controller: 'authenticationCtrl'
+                controller: 'authenticationCtrl',
             })
-
 
             .state('home', {
                 url: '/home/',

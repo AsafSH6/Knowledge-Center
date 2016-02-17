@@ -12,10 +12,10 @@
         .module('adminConsole')
         .controller('mapController', mapController);
 
-    mapController.$inject = ['$scope','dataService','NgMap'];
+    mapController.$inject = ['$rootScope', '$state', '$scope','dataService','NgMap'];
 
     /* @ngInject */
-    function mapController($scope, dataService,NgMap) {
+    function mapController($rootScope, $state, $scope, dataService,NgMap) {
 
         $scope.address = "Rishon Letzion Israel";
 
@@ -37,6 +37,13 @@
                 console.log('markers', map.markers);
                 console.log('shapes', map.shapes);
             });
+
+        function isLoggedIn() {
+            if(!$rootScope.globals.loggedIn) {
+                $state.go('login')
+            }
+        }
+        isLoggedIn()
 
 
 

@@ -5,10 +5,10 @@
         .module('adminConsole')
         .controller('authenticationCtrl', AuthenticationCtrl);
 
-    AuthenticationCtrl.$inject = ['$location', 'AuthenticationService'];
+    AuthenticationCtrl.$inject = ['$rootScope', '$state', '$location', 'AuthenticationService'];
 
     /* @ngInject */
-    function AuthenticationCtrl($location, AuthenticationService)
+    function AuthenticationCtrl($rootScope, $state, $location, AuthenticationService)
     {
         /* jshint validthis: true */
         var vm = this;
@@ -32,13 +32,12 @@
             console.log(vm.username)
             console.log(vm.password)
             AuthenticationService.signin(vm.username, vm.password, function (err, response) {
+                console.log(err)
                 if(err!= null) {
                     vm.authenticationFailed = true
-                    alert('failed')
                     vm.loggedAsAdmin = false
                 }
                 else {
-                    logInNotify()
                     vm.loggedAsAdmin = true
                     vm.authenticationFailed = false
                     AuthenticationService.SetCredentials(response.id, vm.username, vm.password);
@@ -67,11 +66,11 @@
 
         }
 
-        function logInNotify() {
-            if(socketIO != undefined) {
-                console.log('notified that admin connected')
-                socketIO.emit('admin-connected')
+        function isLoggedIn() {
+            if($rootScope.globals.loggedIn) {
+                $state.go('home')
             }
         }
+        isLoggedIn()
     }
 })();

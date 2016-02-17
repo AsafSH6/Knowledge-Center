@@ -56,6 +56,7 @@
         }
 
         function SetCredentials(id, username, password) {
+            console.log('set crede')
             var authdata = Base64.encode(username + ':' + password);
 
             $rootScope.globals = {

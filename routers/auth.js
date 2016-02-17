@@ -27,7 +27,8 @@ module.exports = function(passport, socketIO){
             res.status(200).json({id: req.user._id})
         }
         else {
-            res.sendStatus(403)
+            req.logout()
+            res.sendStatus(500)
         }
     })
 

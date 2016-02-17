@@ -26,7 +26,7 @@
 
 </head>
 <body ng-controller="authenticationCtrl as AuthCtrl">
-<div ng-if="globals.loggedIn && AuthCtrl.loggedAsAdmin" id="navbar">
+<div ng-if="globals.loggedIn" id="navbar">
     <ng-include src="'/templates/admin.html'"></ng-include>
 </div>
 <div id="content" ui-view>

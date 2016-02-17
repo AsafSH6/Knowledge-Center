@@ -27,6 +27,7 @@
             getPostById: getPostById,
             createNewPost: createNewPost,
             getUser: getUser,
+            deletePost: deletePost,
             users: users,
             dbPosts: dbPosts,
             addr: addr
@@ -135,6 +136,12 @@
             $http.post('/api/v1/create-new-post/', {category: category, tags: tags, title: title, text: text}).then(function(res) {
                 console.log(res.data)
                 callback(res)
+            })
+        }
+
+        function deletePost(postId, callback) {
+            $http.post('/api/v1/delete-post/', {postId: postId}).then(function(res) {
+                callback()
             })
         }
 

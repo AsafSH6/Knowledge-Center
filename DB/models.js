@@ -214,14 +214,14 @@ postSchema.statics.createNewPost = function(userId, category, tags, title, text,
     })
 }
 
-postSchema.statics.deletePost = function (userId, postId, callback) {
+postSchema.statics.deletePost = function (user, postId, callback) {
     console.log(postId)
     this.findById(postId, function(err, post) {
         if(err) {
             callback('error')
         }
         else {
-            if(userId.equals(post.user)) {
+            if(user.is_admin == true || user._id.equals(post.user)) {
                 console.log(post.comments)
                 mongoose.model('Comment').remove({_id: {$in: post.comments}}, function(err) {
                     console.log('removed comments')

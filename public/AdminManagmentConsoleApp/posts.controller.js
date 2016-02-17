@@ -8,10 +8,10 @@
         .module('adminConsole')
         .controller('postsController', adminPosts);
 
-    adminPosts.$inject = ['dataService','$stateParams', "$scope"];
+    adminPosts.$inject = ['$rootScope', '$state', 'dataService','$stateParams', "$scope"];
 
     /* @ngInject */
-    function adminPosts(dataService,$stateParams, $scope) {
+    function adminPosts($rootScope, $state,dataService,$stateParams, $scope) {
         console.log("posts")
 
 
@@ -20,15 +20,21 @@
 
         dataService.getAllPostsFilteredByCategory($scope.category, function(questions){
             $scope.posts = questions.data;
-            console.log($scope.dbPosts);
         });
 
         $scope.deletePost = function(index){
-
-            //TODO create api
-           var deleted = $scope.splice(index,1);
+            dataService.deletePost($scope.posts[index]._id, function() {
+                $scope.posts.splice(index, 1)
+            })
 
         }
+
+        function isLoggedIn() {
+            if(!$rootScope.globals.loggedIn) {
+                $state.go('login')
+            }
+        }
+        isLoggedIn()
 
 
     }

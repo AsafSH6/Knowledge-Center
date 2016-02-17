@@ -19,7 +19,7 @@
             </thead>
 
             <tbody >
-            <tr ng-repeat="post in posts">
+            <tr ng-repeat="post in posts track by $index">
                 <td>{{$index +1}}</td>
                 <td>{{post.title}}</td>
                 <td>{{post.creation_date | date}}</td>

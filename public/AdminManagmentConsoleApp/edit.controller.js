@@ -9,10 +9,10 @@
         .module('adminConsole')
         .controller('editController', edit);
 
-    edit.$inject = ['$scope', '$stateParams', '$location', 'dataService'];
+    edit.$inject = ['$rootScope', '$scope', '$stateParams', '$location', '$state', 'dataService'];
 
     /* @ngInject */
-    function edit($scope, $stateParams, $location, dataService) {
+    function edit($rootScope, $scope, $stateParams, $location, $state, dataService) {
 
         var user = dataService.getUser($stateParams.userIndex);
         console.log(user);
@@ -37,6 +37,13 @@
                 }
             })
         }
+
+        function isLoggedIn() {
+            if(!$rootScope.globals.loggedIn) {
+                $state.go('login')
+            }
+        }
+        isLoggedIn()
     }
 
 })();

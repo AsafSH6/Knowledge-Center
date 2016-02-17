@@ -204,7 +204,7 @@ module.exports = function(socketIO) {
 
     router.post('/delete-post/', function (req, res) {
         console.log('DELETE POST')
-        models.Post.deletePost(req.user._id, req.body.postId, function (err) {
+        models.Post.deletePost(req.user, req.body.postId, function (err) {
             if (!err) {
                 res.sendStatus(200)
             }
