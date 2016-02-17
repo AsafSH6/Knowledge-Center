@@ -3,7 +3,7 @@
 
 
 <div class="container">
-    <div ng-if="!err" class="alert alert-danger" role="alert">{{errorMessage}}</div>
+    <div ng-if="err" class="alert alert-danger" role="alert">{{errorMessage}}</div>
 <div class="text-center">
 <div class="pagination-centered">
 <form ng-submit="update(user)" novalidate class="simple-form">
