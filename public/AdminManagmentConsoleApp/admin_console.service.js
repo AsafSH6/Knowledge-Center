@@ -27,6 +27,7 @@
             getAllPostsFilteredByCategory: getAllPostsFilteredByCategory,
             getPostById: getPostById,
             createNewPost: createNewPost,
+            getUser: getUser,
             users: users,
             dbPosts: dbPosts,
             addr: addr
@@ -36,12 +37,18 @@
 
 
         function getAllUsers(callback){
-            //TODO- change the function to get credentials
+
             $http.get('/api/v1/get-all-users/', callback).then(function(res) {
                 console.log(res);
                 users = res.data;
                 callback(res.data)
             })
+        }
+
+        function getUser(index){
+
+            return users[index];
+
         }
 
         function getAllAddresses(callback){
@@ -86,11 +93,14 @@
         }
 
 
-        function updateUser(username, userpassword, useremail, callback){
-            $http.post('/api/v1/update-user-admin/', { username: username, password: userpassword, email: useremail})
-                .then(function(res) {
+        function updateUser(username, useremail, userId, callback){
+            $http.post('/api/v1/admin/edit-user/', { username: username, email: useremail, userId: userId})
+                .success(function(res) {
                 console.log(res)
-                callback(res.status);
+                callback(200);
+            }).error(function() {
+                console.log('create user error')
+                callback(500)
             })
 
         }

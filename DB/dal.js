@@ -4,7 +4,7 @@ var dbConfig = require('./config');
 
 mongoose.connect(dbConfig.local_url, function() {
     console.log('connected')
-    //insertImages();
+    insertImages();
     //deletePostsAndComments()
 });
 
