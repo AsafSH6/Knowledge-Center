@@ -1,3 +1,5 @@
+//Defining the Module
+
 (function () {
     'use strict';
 
