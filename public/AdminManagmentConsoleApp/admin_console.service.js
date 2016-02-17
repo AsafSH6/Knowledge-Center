@@ -20,7 +20,6 @@
             getAllAddresses:getAllAddresses,
             addTag: addTag,
             removeTag: removeTag,
-           // removeUser: removeUser,
             updateUser: updateUser,
             createUser: createUser,
             getAllCategories: getAllCategories,
@@ -34,9 +33,7 @@
 
         return service;
 
-
         function getAllUsers(callback){
-            //TODO- change the function to get credentials
             $http.get('/api/v1/get-all-users/', callback).then(function(res) {
                 console.log(res);
                 users = res.data;
@@ -54,7 +51,6 @@
         }
 
         function getAllTags(callback){
-            //TODO- change the function to get credentials
             $http.get('/api/v1/get-all-tags/', callback).then(function(res) {
                 console.log(res);
                 users = res.data;

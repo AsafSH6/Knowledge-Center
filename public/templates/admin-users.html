@@ -13,10 +13,9 @@
                 <th>User Name</th>
                 <th>Password</th>
                 <th>E-mail</th>
+                <th>Location</th>
                 <th>Creation Date</th>
-
                 <th>Edit</th>
-                <th>Delete</th>
             </tr>
             </thead>
 
@@ -27,8 +26,8 @@
                 <td>{{u.password}}</td>
                 <td>{{u.email}}</td>
                 <td>{{u.creation_date | date}}</td>
+                <td>{{u.city_addr + " " + u.street_addr}}</td>
                 <td ><a ui-sref="edit({userIndex: $index})" class="btn btn-xs btn-warning edit-button">Edit</a></td>
-                <td><a ng-click="deleteUser($index)" class="btn btn-xs btn-danger" id="delete" >Delete</a></td>
             </tr>
             </tbody>
         </table>

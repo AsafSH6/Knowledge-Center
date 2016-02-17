@@ -300,5 +300,6 @@ module.exports = function(socketIO) {
             }
         })
     })
+
     return router
 }
