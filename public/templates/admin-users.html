@@ -1,6 +1,7 @@
 <!--i class="fa fa-spin fa-refresh fa-5x" id="loader"></i-->
 <div class="container">
-
+<div class="row">
+    <div class="col-md-12 col-xs-12 col-centered">
     <div class="panel panel-default">
         <!-- Default panel contents -->
         <div class="panel-heading">Users list</div>
@@ -14,9 +15,9 @@
                 <th>Password</th>
                 <th>E-mail</th>
                 <th>Creation Date</th>
-
+                <th>Location</th>
+                <th>Connected</th>
                 <th>Edit</th>
-                <th>Delete</th>
             </tr>
             </thead>
 
@@ -27,12 +28,14 @@
                 <td>{{u.password}}</td>
                 <td>{{u.email}}</td>
                 <td>{{u.creation_date | date}}</td>
+                <td>{{u.city_addr + " " + u.street_addr}}</td>
+                <td><i class="fa fa-plug"></i></td>
                 <td ><a ui-sref="edit({userIndex: $index})" class="btn btn-xs btn-warning edit-button">Edit</a></td>
-                <td><a ng-click="deleteUser($index)" class="btn btn-xs btn-danger" id="delete" >Delete</a></td>
             </tr>
             </tbody>
         </table>
     </div>
-
+</div>
+</div>
 </div><!--/container-->
 

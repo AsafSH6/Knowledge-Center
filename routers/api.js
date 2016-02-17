@@ -288,21 +288,6 @@ module.exports = function(socketIO) {
         })
     })
 
-    router.post('/admin/remove-user/', function(req, res) {
-        if(req.user.is_admin) {
-            models.User.removeUser(req.body.userId, function(err) {
-                if(err) {
-                    res.sendStatus(500)
-                }
-                else {
-                    res.sendStatus(200)
-                }
-            })
-        }
-        else {
-            res.sendStatus(500)
-        }
-    })
 
     router.post('/admin/edit-user/', function(req, res) {
         if(req.user.is_admin) {
@@ -319,6 +304,7 @@ module.exports = function(socketIO) {
             res.sendStatus(500)
         }
     })
+
 
     return router
 }
