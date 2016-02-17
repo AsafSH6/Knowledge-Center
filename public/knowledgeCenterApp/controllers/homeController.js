@@ -45,7 +45,8 @@
                     console.log('modal')
                     $("#myModal2").modal();
                 });
-                var url = "http://www.youtube.com/embed/YE7VzlLtp-4";
+                //var url = "http://techslides.com/demos/sample-videos/small.mp4";
+                var url = "/videos/LearnAngularBasics.mp4";
 
                 /* Assign empty url value to the iframe src attribute when
                  modal hide, which stop the video playing */
