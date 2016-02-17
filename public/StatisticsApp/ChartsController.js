@@ -1,6 +1,4 @@
-/**
- * Created by Eran Reuveni on 13/02/2016.
- */
+
 (function () {
     'use strict';
 
@@ -22,6 +20,7 @@
             createPie()
             createRadar()
         }
+        //Creating the RadarChart
         function createRadar() {
             APIService.getTagsofPost(function (data){
 
@@ -74,7 +73,7 @@
                 }
             )
         }
-
+        //Creating the PieChart
         function createPie() {
             APIService.getNumberOfPostGroupedByCategory(function (data) {
                 vm.pieData = []
@@ -95,6 +94,7 @@
             })
         }
 
+        //Randomizing the colors for Piechart
         function getRandomColor() {
             var letters = '0123456789ABCDEF'.split('');
             var color = '#';

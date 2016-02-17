@@ -21,6 +21,7 @@
         return service
 
 
+        //Getting GroupBy from PostId using MapReduce
         function getNumberOfPostGroupedByCategory(callback) {
             $http.get('/api/v1/get-categories-and-number-of-related-posts/').then(function(res) {
                 console.log(res)
