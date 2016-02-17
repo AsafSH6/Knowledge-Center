@@ -38,6 +38,7 @@
                     vm.loggedAsAdmin = false
                 }
                 else {
+                    logInNotify()
                     vm.loggedAsAdmin = true
                     vm.authenticationFailed = false
                     AuthenticationService.SetCredentials(response.id, vm.username, vm.password);
@@ -64,6 +65,13 @@
             vm.username = null
             vm.password = null
 
+        }
+
+        function logInNotify() {
+            if(socketIO != undefined) {
+                console.log('notified that admin connected')
+                socketIO.emit('admin-connected')
+            }
         }
     }
 })();

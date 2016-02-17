@@ -13,11 +13,11 @@ var isAuthenticated = function (req, res, next) {
 
 module.exports.isAuthenticated = isAuthenticated
 
-module.exports = function(passport){
-
+module.exports = function(passport, socketIO){
 
     /* Handle Login POST */
     router.post('/login/', passport.authenticate('login'), function(req, res) {
+        socketIO.sockets.emit('user-connected', req.user._id)
         res.status(200).json({id: req.user._id})
     })
 
@@ -38,6 +38,7 @@ module.exports = function(passport){
 
     /* Handle Logout */
     router.get('/signout/', function(req, res) {
+        socketIO.sockets.emit('user-disconnected', req.user._id)
         req.logout();
         res.sendStatus(200)
     });

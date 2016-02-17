@@ -29,7 +29,8 @@
                 <td>{{u.email}}</td>
                 <td>{{u.creation_date | date}}</td>
                 <td>{{u.city_addr + " " + u.street_addr}}</td>
-                <td><i class="fa fa-plug"></i></td>
+                <td ng-if="u.connected"><i id="connected" class="fa fa-plug"></i></td>
+                <td ng-if="!u.connected"><i id="not-connected" class="fa fa-plug"></i></td>
                 <td ><a ui-sref="edit({userIndex: $index})" class="btn btn-xs btn-warning edit-button">Edit</a></td>
             </tr>
             </tbody>

@@ -43,7 +43,7 @@ require('./passport/init')(passport);
 
 // routers
 app.use('/', require('./routers/index'));
-app.use('/auth', require('./routers/auth')(passport))
+app.use('/auth', require('./routers/auth')(passport, io))
 app.use('/api/v1', require('./routers/api')(io));
 
 

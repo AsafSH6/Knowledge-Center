@@ -28,6 +28,10 @@ hr {
     background-color:#ccc;
 }
 
-.fa-plug{
+#connected{
     color:green;
+}
+
+#not-connected{
+    color:red;
 }
