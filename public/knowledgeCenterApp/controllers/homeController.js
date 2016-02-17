@@ -21,7 +21,7 @@
             console.log($scope.newPosts)
         })
 
-        $scope.listenToNewPosts = function() {
+        function listenToNewPosts() {
             if(socketIO != undefined) {
                 console.log('listening to new posts')
                 socketIO.on('new-post', function(newPost) {
@@ -35,7 +35,32 @@
                 })
             }
         }
-        $scope.listenToNewPosts()
+        listenToNewPosts()
+
+        function videoModal() {
+            $(document).ready(function(){
+                /* Get iframe src attribute value i.e. YouTube video url
+                 and store it in a variable */
+                $("#angularImg").click(function(){
+                    console.log('modal')
+                    $("#myModal2").modal();
+                });
+                var url = "http://www.youtube.com/embed/YE7VzlLtp-4";
+
+                /* Assign empty url value to the iframe src attribute when
+                 modal hide, which stop the video playing */
+                $("#myModal2").on('hide.bs.modal', function(){
+                    $("#cartoonVideo").attr('src', '');
+                });
+
+                /* Assign the initially stored url back to the iframe src
+                 attribute when modal is displayed again */
+                $("#myModal2").on('show.bs.modal', function(){
+                    $("#cartoonVideo").attr('src', url);
+                });
+            });
+        }
+        videoModal()
 
     }
 })();

@@ -15,7 +15,7 @@
 
     function config($stateProvider, $urlRouterProvider) {
         $urlRouterProvider
-            .otherwise('/error/');
+            .otherwise('/');
 
         $stateProvider
             .state('home', {
@@ -26,7 +26,6 @@
             })
             .state('posts', {
                 url: '/:category',
-                //url: '/:category',
                 params: {
                     posts: {
                         array: true,
