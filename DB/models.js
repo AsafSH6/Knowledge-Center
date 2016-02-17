@@ -396,6 +396,31 @@ postSchema.statics.updateSolvedStatus = function(userId, postId, solvedStatus, c
     })
 }
 
+postSchema.statics.getPostsGroupedByCategory = function(callback) {
+    this.aggregate({$group: {_id: '$category.name', count: {$sum: 1}}}, callback)
+}
+
+postSchema.statics.getNumberOfRelatedPostsForEachTag = function(callback) {
+    // map function that emits each tag name of in post and the sum 1
+    var map = function () {
+        var tags = this.tags
+        for (var tag in tags) {
+            emit(tags[tag].name, {sum: 1})
+        }
+    }
+
+    // reduce function that collects each id (which is tag name) and calculate the total sum
+    var reduce = function (id, arr) {
+        var sum = 0
+        for (var i = 0; i < arr.length; i++) {
+            sum += arr[i].sum
+        }
+        return {sum: sum}
+    }
+
+    models.Post.mapReduce({map: map, reduce: reduce}, callback)
+}
+
 postSchema.methods.increasePostViewByOne = function(callback) {
     this.update({views: (this.views + 1)}, function(err) {
         if(err!=null) {
@@ -406,6 +431,7 @@ postSchema.methods.increasePostViewByOne = function(callback) {
         }
     })
 }
+
 
 module.exports.Image = mongoose.model('Image', imageSchema, 'images');
 module.exports.User = mongoose.model('User', user, 'users');
