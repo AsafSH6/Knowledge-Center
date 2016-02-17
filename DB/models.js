@@ -415,7 +415,7 @@ postSchema.statics.getNumberOfRelatedPostsForEachTag = function(callback) {
         return {sum: sum}
     }
 
-    models.Post.mapReduce({map: map, reduce: reduce}, callback)
+    this.mapReduce({map: map, reduce: reduce}, callback)
 }
 
 postSchema.methods.increasePostViewByOne = function(callback) {
