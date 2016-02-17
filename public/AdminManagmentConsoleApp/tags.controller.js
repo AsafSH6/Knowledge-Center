@@ -1,5 +1,8 @@
 (function () {
     'use strict';
+// Template: admin-tags.html
+// show all the current tags and allows the admin, and only the admin, to add new tags.
+
 
 angular
     .module('adminConsole')

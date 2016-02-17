@@ -1,3 +1,6 @@
+// Template for controller: admin.html
+// responsible for the side bar admin.
+
 (function () {
     'use strict';
 

@@ -1,6 +1,5 @@
-/**
- * Created by Eran Reuveni on 14/02/2016.
- */
+//Template for this controller: admin-posts.html.
+// presents all the posts, gives the admin an option to delete them.
 (function () {
     'use strict';
 

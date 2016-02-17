@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-
+//comunicates with the server API
     angular
         .module('KnowledgeCenter')
         .factory('APIService', APIService);

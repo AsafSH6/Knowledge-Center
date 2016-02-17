@@ -1,10 +1,8 @@
-/**
- * Created by Eran Reuveni on 14/02/2016.
- */
-
-
-
-
+// this controller template is admin-map.html.
+// uses ngMap for presenting the google map.
+// fetch all the clients addresses from the server and gives the admin
+// a list of all the clients where he can choose a relevant client
+// and the map focuses to the relevant location
 (function () {
     'use strict';
 

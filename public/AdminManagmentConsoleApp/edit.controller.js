@@ -1,7 +1,5 @@
-/**
- * Created by Eran Reuveni on 13/02/2016.
- */
-
+//This controller is template is admin-edit-user.html, responsible for
+// editing a client credentials, {usrname, E-mail}
 (function () {
     'use strict';
 

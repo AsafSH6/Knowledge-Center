@@ -1,6 +1,5 @@
-/**
- * Created by Eran Reuveni on 13/02/2016.
- */
+//HomeController template: home.html
+// Get all the latest posts.
 (function () {
     'use strict';
 

@@ -2,40 +2,40 @@
 <div class="container">
 <div class="row">
     <div class="col-md-12 col-xs-12 col-centered">
-    <div class="panel panel-default">
+        <div class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading">Users list</div>
+            <div class="panel-heading">Users list</div>
 
         <!-- Table -->
-        <table class="table" id="userList">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>User Name</th>
-                <th>Password</th>
-                <th>E-mail</th>
-                <th>Creation Date</th>
-                <th>Location</th>
-                <th>Connected</th>
-                <th>Edit</th>
-            </tr>
-            </thead>
+                <table class="table" id="userList">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>User Name</th>
+                            <th>Password</th>
+                            <th>E-mail</th>
+                            <th>Creation Date</th>
+                            <th>Location</th>
+                            <th>Connected</th>
+                            <th>Edit</th>
+                        </tr>
+                </thead>
 
-            <tbody >
-            <tr ng-repeat="u in users track by $index">
-                <td>{{$index +1}}</td>
-                <td>{{u.username}}</td>
-                <td>{{u.password}}</td>
-                <td>{{u.email}}</td>
-                <td>{{u.creation_date | date}}</td>
-                <td>{{u.city_addr + " " + u.street_addr}}</td>
-                <td><i class="fa fa-plug"></i></td>
-                <td ><a ui-sref="edit({userIndex: $index})" class="btn btn-xs btn-warning edit-button">Edit</a></td>
-            </tr>
-            </tbody>
-        </table>
+                <tbody >
+                    <tr ng-repeat="u in users track by $index">
+                        <td>{{$index +1}}</td>
+                        <td>{{u.username}}</td>
+                        <td>{{u.password}}</td>
+                        <td>{{u.email}}</td>
+                        <td>{{u.creation_date | date}}</td>
+                        <td>{{u.city_addr + " " + u.street_addr}}</td>
+                        <td><i class="fa fa-plug"></i></td>
+                        <td ><a ui-sref="edit({userIndex: $index})" class="btn btn-xs btn-warning edit-button">Edit</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 </div>
 </div><!--/container-->
 

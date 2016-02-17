@@ -1,6 +1,7 @@
 (function () {
     'use strict';
 
+    //Service - Comunicates with the API.
     angular
         .module('adminConsole')
         .factory('dataService', adminConsoleService);

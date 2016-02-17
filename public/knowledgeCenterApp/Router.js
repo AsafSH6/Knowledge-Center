@@ -1,4 +1,6 @@
 (function () {
+
+    //Router for the app, users ui-router
     'use strict';
     angular
         .module('KnowledgeCenter')

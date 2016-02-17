@@ -1,6 +1,7 @@
 (function () {
     'use strict';
-
+//Template: post.html.
+// Shows the current post that the user clicked on.
     angular
         .module('KnowledgeCenter')
         .controller('PostCtrl', PostCtrl)

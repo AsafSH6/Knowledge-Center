@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-
+//Communicates with the server Passport component
     angular
         .module('KnowledgeCenter')
         .factory('AuthenticationService', AuthenticationService);

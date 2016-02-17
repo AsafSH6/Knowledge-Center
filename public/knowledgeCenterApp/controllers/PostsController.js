@@ -1,5 +1,8 @@
 (function () {
     'use strict';
+// Template: posts.html.
+// shows all the users.
+// uses paging, default posts per page 9
 
     angular
         .module('KnowledgeCenter')
