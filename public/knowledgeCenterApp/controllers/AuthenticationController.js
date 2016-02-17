@@ -1,6 +1,4 @@
-/**
- * Created by Asaf on 12/30/2015.
- */
+//Authenticating users with Passport.
 (function () {
     'use strict';
 

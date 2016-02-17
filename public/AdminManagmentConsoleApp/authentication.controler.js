@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-
+//Authenticates the Admin user
     angular
         .module('adminConsole')
         .controller('authenticationCtrl', AuthenticationCtrl);
@@ -10,7 +10,6 @@
     /* @ngInject */
     function AuthenticationCtrl($rootScope, $state, $location, AuthenticationService)
     {
-        /* jshint validthis: true */
         var vm = this;
 
         vm.activate = activate;
@@ -29,8 +28,8 @@
         }
 
         function signin() {
-            console.log(vm.username)
-            console.log(vm.password)
+            console.log(vm.username);
+            console.log(vm.password);
             AuthenticationService.signin(vm.username, vm.password, function (err, response) {
                 console.log(err)
                 if(err!= null) {
@@ -38,10 +37,10 @@
                     vm.loggedAsAdmin = false
                 }
                 else {
-                    vm.loggedAsAdmin = true
-                    vm.authenticationFailed = false
+                    vm.loggedAsAdmin = true;
+                    vm.authenticationFailed = false;
                     AuthenticationService.SetCredentials(response.id, vm.username, vm.password);
-                    clearDetails()
+                    clearDetails();
                     $location.path('home/')
                 }
             });

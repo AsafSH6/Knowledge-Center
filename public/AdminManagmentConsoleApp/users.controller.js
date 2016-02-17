@@ -1,6 +1,5 @@
-/**
- * Created by Eran Reuveni on 09/02/2016.
- */
+//Template: admin-users.html
+// Manages all the users, also uses socket.io to present all the connected users.
 (function () {
     'use strict';
 

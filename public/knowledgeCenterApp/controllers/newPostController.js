@@ -1,6 +1,7 @@
 (function () {
     'use strict';
-    // TODO: REQUIRE TITLE!!
+    // Template: createPost.
+    // This controller gets all the details fora new post
     angular
         .module('KnowledgeCenter')
         .controller('NewPostCtrl', NewPostCtrl)

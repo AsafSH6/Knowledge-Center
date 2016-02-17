@@ -1,6 +1,4 @@
-/**
- * Created by Eran Reuveni on 09/02/2016.
- */
+//Ui-Router
 (function () {
     'use strict';
     angular
@@ -29,8 +27,8 @@
 
             .state('home', {
                 url: '/home/',
-                templateUrl: '/templates/admin-home.html',
-                controller: 'homeController'
+                templateUrl: '/templates/admin-home.html'
+
             })
 
             .state('map', {

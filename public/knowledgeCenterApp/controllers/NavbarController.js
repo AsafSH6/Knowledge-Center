@@ -1,3 +1,5 @@
+// Template: navbar.html
+// showing all the categories in the nav bar dynamically.
 (function () {
     'use strict';
 

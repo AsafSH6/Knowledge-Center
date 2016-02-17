@@ -1,25 +1,21 @@
-
-
-
-
 <div class="container">
     <div ng-if="err" class="alert alert-danger" role="alert">{{errorMessage}}</div>
-<div class="text-center">
-<div class="pagination-centered">
-<form ng-submit="update(user)" novalidate class="simple-form">
+        <div class="text-center">
+            <div class="pagination-centered">
+                <form ng-submit="update(user)" novalidate class="simple-form">
 
-         <div class="form-group">
-             <label for="uname">User Name:</label>
-             <input type="text" class="form-control" id="uname" ng-model="user.name" required /><br />
+                    <div class="form-group">
+                        <label for="uname">User Name:</label>
+                        <input type="text" class="form-control" id="uname" ng-model="user.name" required /><br />
+                    </div>
+
+                <div class="form-group">
+                        <label for="email">Email address:</label>
+                        <input type="email" class="form-control" id="email" ng-model="user.email" required /><br />
+                </div>
+
+                <input type="submit" class="btn btn-default" value="Save" />
+                </form>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label for="email">Email address:</label>
-            <input type="email" class="form-control" id="email" ng-model="user.email" required /><br />
-        </div>
-
-        <input type="submit" class="btn btn-default" value="Save" />
-</form>
-</div>
-</div>
 </div>

@@ -1,6 +1,7 @@
 (function () {
     'use strict';
 
+    //Passport authentication service.
     angular
         .module('adminConsole')
         .factory('AuthenticationService', AuthenticationService);
