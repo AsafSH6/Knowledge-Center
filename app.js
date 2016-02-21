@@ -33,8 +33,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
-//app.use(expressSession({secret: 'mySecretKey'}));
-app.use(expressSession({ secret: 'mySecretKey', cookie: { maxAge: 60000 }, resave: true, saveUninitialized: true }))
+app.use(expressSession({ secret: 'mySecretKey', cookie: { maxAge: 60000000000 }, resave: true, saveUninitialized: true }))
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());

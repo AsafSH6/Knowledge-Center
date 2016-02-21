@@ -47,11 +47,15 @@ var postSchema = new Schema({
     solved: {type: Boolean, default: false}
 }, {strict: true})
 
+var Enum = {
+    numberOfLastestPosts: 3
+}
 imageSchema.statics.findAllImages = function(callback) {
     return this.find({}, callback)
 }
+/* get the last posts */
 postSchema.statics.getPostsHomePage = function(callback) {
-    this.find({}).sort('-creation_date').populate('user', 'username').limit(3)
+    this.find({}).sort('-creation_date').populate('user', 'username').limit(Enum.numberOfLastestPosts)
         .exec(function (err, posts) {
 
             callback(posts);
@@ -63,12 +67,14 @@ tagSchema.statics.getAllTags = function(callback){
     return this.find({}, callback);
 }
 
+/* get the street address and city address of user */
 user.statics.getAddress = function(callback){
     this.find({}, 'username street_addr city_addr', function (err, addr) {
         console.log(addr);
         callback(addr);
     });
 }
+
 user.statics.checkIfAdmin = function(username, password, callback){
 
     this.findOne({'username': username, 'password': password},function(err, user){
@@ -221,7 +227,7 @@ postSchema.statics.deletePost = function (user, postId, callback) {
             callback('error')
         }
         else {
-            if(user.is_admin == true || user._id.equals(post.user)) {
+            if(user != undefined &&user.is_admin == true || user._id.equals(post.user)) {
                 console.log(post.comments)
                 mongoose.model('Comment').remove({_id: {$in: post.comments}}, function(err) {
                     console.log('removed comments')
@@ -239,6 +245,9 @@ postSchema.statics.deletePost = function (user, postId, callback) {
                         })
                     }
                 })
+            }
+            else {
+                callback('error')
             }
         }
     })
@@ -393,10 +402,18 @@ postSchema.statics.updateSolvedStatus = function(userId, postId, solvedStatus, c
     })
 }
 
+/* get posts grouped by their category
+  * output : list of json which contain the category and ID and the sum as the counter
+*/
 postSchema.statics.getPostsGroupedByCategory = function(callback) {
     this.aggregate({$group: {_id: '$category.name', count: {$sum: 1}}}, callback)
 }
 
+/* get tags and the number of related posts
+ * map-reduce style
+  * map: iterate over the post's tags and emit them (key=tag name, value=1)
+  * reduce: gets the tag name as key and then calculate the sum
+*/
 postSchema.statics.getNumberOfRelatedPostsForEachTag = function(callback) {
     // map function that emits each tag name of in post and the sum 1
     var map = function () {

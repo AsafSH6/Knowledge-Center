@@ -4,8 +4,8 @@ var dbConfig = require('./config');
 
 mongoose.connect(dbConfig.local_url, function() {
     console.log('connected')
-    insertImages();
-    //deletePostsAndComments()
+    //insertImages();
+    deletePostsAndComments()
 });
 
 function createNewUser(username, email, callback) {
@@ -243,14 +243,14 @@ function insertFakeDataToDB() {
     //});
 }
 
-//function deletePostsAndComments() {
-//    models.Post.find({}).remove().exec();
-//    models.Comment.find({}).remove().exec();
-//    models.User.find({}).remove().exec();
-//}
+function deletePostsAndComments() {
+    models.Post.find({}).remove().exec();
+    models.Comment.find({}).remove().exec();
+    models.User.find({}).remove().exec();
+}
 //deletePostsAndComments()
 //function(){mongoose.disconnect()}
-insertFakeDataToDB()
+//insertFakeDataToDB()
 
 //function b() {
 //    models.Post.findOne({title: '1+1=?'}).populate('user', 'username points').exec(function(err, post) {

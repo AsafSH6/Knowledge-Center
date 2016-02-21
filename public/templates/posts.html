@@ -1,6 +1,6 @@
 <button ng-if="globals.loggedIn && category != 'Search'" ui-sref="create-new-post({category: category})" id="new-post" type="button" class="btn btn-info btn-lg">Create New Post</button>
 <div class="row">
-    <div class="col-sm-6 col-md-4" ng-repeat="post in posts track by $index">
+    <div class = "post-left" ng-repeat="post in posts track by $index">
         <div class="thumbnail">
             <!--<img src="..." alt="...">-->
             <div class="caption">

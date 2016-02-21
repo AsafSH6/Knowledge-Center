@@ -41,6 +41,7 @@ function tagsCtrl($rootScope, $state,dataService, $scope) {
 
             if(!err){
                 $scope.tags.push(tag);
+                $scope.tagName = ''
             }
         })
 

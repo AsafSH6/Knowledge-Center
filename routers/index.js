@@ -7,7 +7,6 @@ router.get('/', function(req, res) {
 });
 
 router.get('/admin/', function(req, res) {
-    console.log('ADMIN')
     res.sendFile(path.join(__dirname, '../views', 'index-admin.html'));
 });
 
