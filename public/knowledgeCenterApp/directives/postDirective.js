@@ -16,6 +16,8 @@
                 '<p id="post-text" class="text-light fs-mini m text"></p>',
             link: function ( $scope, $element ) {
                 function render() {
+                    $scope.beginningCodeTag = '<code '
+                    $scope.closingCodeTag = '</code>'
                     if($scope.post == null)
                     $scope.loadPost(function() {
                         parseText($scope.post.text, $element)
@@ -28,23 +30,16 @@
                 render()
 
                 function parseText(text, element) {
-                    var splitedTextByBeginningCodeAreas = text.split('<code ')
+                    var splitedTextByBeginningCodeAreas = text.split($scope.beginningCodeTag)
                     var beginningText = splitedTextByBeginningCodeAreas[0]
                     markLinks(beginningText, element)
                     if(splitedTextByBeginningCodeAreas.length == 1) {
                         return
                     }
-                    var splitedTextByAfterCodeAreas = splitedTextByBeginningCodeAreas[1].split('</code>')
+                    var splitedTextByAfterCodeAreas = splitedTextByBeginningCodeAreas[1].split($scope.closingCodeTag)
                     var programmingLanguage = splitedTextByAfterCodeAreas[0].split('>', 1)[0]
                     var programmingCode = splitedTextByAfterCodeAreas[0].replace(programmingLanguage + '>', "").slice(1, -1)
-                    var beginningOfNextText = splitedTextByAfterCodeAreas.slice(1, splitedTextByAfterCodeAreas.length).join("")
-                    var endingOfNextText = splitedTextByBeginningCodeAreas.slice(2, splitedTextByBeginningCodeAreas.length).join("")
-                    var middleOfNextText = (endingOfNextText.indexOf('</code>') != -1 ? '<code ' : '')
-                    var fullNextText = beginningOfNextText + middleOfNextText + endingOfNextText
 
-                    //console.log('beginning text: \n' + beginningText)
-                    //console.log('program language: \n' + programmingLanguage)
-                    //console.log('program code: \n' + programmingCode)
                     var editor = 'editor' + $scope.codesCounter
                     $scope.increaseCodeCounter()
                     element.append('<div id="' + editor + '-pane" class="editor"><div id="' + editor +'" class="editor"></div></div>')
@@ -55,7 +50,8 @@
                         lineNumbers: true,
                         readOnly: true,
                     });
-                    parseText(fullNextText, element)
+                    var indexOfNextText = text.indexOf($scope.closingCodeTag) + $scope.closingCodeTag.length
+                    parseText(text.slice(indexOfNextText, text.length), element)
                 }
 
                 function markLinks(text, element) {

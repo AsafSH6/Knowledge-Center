@@ -5,7 +5,8 @@ var dbConfig = require('./config');
 mongoose.connect(dbConfig.local_url, function() {
     console.log('connected')
     //insertImages();
-    deletePostsAndComments()
+    insertFakeDataToDB()
+    //deletePostsAndComments()
 });
 
 function createNewUser(username, email, callback) {
@@ -197,11 +198,11 @@ function createNewCommentAndPushToPost(userName, postID, text, callback) {
 
 // RUN ONE BY ONE
 function insertFakeDataToDB() {
-    createNewUser('Asaf', 'a1@b.c', function(user) {
-        //createNewCategory('Questions', '/questions', function(){
-        //createNewCategory('Links', '/links', function(){
-        //    createNewCategory('Things I learnt today', '/things-I-learnt-today', function(){
-        //        createNewCategory('Guides', '/guides', function(){
+    //createNewUser('Asaf', 'a1@b.c', function(user) {
+        createNewCategory('Questions', '/questions', function(){
+        createNewCategory('Links', '/links', function(){
+            createNewCategory('Things I learnt today', '/things-I-learnt-today', function(){
+                createNewCategory('Guides', '/guides', function(){
         //            createNewTag('Python', ['Questions', 'Links', 'Things I learnt today'], function(){
         //                createNewTag('Java', ['Questions', 'Links'], function(){
         //                    createNewTag('StyleFrame', ['Questions', 'Links'], function(){
@@ -213,13 +214,13 @@ function insertFakeDataToDB() {
         //                            });
         //                        });
         //                    });
-        //                });
-        //            });
-        //        });
-        //    });
+                        });
+                    });
+                });
+            });
         //});
         //});
-    });
+    //});
 
 
    // createNewCategory('Links', '/links', function(){});
@@ -262,9 +263,9 @@ function deletePostsAndComments() {
 //b()
 
 function insertImages() {
-    var images = [//'http://bootdey.com/img/Content/user_1.jpg',
-    //    'http://bootdey.com/img/Content/user_2.jpg',
-    //    'http://bootdey.com/img/Content/user_3.jpg',
+    var images = ['http://bootdey.com/img/Content/user_1.jpg',
+        'http://bootdey.com/img/Content/user_2.jpg',
+        'http://bootdey.com/img/Content/user_3.jpg',
     'http://bootdey.com/img/Content/avatar/avatar1.png',
     'http://bootdey.com/img/Content/avatar/avatar2.png',
     'http://bootdey.com/img/Content/avatar/avatar3.png',
@@ -275,7 +276,7 @@ function insertImages() {
         var image = models.Image({
             imageURL: images[image]
         })
-        image.save(function(){})
+        image.save(function(){console.log('saved')})
     }
 }
 

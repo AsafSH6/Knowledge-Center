@@ -44,6 +44,8 @@
             vm.submitNewPost = submitNewPost
             vm.displayPreview = displayPreview
             vm.addCode = addCode
+            vm.beginningCodeTag = '<code '
+            vm.closingCodeTag = '</code>'
             vm.prewiew = false
             vm.supportedLanguages = {
                 'Python': 'python',
@@ -91,9 +93,9 @@
 
         function displayPreview() {
             vm.postPreviewElement.empty()
+            vm.codesCounter = 0
             parseText(vm.text)
             vm.prewiew = true
-            vm.codesCounter = 0
         }
 
         function addCode(language) {
@@ -105,23 +107,16 @@
         }
 
         function parseText(text) {
-            var splitedTextByBeginningCodeAreas = text.split('<code ')
+            var splitedTextByBeginningCodeAreas = text.split(vm.beginningCodeTag)
             var beginningText = splitedTextByBeginningCodeAreas[0]
             markLinks(beginningText, vm.postPreviewElement)
             if(splitedTextByBeginningCodeAreas.length == 1) {
                 return
             }
-            var splitedTextByAfterCodeAreas = splitedTextByBeginningCodeAreas[1].split('</code>')
+            var splitedTextByAfterCodeAreas = splitedTextByBeginningCodeAreas[1].split(vm.closingCodeTag)
             var programmingLanguage = splitedTextByAfterCodeAreas[0].split('>', 1)[0]
             var programmingCode = splitedTextByAfterCodeAreas[0].replace(programmingLanguage + '>', "").slice(1, -1)
-            var beginningOfNextText = splitedTextByAfterCodeAreas.slice(1, splitedTextByAfterCodeAreas.length).join("")
-            var endingOfNextText = splitedTextByBeginningCodeAreas.slice(2, splitedTextByBeginningCodeAreas.length).join("")
-            var middleOfNextText = (endingOfNextText.indexOf('</code>') != -1 ? '<code ' : '')
-            var fullNextText = beginningOfNextText + middleOfNextText + endingOfNextText
 
-            //console.log('beginning text: \n' + beginningText)
-            //console.log('program language: \n' + programmingLanguage)
-            //console.log('program code: \n' + programmingCode)
             var editor = 'editor' + vm.codesCounter
             vm.postPreviewElement.append('<div id="' + editor + '-pane" class="editor"><div id="' + editor +'" class="editor"></div></div>')
             console.log(programmingLanguage)
@@ -133,7 +128,9 @@
                 readOnly: true,
             });
             vm.codesCounter += 1
-            parseText(fullNextText)
+            var indexOfNextText = text.indexOf(vm.closingCodeTag) + vm.closingCodeTag.length
+
+            parseText(text.slice(indexOfNextText, text.length))
         }
 
         function markLinks(text, element) {
