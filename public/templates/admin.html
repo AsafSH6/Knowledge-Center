@@ -1,0 +1,50 @@
+ <div class="nav-side-menu" ng-controller="sidebarController as sidebarCtrl">
+     <div class="brand"> Admin Dashboard </div>
+     <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+
+     <div class="menu-list">
+
+         <ul id="menu-content" class="menu-content collapse out">
+             <li ui-sref="home">
+                 <a>
+                     <i class="fa fa-dashboard fa-lg"></i> Home
+                 </a>
+             </li>
+
+             <li  data-toggle="collapse" data-target="#products" class="collapsed active">
+                 <a href="#"><i class="fa fa-gift fa-lg"></i> Posts <span class="arrow"></span></a>
+             </li>
+             <ul class="sub-menu collapse" id="products">
+                 <li ui-sref="posts({category: category.name})" ng-repeat="category in sidebarCtrl.dbCategories">
+                     <a > {{ category.name }} </a>
+                 </li>
+             </ul>
+
+             <li ui-sref ="users">
+                 <a  >
+                     <i class="fa fa-user fa-lg"></i> Users
+                 </a>
+             </li>
+
+             <li ui-sref ="map">
+                 <a  >
+                     <i class="fa fa-map-marker fa-lg"></i> Map
+                 </a>
+             </li>
+
+             <li ui-sref ="tags">
+                 <a  >
+                     <i class="fa fa-tags fa-lg"></i> Tags
+                 </a>
+             </li>
+
+             <li ng-controller="authenticationCtrl as AuthCtrl" ng-click="AuthCtrl.signout()">
+                 <a  >
+                     <i class="fa fa fa-sign-out fa-lg"></i> Sign-out
+                 </a>
+             </li>
+         </ul>
+     </div>
+ </div>
+
+

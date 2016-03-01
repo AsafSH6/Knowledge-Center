@@ -1,0 +1,80 @@
+<div class="row">
+    <div class="col-md-6 col-xs-12 container">
+        <section class="widget">
+            <div class="widget-controls post-edit-btn">
+                <a ><i> {{  post.creation_date | date }} </i></a>
+            </div>
+            <div  ng-if="isPostPublisher()" class="widget-controls">
+                <a data-toggle="tooltip" title="Edit" ui-sref="create-new-post({category: post.category.name, originalPostId: post._id})" href=""><i class="glyphicon glyphicon-edit text-white font-medium"></i></a>
+                <a href="" data-toggle="tooltip" title="Delete" ng-click="deletePost()"><i class="glyphicon glyphicon-trash text-white font-medium"></i></a>
+            </div>
+            <div id="post-div" class="widget-body">
+                <div ng-class="randomColor" class="widget-top-overflow windget-padding-md clearfix text-white">
+                    <h3 class="mt-lg mb-lg"><span class="fw-semi-bold">{{ post.title }}</span></h3>
+                    <ul class="tags text-white pull-right" ng-repeat="tag in post.tags track by $index">
+                        <li><a ng-click="searchByTag(tag.name)" href="">{{ tag.name }}</a></li>
+                    </ul>
+                </div>
+                <div class="post-user mt-n-lg">
+                    <span class="thumb-lg pull-left mr">
+                        <!--<img class="img-circle" src="http://bootdey.com/img/Content/user_1.jpg" alt="...">-->
+                        <img class="img-circle" ng-src="{{post.user.profile_image.imageURL}}" alt="...">
+                    </span>
+                    <h5 class="mt-sm fw-normal text-white">{{ post.user.username }}</h5>
+
+                    <p class="fs-mini text-muted">
+                        <a ng-if="isPostPublisher()" ng-click="changeSolvedStatus()" href="">
+                            <i ng-if="post.solved" class="glyphicon glyphicon-ok">
+                                solved
+                            </i>
+                            <i ng-if="!post.solved" class="glyphicon glyphicon-remove">
+                                open question
+                            </i>
+                        </a>
+                        <a ng-if="!isPostPublisher()">
+                            <i ng-if="post.solved" class="glyphicon glyphicon-ok">
+                                solved
+                            </i>
+                            <i ng-if="!post.solved" class="glyphicon glyphicon-remove">
+                                open question
+                            </i>
+                        </a>
+                        <!--<time>{{ post.user.points }} Points</time>-->
+                    </p>
+                </div>
+                    <post-directive></post-directive>
+            </div>
+            <div class="container-comments bootstrap snippet">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="blog-comment">
+                            <ul class="comments">
+                                <li class="clearfix" ng-repeat="comment in post.comments track by $index">
+                                    <img ng-src="{{comment.user.profile_image.imageURL}}" class="avatar" alt="">
+                                    <div class="post-comments">
+                                        <p class="meta">
+                                            <a href="">{{ comment.user.username }} </a>
+                                            {{ comment.creation_date | date}}
+                                            <div ng-if="isCommentPublisher(comment)" class="widget-controls">
+                                                <a ng-click="edit(comment)" href=""><i class="comment-edit-btn"> {{comment.edit_or_cancel}} </i></a>
+                                                <a ng-if="!comment.editMode" ng-click="deleteComment($index)" href=""><i class="comment-edit-btn"> delete </i></a>
+                                            </div>
+                                        <comment-directive ng-if="!comment.editMode" id="comment-{{comment._id}}"></comment-directive>
+                                        <div ng-if="comment.editMode">
+                                            <textarea ng-model="comment.editedText" id="comment-edit-text" rows="{{comment.text.split('\n').length + 2}}"></textarea>
+                                            <button ng-click="updateComment(comment._id)" type="button" class="btn btn-info btn-lg">Update</button>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div ng-if="globals.loggedIn">
+            <textarea id="new-comment" ng-model="text" rows="5" placeholder="Write your comment here..."></textarea>
+            <button ng-click="submitNewComment(text); text=''" type="button" class="btn btn-info btn-lg">Submit</button>
+        </div>
+    </div>
+</div>

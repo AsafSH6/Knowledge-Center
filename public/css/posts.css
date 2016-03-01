@@ -1,0 +1,22 @@
+#new-post {
+    margin-left: 90%;
+}
+
+.center {
+    margin-left: 30%;
+    width: 100%;
+}
+
+.pager {
+    float: left;
+    margin-left: 41%;
+}
+
+button {
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+.post-left{
+    margin-left:2%;
+}

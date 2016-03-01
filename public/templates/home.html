@@ -1,0 +1,101 @@
+ <!-- Header -->
+    <div class="intro-header">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="intro-message">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ <div class="container">
+     <h1 class="page-header">
+         Latest posts
+     </h1>
+
+     <div class="row" ng-repeat="post in newPosts">
+
+         <!-- Blog Entries Column -->
+         <div class="col-md-8">
+             <div class="well">
+             <!-- First Blog Post -->
+             <h2>
+                 {{post.title}}
+             </h2>
+             <p class="lead">
+                 by {{post.user.username}}
+             </p>
+             <p><span class="glyphicon glyphicon-time"></span> Posted on {{post.creation_date | date}}</p>
+
+             <p>{{post.text.substring(0,30)}}</p>
+             <a class="btn btn-primary" ui-sref="post({postId: post._id})">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+
+             </div>
+         </div>
+     </div>
+ </div>
+
+ <!-- Footer -->
+ <div class="footer">
+     <div class="container">
+         <div class="row">
+             <div class="col-footer col-md-3 col-xs-6">
+                 <h3>&nbsp; Learn AngularJS</h3>
+                 <div class="bs-example">
+                     <!-- Button HTML (to Trigger Modal) -->
+                     <a href=""><img id="angularImg" src="/img/banner-bg.png" width="140" height="160"></a>
+                     <!-- Modal HTML -->
+                     <div id="myModal2" class="modal fade">
+                         <div class="modal-dialog">
+                             <div class="modal-content">
+                                 <div class="modal-header">
+                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                     <h4 class="modal-title">YouTube Video</h4>
+                                 </div>
+                                 <div class="embed-responsive embed-responsive-16by9">
+                                     <iframe id="cartoonVideo" width="560" height="315" allowfullscreen frameborder="0" class="embed-responsive-item"></iframe>
+                                 </div>
+                                 <!--<div class="modal-body">-->
+                                     <!--<iframe id="cartoonVideo" width="560" height="315" frameborder="0" allowfullscreen></iframe>-->
+                                 <!--</div>-->
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+             <div class="col-footer col-md-4 col-xs-6">
+                 <h3>Contacts</h3>
+                 <p class="contact-us-details">
+                     <b>Address:</b> 123 Fake Street, LN1 2ST, Rishon Lezion, Israel<br />
+                     <b>Phone:</b> +972-055-123-456<br />
+                     <b>Fax:</b> +872-03-1234567<br />
+                     <b>Email:</b> <a href="mailto:ErZiAs@com.com">ErZiAs@gmail.com</a>
+                 </p>
+             </div>
+             <div class="col-footer col-md-2 col-xs-6">
+                 <h3>Stay Connected</h3>
+                 <ul class="footer-stay-connected no-list-style">
+                     <li><a href="#" class="facebook"></a></li>
+                     <li><a href="#" class="twitter"></a></li>
+                     <li><a href="#" class="googleplus"></a></li>
+                 </ul>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-md-12">
+                 <div class="footer-copyright">&copy; Eran, Ziv & Asaf 2015. All rights reserved.</div>
+             </div>
+
+         </div>
+     </div>
+ </div>
+ </div>
+ </div>
+
+
+
+

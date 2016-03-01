@@ -1,0 +1,55 @@
+<div id="main-div" class="row">
+    <div id="post-guide" class="jumbotron">
+        <h3><b>Posting Guide</b></h3>
+        <ul>
+            <li>
+                <p class="guide-item">
+                    Link:
+                    <br>use the tag &ltlink=url> where url is the specific link address.</br>
+                    For example:
+                    <br>&ltlink=www.google.com></br>
+                </p>
+            </li>
+            <li>
+                <p class="guide-item">
+                    Code:
+                    <br>use the tag &ltcode> and specify the programming language.</br>
+                    For example:
+                    <br>&ltcode python> </br>
+                    class Example(object):
+                        <br>&nbsp&nbsp&nbsp&nbspdef __init__(self):</br>
+                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspprint 'Example'
+                    <br>&lt/code></br>
+                </p>
+            </li>
+            <li>
+                <p class="guide-item">
+                Supported languages:
+                <div class="overflow">
+                    <a href="" ng-click="addCode(value)" ng-repeat="(key, value) in supportedLanguages">
+                        <b class="under-line">{{ key }}</b>
+                    </a>
+                </div>
+                </p>
+            </li>
+        </ul>
+    </div>
+
+    <form ng-submit="submitNewPost()" class="form-group new-post">
+        <!--<label class="new-post-title" for="title"><h3><b>Title :</b></h3></label>-->
+        <!--<input type="text" id="title" class="form-control input-title">-->
+        <label for="title"><h3><b>Title</b></h3></label>
+        <input required ng-model="title" id="title" type="text" class="form-control input-text">
+        <tags-directive></tags-directive>
+        <textarea required id="textbox" ng-model="text" class="form-control input-text" rows="25"></textarea>
+        <button id="post-submit" type="submit" class="btn btn-info btn-lg">Submit</button>
+        <button ng-click="displayPreview()" id="post-preview-btn" type="button" class="btn btn-info btn-lg">Preview</button>
+    </form>
+    <div id="post-preview">
+        <h3><b>Preview</b></h3>
+        <div id="preview">
+            <h4 ng-show="prewiew"><b>{{title}}</b></h4>
+            <p id="new-post-preview"></p>
+        </div>
+    </div>
+</div>

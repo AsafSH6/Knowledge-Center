@@ -1,0 +1,122 @@
+<div ng-controller="NavbarCtrl as navbarCtrl">
+    <div ng-controller="AuthenticationCtrl as authCtrl">
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-body" style="padding:40px 50px;">
+                        <a ng-repeat="image in navbarCtrl.dbImages track by $index" ng-click="authCtrl.chooseImage(image)" href=""><img class="choose-image img-circle image" ng-src="{{image.imageURL}}" alt="..."></a>
+                    </div>
+                </div>
+                <button ng-hide="true" id="close-modal" type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+            </div>
+        </div>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" ui-sref="home" ng-click="navbarCtrl.setActive(-1)">
+                        <span class="glyphicon glyphicon-align-left" aria-hidden="false"></span>
+                        Knowledge Center
+                    </a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li ng-class="{'active':navbarCtrl.checkActive($index)}" ng-repeat="category in navbarCtrl.dbCategories track by $index">
+                            <a ui-sref="posts({category: category.name})" ng-click="navbarCtrl.setActive($index)"> {{ category.name }} </a>
+                        </li>
+                        <li>
+                            <a href="./Statistics/" target="_blank">Statistics</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                Search
+                                <span class="caret"></span>
+                            </a>
+                            <ul id="search-ul" class="dropdown-menu">
+                                <form ng-submit="navbarCtrl.submitSearch()" id="search-form">
+                                    <label for="categories-search-input">Category</label>
+                                    <input ng-model="navbarCtrl.search.category" id="categories-search-input" type="text" ng-model="selected" uib-typeahead="category.name for category in navbarCtrl.dbCategories | filter:$viewValue | limitTo:8" typeahead-select-on-blur="true" class="form-control search">
+                                    <label for="tag-search-input">Tag</label>
+                                    <input ng-model="navbarCtrl.search.tag" id="tag-search-input" type="text" ng-model="selected" uib-typeahead="tag.name for tag in navbarCtrl.dbTags | filter:$viewValue | limitTo:8" typeahead-select-on-blur="true" class="form-control search">
+                                    <label for="text-search-input">Text</label>
+                                    <input ng-model="navbarCtrl.search.text" id="text-search-input" value="" class="form-control search">
+                                    <button id="search-btn" type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                </form>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <div class="authentication">
+                        <ul class="nav navbar-nav navbar-right" ng-hide="globals.loggedIn">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" href="" data-toggle="dropdown">
+                                    Sign up <strong class="caret"></strong>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <form class="sign-up" method="post" accept-charset="UTF-8" ng-submit="authCtrl.signup()">
+                                        <div ng-hide="!authCtrl.signupFailed" class="alert alert-danger" role="alert">
+                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                            User already exits.
+                                        </div>
+                                        <input ng-model="authCtrl.firstName" type="text" placeholder="first name" id="firstName" name="firstName" required>
+                                        <input ng-model="authCtrl.lastName" type="text" placeholder="last name" id="lastName" name="lastname" required>
+                                        <input ng-model="authCtrl.email" type="email" placeholder="email" id="email" name="email" required>
+                                        <input ng-model="authCtrl.username" type="text" placeholder="Username" id="user" name="username" required>
+                                        <input ng-model="authCtrl.password" type="password" placeholder="Password" id="signup-password" name="password" required>
+                                        <input ng-model="authCtrl.street" type="text" placeholder="street address" id="street" name="streed" required>
+                                        <input ng-model="authCtrl.city" type="text" placeholder="city" id="city" name="city" required>
+                                        <input class="btn-group-sm" type="submit" id="sign-up" value="Sign Up">
+                                            <button hidden id="myBtn" type="button" class="btn-group-sm">Choose Image</button>
+
+                                    </form>
+                                </div>
+                            </li>
+                            <li class="divider-vertical"></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" href="" data-toggle="dropdown">
+                                    Sign In <strong class="caret"></strong>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <form class="sign-in pad-buttom" method="post" accept-charset="UTF-8" ng-submit="authCtrl.signin()">
+                                        <div ng-hide="!authCtrl.authenticationFailed" class="alert alert-danger" role="alert">
+                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                            Wrong.
+                                        </div>
+                                        <input ng-model="authCtrl.username" type="text" placeholder="Username" id="username" name="username">
+                                        <input ng-model="authCtrl.password" type="password" placeholder="Password" id="password" name="password">
+                                        <input class="btn-group-sm" type="submit" id="sign-in" value="Sign In">
+                                    </form>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right" ng-hide="!globals.loggedIn">
+                            <li class="dropdown">
+                                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    Welcome {{ globals.currentUser.username }}
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="">Profile</a></li>
+                                    <li><a href="">Another action</a></li>
+                                    <li><a href="">Something else here</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li class="pad-buttom" ng-click="authCtrl.signout()"><a href="">Log out</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>

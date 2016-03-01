@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Tags</div>
+        <!-- Table -->
+            <table class="table" id="userList">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Delete</th>
+
+                </tr>
+                </thead>
+
+            <tbody >
+                    <tr ng-repeat="tag in tags track by $index">
+                        <td>{{$index +1}}</td>
+                        <td>{{tag.name}}</td>
+                        <td><a ng-click="removeTag($index)" class="btn btn-xs btn-danger" id="delete" >Delete</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
+    </div>
+
+    <div>
+        <form novalidate class="simple-form">
+
+            <div class="form-group">
+                <label for="uname">Add New Tag</label>
+                <input type="text" class="form-control" id="uname" ng-model="tagName" required /><br />
+            </div>
+
+            <input type="submit" class="btn btn-default" ng-click="addTag(tagName)" value="Save" />
+        </form>
+    </div>
+
+</div><!--/container-->

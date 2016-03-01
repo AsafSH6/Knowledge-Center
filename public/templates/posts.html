@@ -1,0 +1,29 @@
+<button ng-if="globals.loggedIn && category != 'Search'" ui-sref="create-new-post({category: category})" id="new-post" type="button" class="btn btn-info btn-lg">Create New Post</button>
+<div class="row">
+    <div class = "post-left" ng-repeat="post in posts track by $index">
+        <div class="thumbnail">
+            <!--<img src="..." alt="...">-->
+            <div class="caption">
+                <h3>
+                    <span ng-if="post.solved" class="glyphicon glyphicon-ok-sign" style="color:green"></span>
+                    <span ng-if="!post.solved" class="glyphicon glyphicon-question-sign"></span>
+                    <postref-Directive></postref-Directive>
+                </h3>
+
+                <p ng-if="post.text.length > 30" >{{ post.text.substring(0, 30) }}...</p>
+                <p ng-if="post.text.length <= 30" >{{ post.text }}</p>
+
+                <p>
+                    <span class="label label-default"><i class="fa fa-eye"></i>Views: {{ post.views }}</span>
+
+
+                    <span class="label label-default"><i class="fa fa-comments"></i>Comments: {{ post.comments.length }}</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<ul class="pager">
+    <li><a href="" ng-click="previousPage()">Previous</a></li>
+    <li><a href="" ng-click="nextPage()">Next</a></li>
+</ul>

@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="list-group" >
+                <li ng-repeat="addr in addresses track by $index" class="list-group-item">
+                    <a href="" ng-click="changeLocation($index)">{{addr.username}}</a>
+                </li>
+            </div>
+        </div>
+
+        <div class="col-sm-10">
+            <ng-map id ="map" zoom="12" center="{{address}}"
+                    zoom-control="true"
+                    zoom-control-options='{style:"small",position:"bottom_left"}'
+                    map-type-control="true"
+                    map-type-control-options='{position:"top_right", style:"dropdown_menu", mapTypeIds:["HYBRID","ROADMAP","SATELLITE","TERRAIN"]}'
+                    overview-map-control="true"
+                    overview-map-control-options="{opened:true}"
+                    pan-control="true"
+                    pan-control-options='{position:"left_center"}'
+                    rotate-control="true"
+                    rotate-control-options='{position:"right_center"}'
+                    scale-control="true"
+                    scale-control-options='{position:"bottom_right", style:"default"}'
+                    street-view-control="true"
+                    street-view-control-options='{position:"right_center"}'>
+
+            <marker position="Brampton Canada" title="Rishon Letzion Israel"></marker>
+            <marker position="{{address}}" title="{{address}}"></marker>
+            </ng-map>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/bower_components/angular-chart.js/dist/angular-chart.css">
+    <link rel="stylesheet" href="/css/graphs.css">
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/Chart.js/Chart.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-chart.js/dist/angular-chart.js"></script>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/js/bootstrap.min.js">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+
+</head>
+<body ng-app="ChartsApp">
+
+    <div class="container" ng-controller="ChartsCtrl as ChartsCtrl">
+        <!--div id="pieChart" class="chart"-->
+        <div id="main-div row" >
+            <div id="col1">
+              <h1 style="font-size:300%;">Selection by tags</h1>
+            </div>
+            <div id ="col2" >
+                <h1 style="font-size:300%">Sum of tags</h1>
+            </div>
+        </div>
+        <div class="row1">
+             <div class="col-sm-6" align="center">
+                <canvas id="polar-area" class="chart chart-polar-area"></canvas>
+               </div>
+
+              <div class="col-sm-6">
+                <canvas id="pie" class="chart chart-pie1"></canvas>
+               </div>
+
+        </div>
+    </div>
+
+    <script src="/StatisticsApp/StatisticModule.js"></script>
+    <script src="/StatisticsApp/StatisticsService.js"></script>
+    <script src="/StatisticsApp/ChartsController.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "Web-app",
+  "version": "0.0.0",
+  "authors": [
+    "'Asaf' <asafsemail@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "angular": "~1.4.8",
+    "ui-router": "~0.2.15",
+    "angular-cookies": "~1.4.8",
+    "codemirror": "~5.10.0",
+    "angular-bootstrap": "~1.1.2",
+    "angular-chart.js": "~0.8.8",
+    "socket.io-client": "~1.4.5"
+  }
+}
