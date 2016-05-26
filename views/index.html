@@ -21,7 +21,7 @@
 
     <!-- More examples at http://codemirror.net/demo/ -->
 
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
 
 
     <!-- add basic CodeMirror functionality -->
@@ -77,9 +77,9 @@
     <script src="/knowledgeCenterApp/services/APIService.js"></script>
     <script src="/knowledgeCenterApp/services/AuthenticationService.js"></script>
     <script src="/knowledgeCenterApp/Router.js"></script>
-    <!--<script>-->
-        <!--socketIO = io.connect('http://localhost:8080')-->
-        <!--console.log('connected IO')-->
-    <!--</script>-->
+    <script>
+        socketIO = io.connect('http://localhost:<%= port %>')
+        console.log('connected IO')
+    </script>
 </body>
 </html>
