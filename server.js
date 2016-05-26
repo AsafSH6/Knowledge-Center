@@ -1,6 +1,6 @@
 var app = require('./app')
 
-app.listen(app.get('port'), function(){
+app.listen(process.env.PORT || 5000, function(){
     var host = app.address().address
     var port = app.address().port
 
