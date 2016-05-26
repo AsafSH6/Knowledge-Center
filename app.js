@@ -33,6 +33,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(__dirname + '/app'));
+app.use('/bower_components', express.static(__dirname + '/public/bower_components'));
+app.use('/AdminManagementConsoleApp', express.static(__dirname + '/public/AdminManagementConsoleApp'));
+app.use('/css', express.static(__dirname + '/public/css'));
+app.use('/img', express.static(__dirname + '/public/img'));
+app.use('/knowledgeCenterApp', express.static(__dirname + '/public/knowledgeCenterApp'));
+app.use('/StatisticsApp', express.static(__dirname + '/public/StatisticsApp'));
+app.use('/templates', express.static(__dirname + '/public/templates'));
+app.use('/videos', express.static(__dirname + '/public/videos'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressSession({ secret: 'mySecretKey', cookie: { maxAge: 60000000000 }, resave: true, saveUninitialized: true }))
 app.use(passport.initialize());
