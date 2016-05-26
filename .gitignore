@@ -33,7 +33,7 @@ bower_components/
 .idea/
 
 # Connection string
-DB/config.js
+#DB/config.js
 
 #Test
 test.js
