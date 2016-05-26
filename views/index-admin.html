@@ -44,7 +44,7 @@
 <script src="/adminManagmentConsoleApp/admin_console.service.js"></script>
 <script src="/adminManagmentConsoleApp/admin_console.router.js"></script>
 <script>
-    socketIO = io.connect('http://localhost:8080')
+    socketIO = io.connect('http://localhost:<%= port %>')
     console.log('connected IO')
 </script>
 
