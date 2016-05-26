@@ -11,8 +11,8 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var dbConfig = require('./DB/config');
 
-mongoose.connect(dbConfig.local_url, function(err) {
-//mongoose.connect(dbConfig.remote_url, function(err) {
+//mongoose.connect(dbConfig.local_url, function(err) {
+mongoose.connect(dbConfig.remote_url, function(err) {
     if(err!=null) {
         console.log('connection error')
     }

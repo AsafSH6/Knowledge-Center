@@ -2,9 +2,9 @@ var models = require('../DB/models')
 var mongoose = require('mongoose');
 var dbConfig = require('./config');
 
-mongoose.connect(dbConfig.local_url, function() {
+mongoose.connect(dbConfig.remote_url, function() {
     console.log('connected')
-    //insertImages();
+    insertImages();
     insertFakeDataToDB()
     //deletePostsAndComments()
 });
@@ -17,7 +17,8 @@ function createNewUser(username, email, callback) {
         password: "$2a$10$VYwau9CXD2sjTKQD8BGZ4uzaet0VHFY0Mb95R1JT.tlMB17LEqD3i",
         email:  email,
         profile_image: image,
-        points: 0
+        points: 0,
+        is_admin: true
     });
     user.save(function (err) {
         if (err) {
@@ -198,7 +199,7 @@ function createNewCommentAndPushToPost(userName, postID, text, callback) {
 
 // RUN ONE BY ONE
 function insertFakeDataToDB() {
-    //createNewUser('Asaf', 'a1@b.c', function(user) {
+    createNewUser('Asaf', 'Asafs@esg.co.il', function(user) {
         createNewCategory('Questions', '/questions', function(){
         createNewCategory('Links', '/links', function(){
             createNewCategory('Things I learnt today', '/things-I-learnt-today', function(){
@@ -220,7 +221,7 @@ function insertFakeDataToDB() {
             });
         //});
         //});
-    //});
+    });
 
 
    // createNewCategory('Links', '/links', function(){});
