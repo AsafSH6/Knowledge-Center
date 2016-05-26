@@ -32,6 +32,7 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.static(__dirname + '/app'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressSession({ secret: 'mySecretKey', cookie: { maxAge: 60000000000 }, resave: true, saveUninitialized: true }))
 app.use(passport.initialize());
