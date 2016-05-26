@@ -171,33 +171,33 @@
             }
 
             function socketIOListenToNewComments() {
-                if(socketIO != undefined) {
-                    socketIO.on(vm.post._id, function(comment) {
-                        console.log(comment)
-                        vm.post.comments.push(comment)
-                        vm.$apply()
-                        console.log(vm.post.comments)
-                    })
-                    socketIO.on('comment-' + vm.post._id, function(commentId) {
-                        $timeout(function() {
-                            for (var comment in vm.post.comments) {
-                                if (vm.post.comments[comment]._id == commentId) {
-                                    vm.post.comments.splice(comment, 1)
-                                    break
-                                }
-                            }
-                            for(var comment in vm.post.comments) {
-                                vm.post.comments[comment].editMode = true
-                            }
-                        })
-                        $timeout(function() {
-                            for(var comment in vm.post.comments) {
-                                vm.post.comments[comment].editMode = false
-                            }
-                        })
-                    })
-                    console.log('listing to: ' + vm.post._id)
-                }
+                //if(socketIO != undefined) {
+                //    socketIO.on(vm.post._id, function(comment) {
+                //        console.log(comment)
+                //        vm.post.comments.push(comment)
+                //        vm.$apply()
+                //        console.log(vm.post.comments)
+                //    })
+                //    socketIO.on('comment-' + vm.post._id, function(commentId) {
+                //        $timeout(function() {
+                //            for (var comment in vm.post.comments) {
+                //                if (vm.post.comments[comment]._id == commentId) {
+                //                    vm.post.comments.splice(comment, 1)
+                //                    break
+                //                }
+                //            }
+                //            for(var comment in vm.post.comments) {
+                //                vm.post.comments[comment].editMode = true
+                //            }
+                //        })
+                //        $timeout(function() {
+                //            for(var comment in vm.post.comments) {
+                //                vm.post.comments[comment].editMode = false
+                //            }
+                //        })
+                //    })
+                //    console.log('listing to: ' + vm.post._id)
+                //}
             }
         }
     }

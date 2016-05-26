@@ -79,16 +79,16 @@
         }
 
         function socketIOListenToNewPosts() {
-            if(socketIO != undefined) {
-                socketIO.on(vm.category, function(post) {
-                    console.log('new post')
-                    APIService.insertPost(post)
-                    vm.posts.unshift(post)
-                    vm.$apply()
-                    console.log(vm.posts)
-                })
-                console.log('listing to: ' + vm.category)
-            }
+            //if(socketIO != undefined) {
+            //    socketIO.on(vm.category, function(post) {
+            //        console.log('new post')
+            //        APIService.insertPost(post)
+            //        vm.posts.unshift(post)
+            //        vm.$apply()
+            //        console.log(vm.posts)
+            //    })
+            //    console.log('listing to: ' + vm.category)
+            //}
         }
     }
 })();
