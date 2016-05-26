@@ -25,6 +25,9 @@ var app = express()
 var server = http.createServer(app)
 var io = socketIO(server)
 
+app.set('port', process.env.PORT || 5000)
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 
