@@ -90,6 +90,7 @@
         })
     }
     function getPostById(postId, callback) {
+        console.log('asking for post ' + postId)
         $http.get('/api/v1/get-post-by-id/' + postId).success(function(post) {
             currentPost = post
             callback(post)
@@ -159,11 +160,16 @@
         dbPosts.unshift(post)
     }
     function updateCurrentPost(postId) {
-        currentPost = dbPosts.filter(function(post){
-            return post._id === postId
-        })[0]
-        IncreaseViewByOne(currentPost._id)
-
+        if(dbPosts == null) {
+            currentPost = postId
+            IncreaseViewByOne(currentPost._id)
+        }
+        else {
+            currentPost = dbPosts.filter(function(post){
+                return post._id === postId
+            })[0]
+            IncreaseViewByOne(currentPost._id)
+        }
     }
     function getCurrentPost() {
         return currentPost;

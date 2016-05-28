@@ -5,10 +5,10 @@
         .module('KnowledgeCenter')
         .directive('postDirective', postDirective);
 
-    postDirective.$inject = ['$window'];
+    postDirective.$inject = ['$window', '$stateParams'];
 
 
-    function postDirective($window) {
+    function postDirective($window, $stateParams) {
 
         return {
             restrict: 'E',
@@ -18,10 +18,12 @@
                 function render() {
                     $scope.beginningCodeTag = '<code '
                     $scope.closingCodeTag = '</code>'
-                    if($scope.post == null)
-                    $scope.loadPost(function() {
-                        parseText($scope.post.text, $element)
-                    })
+                    if($scope.post == null || ($stateParams.postId != undefined && $scope.post._id != $stateParams.postId)) {
+                        $scope.post = null
+                        $scope.loadPost(function () {
+                            parseText($scope.post.text, $element)
+                        })
+                    }
                     else {
                         parseText($scope.post.text, $element)
                     }
