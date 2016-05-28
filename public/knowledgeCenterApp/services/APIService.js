@@ -160,7 +160,7 @@
         dbPosts.unshift(post)
     }
     function updateCurrentPost(postId) {
-        if(dbPosts == null) {
+        if(dbPosts == null && typeof postId == 'object') {
             currentPost = postId
             IncreaseViewByOne(currentPost._id)
         }
