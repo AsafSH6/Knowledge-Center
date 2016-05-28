@@ -21,18 +21,18 @@
         })
 
         function listenToNewPosts() {
-            //if(socketIO != undefined) {
-            //    console.log('listening to new posts')
-            //    socketIO.on('new-post', function(newPost) {
-            //        console.log('new post created')
-            //        console.log(newPost)
-            //        $scope.newPosts.unshift(newPost)
-            //        if($scope.newPosts.length > $scope.postsToDisplay) {
-            //            $scope.newPosts.pop()
-            //        }
-            //        $scope.$apply()
-            //    })
-            //}
+            if(socketIO != undefined) {
+                console.log('listening to new posts')
+                socketIO.on('new-post', function(newPost) {
+                    console.log('new post created')
+                    console.log(newPost)
+                    $scope.newPosts.unshift(newPost)
+                    if($scope.newPosts.length > $scope.postsToDisplay) {
+                        $scope.newPosts.pop()
+                    }
+                    $scope.$apply()
+                })
+            }
         }
         listenToNewPosts()
 
