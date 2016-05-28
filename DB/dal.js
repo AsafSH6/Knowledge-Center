@@ -200,23 +200,28 @@ function createNewCommentAndPushToPost(userName, postID, text, callback) {
 // RUN ONE BY ONE
 function insertFakeDataToDB() {
     //createNewUser('Asaf', 'Asafs@esg.co.il', function(user) {
-        createNewCategory('Bugs and Feedback', '/bugs-and-feedback', function(){
+    //    createNewCategory('Bugs and Feedback', '/bugs-and-feedback', function(){
     //    createNewCategory('Links', '/links', function(){
     //        createNewCategory('Things I learnt today', '/things-I-learnt-today', function(){
     //            createNewCategory('Guides', '/guides', function(){
-    //                createNewTag('Python', ['Questions', 'Links', 'Things I learnt today'], function(){
-    //                    createNewTag('Java', ['Questions', 'Links'], function(){
-    //                        createNewTag('StyleFrame', ['Questions', 'Links'], function(){
-    //                            createNewTag('Pandas', ['Things I learnt today'], function(){
-        //                            createNewPost('Asaf', '1+1=?', "5!!", ['Questions'], ['Python', 'Pandas', 'StyleFrame'], function(post){
-        //                                createNewCommentAndPushToPost('Asaf', post._id, "Cool!", function(){});
-        //                                createNewCommentAndPushToPost('Asaf', post._id, "Thanks!!", function(){});
-        //                                createNewCommentAndPushToPost('Asaf', post._id, "Awesome!", function(){console.log('almost done')});
-        //                            });
-        //                        });
-        //                    });
+    var tags = ['Flask', 'Django', 'React', 'Angular', 'Java Script', 'Emails', 'Redux', 'ESG dal', 'sqlalchemy', 'docxtemplater',
+    'Requests', 'Postgres', 'SQL Server', 'CEM', 'Road6', 'Bezeq', 'Invoices', 'Git', 'Virtual env', 'Gunicorn', 'Nginx', 'Ubuntu',
+        'Windows', 'Google Drive', 'DropBox', 'Numpy', 'datetime', 'Django REST Framework', 'Openpyxl']
+    for(var tag in tags) {
+        createNewTag(tags[tag], [], function () {
+            //                    createNewTag('Java', ['Questions', 'Links'], function(){
+            //                        createNewTag('StyleFrame', ['Questions', 'Links'], function(){
+            //                            createNewTag('Pandas', ['Things I learnt today'], function(){
+            //                            createNewPost('Asaf', '1+1=?', "5!!", ['Questions'], ['Python', 'Pandas', 'StyleFrame'], function(post){
+            //                                createNewCommentAndPushToPost('Asaf', post._id, "Cool!", function(){});
+            //                                createNewCommentAndPushToPost('Asaf', post._id, "Thanks!!", function(){});
+            //                                createNewCommentAndPushToPost('Asaf', post._id, "Awesome!", function(){console.log('almost done')});
+            //                            });
+            //                        });
+        });
+    }
         //                });
-                    });
+        //            });
         //        });
         //    });
         //});
