@@ -4,7 +4,7 @@ var dbConfig = require('./config');
 
 mongoose.connect(dbConfig.remote_url, function() {
     console.log('connected')
-    insertImages();
+    //insertImages();
     insertFakeDataToDB()
     //deletePostsAndComments()
 });
@@ -199,15 +199,15 @@ function createNewCommentAndPushToPost(userName, postID, text, callback) {
 
 // RUN ONE BY ONE
 function insertFakeDataToDB() {
-    createNewUser('Asaf', 'Asafs@esg.co.il', function(user) {
-        createNewCategory('Questions', '/questions', function(){
-        createNewCategory('Links', '/links', function(){
-            createNewCategory('Things I learnt today', '/things-I-learnt-today', function(){
-                createNewCategory('Guides', '/guides', function(){
-        //            createNewTag('Python', ['Questions', 'Links', 'Things I learnt today'], function(){
-        //                createNewTag('Java', ['Questions', 'Links'], function(){
-        //                    createNewTag('StyleFrame', ['Questions', 'Links'], function(){
-        //                        createNewTag('Pandas', ['Things I learnt today'], function(){
+    //createNewUser('Asaf', 'Asafs@esg.co.il', function(user) {
+        createNewCategory('Bugs and Feedback', '/bugs-and-feedback', function(){
+    //    createNewCategory('Links', '/links', function(){
+    //        createNewCategory('Things I learnt today', '/things-I-learnt-today', function(){
+    //            createNewCategory('Guides', '/guides', function(){
+    //                createNewTag('Python', ['Questions', 'Links', 'Things I learnt today'], function(){
+    //                    createNewTag('Java', ['Questions', 'Links'], function(){
+    //                        createNewTag('StyleFrame', ['Questions', 'Links'], function(){
+    //                            createNewTag('Pandas', ['Things I learnt today'], function(){
         //                            createNewPost('Asaf', '1+1=?', "5!!", ['Questions'], ['Python', 'Pandas', 'StyleFrame'], function(post){
         //                                createNewCommentAndPushToPost('Asaf', post._id, "Cool!", function(){});
         //                                createNewCommentAndPushToPost('Asaf', post._id, "Thanks!!", function(){});
@@ -215,13 +215,13 @@ function insertFakeDataToDB() {
         //                            });
         //                        });
         //                    });
-                        });
+        //                });
                     });
-                });
-            });
+        //        });
+        //    });
         //});
         //});
-    });
+    //});
 
 
    // createNewCategory('Links', '/links', function(){});
