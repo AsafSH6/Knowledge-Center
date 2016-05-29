@@ -162,7 +162,7 @@ postSchema.statics.findAllPostsFilteredByCategory = function(category, callback)
         })
 }
 
-user.statics.getAllUsersAdmin = function(callback){
+user.statics.getAllUsers = function(callback){
     return this.find({}, callback);
 }
 
@@ -320,7 +320,9 @@ commentSchema.statics.deleteComment = function (userId, commentId, callback) {
 
 commentSchema.statics.createNewCommentAndPushToPost = function(userId, postId, text, callback) {
     var createNewCommentAndPushToPost = this
-    mongoose.model('Post').findById(postId, function(err, post) {
+    mongoose.model('Post').findById(postId)
+        .populate('user', 'email')
+        .exec(function(err, post) {
         if (err) {
             console.log('could not find post')
             return false
@@ -343,7 +345,9 @@ commentSchema.statics.createNewCommentAndPushToPost = function(userId, postId, t
                     console.log("updated post.")
                     mongoose.model('Comment').findById(comment._id)
                         .populate('user', 'username profile_image')
-                        .exec(callback)
+                        .exec(function(err, comment) {
+                            callback(err, comment, post)
+                        })
                 }
             });
         })

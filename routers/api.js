@@ -1,6 +1,18 @@
-var express = require('express');
+var express = require('express')
+var nodemailer = require('nodemailer')
 var models = require('../DB/models')
 var router = express.Router();
+
+var knowledgeEmail = 'KnowledgeCenterESG@gmail.com'
+var knowledgePassword = 'ESGESG123'
+
+var transporter = nodemailer.createTransport("SMTP", {
+    service: "Gmail", // hostname
+    auth: {
+        user: knowledgeEmail, // Your email id
+        pass: knowledgePassword // Your password
+    }
+})
 
 module.exports = function(socketIO) {
 
@@ -66,7 +78,7 @@ module.exports = function(socketIO) {
 
 
     router.get('/get-all-users/', function (req, res) {
-        models.User.getAllUsersAdmin(function (err, users) {
+        models.User.getAllUsers(function (err, users) {
             if (!err) {
                 res.status(200).json(users)
             }
@@ -137,7 +149,28 @@ module.exports = function(socketIO) {
                 if (!err) {
                     socketIO.sockets.emit(req.body.category, post)
                     socketIO.sockets.emit('new-post', post)
-                    res.status(200).json(post)
+                    models.User.getAllUsers(function(err, users) {
+                        if(err) {
+                            return res.sendStatus(500)
+                        }
+                        var other_users = users.filter(function(user) {return user.email != req.user.email})
+                        var other_users_email = other_users.map(function(obj){return obj.email})
+
+                        var postURL = 'https://afternoon-bayou-63848.herokuapp.com/#/post/' + post._id
+                        var html = '<p dir="ltr"><b>Hello,</b></p>' +
+                                '<p dir="ltr"><br>Just letting you know that there is a new post in KnowledgeCenter</br>'+
+                                '<br>under "' + post.category.name + '" by ' + req.user.username + '.</br></p>' +
+                                '<a dir="ltr" href="'+ postURL + '">' + postURL + '</a>'
+                        var mailOptions = {
+                            from: 'KnowledgeCenter KnowledgeCenterESG@gmail.com', // sender address
+                            to: other_users_email, // list of receivers
+                            //to: 'Asafs@esg.co.il', // list of receivers
+                            subject: 'New Post', // Subject line
+                            html: html
+                        }
+                        transporter.sendMail(mailOptions, function(err, info){}) // happens in another thread and therefore does not slow the response
+                        res.status(200).json(post)
+                    })
                 }
                 else {
                     res.sendStatus(500)
@@ -149,9 +182,22 @@ module.exports = function(socketIO) {
         models.Comment.createNewCommentAndPushToPost(req.user._id,
             req.body.postId,
             req.body.text,
-            function (err, comment) {
+            function (err, comment, post) {
                 if (!err) {
-                    socketIO.sockets.emit(req.body.postId, comment)
+                    socketIO.sockets.emit(post._id, comment)
+
+                    var postURL = 'https://afternoon-bayou-63848.herokuapp.com/#/post/' + post._id
+                    var html = '<p dir="ltr"><b>Hello,</b></p>' +
+                        '<p dir="ltr">Just letting you know that there is a new comment by ' + req.user.username + ' in your post: ' + post.title + '.</p>' +
+                        '<a dir="ltr" href="'+ postURL + '">' + postURL + '</a>'
+                    var mailOptions = {
+                        from: 'KnowledgeCenter KnowledgeCenterESG@gmail.com', // sender address
+                        to: post.user.email, // list of receivers
+                        //to: 'Asafs@esg.co.il', // list of receivers
+                        subject: 'New Post', // Subject line
+                        html: html
+                    }
+                    transporter.sendMail(mailOptions, function(err, info){}) // happens in another thread and therefore does not slow the response
                     res.status(200).json(comment)
                 }
                 else {
