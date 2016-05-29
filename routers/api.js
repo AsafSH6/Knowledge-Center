@@ -185,19 +185,21 @@ module.exports = function(socketIO) {
             function (err, comment, post) {
                 if (!err) {
                     socketIO.sockets.emit(post._id, comment)
-
-                    var postURL = 'https://afternoon-bayou-63848.herokuapp.com/#/post/' + post._id
-                    var html = '<p dir="ltr"><b>Hello,</b></p>' +
-                        '<p dir="ltr">Just letting you know that there is a new comment by ' + req.user.username + ' in your post: ' + post.title + '.</p>' +
-                        '<a dir="ltr" href="'+ postURL + '">' + postURL + '</a>'
-                    var mailOptions = {
-                        from: 'KnowledgeCenter KnowledgeCenterESG@gmail.com', // sender address
-                        to: post.user.email, // list of receivers
-                        //to: 'Asafs@esg.co.il', // list of receivers
-                        subject: 'New Post', // Subject line
-                        html: html
+                    if(!comment.user._id.equals(post.user._id)) {  // the comment is not posted by the Post owner himself
+                        var postURL = 'https://afternoon-bayou-63848.herokuapp.com/#/post/' + post._id
+                        var html = '<p dir="ltr"><b>Hello,</b></p>' +
+                            '<p dir="ltr">Just letting you know that there is a new comment by ' + req.user.username + ' in your post: ' + post.title + '.</p>' +
+                            '<a dir="ltr" href="' + postURL + '">' + postURL + '</a>'
+                        var mailOptions = {
+                            from: 'KnowledgeCenter KnowledgeCenterESG@gmail.com', // sender address
+                            to: post.user.email, // list of receivers
+                            //to: 'Asafs@esg.co.il', // list of receivers
+                            subject: 'New Post', // Subject line
+                            html: html
+                        }
+                        transporter.sendMail(mailOptions, function (err, info) {
+                        }) // happens in another thread and therefore does not slow the response
                     }
-                    transporter.sendMail(mailOptions, function(err, info){}) // happens in another thread and therefore does not slow the response
                     res.status(200).json(comment)
                 }
                 else {
