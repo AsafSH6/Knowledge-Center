@@ -202,14 +202,15 @@ function insertFakeDataToDB() {
     //createNewUser('Asaf', 'Asafs@esg.co.il', function(user) {
     //    createNewCategory('Bugs and Feedback', '/bugs-and-feedback', function(){
     //    createNewCategory('Links', '/links', function(){
-            createNewCategory('Challenges', '/challenges', function(){
+    //        createNewCategory('Challenges', '/challenges', function(){
     //            createNewCategory('Guides', '/guides', function(){
-    var tags = ['Flask', 'Django', 'React', 'Angular', 'Java Script', 'Emails', 'Redux', 'ESG dal', 'sqlalchemy', 'docxtemplater',
-    'Requests', 'Postgres', 'SQL Server', 'CEM', 'Road6', 'Bezeq', 'Invoices', 'Git', 'Virtual env', 'Gunicorn', 'Nginx', 'Ubuntu',
-        'Windows', 'Google Drive', 'DropBox', 'Numpy', 'datetime', 'Django REST Framework', 'Openpyxl']
+    //var tags = ['Flask', 'Django', 'React', 'Angular', 'Java Script', 'Emails', 'Redux', 'ESG dal', 'sqlalchemy', 'docxtemplater',
+    //'Requests', 'Postgres', 'SQL Server', 'CEM', 'Road6', 'Bezeq', 'Invoices', 'Git', 'Virtual env', 'Gunicorn', 'Nginx', 'Ubuntu',
+    //    'Windows', 'Google Drive', 'DropBox', 'Numpy', 'datetime', 'Django REST Framework', 'Openpyxl']
+    //var tags = ['Heroku', 'NodeJS', 'Bower', 'pip', 'npm']
     //for(var tag in tags) {
     //    createNewTag(tags[tag], [], function () {
-            //                    createNewTag('Java', ['Questions', 'Links'], function(){
+                                //createNewTag('Java', ['Questions', 'Links'], function(){
             //                        createNewTag('StyleFrame', ['Questions', 'Links'], function(){
             //                            createNewTag('Pandas', ['Things I learnt today'], function(){
             //                            createNewPost('Asaf', '1+1=?', "5!!", ['Questions'], ['Python', 'Pandas', 'StyleFrame'], function(post){
@@ -220,7 +221,7 @@ function insertFakeDataToDB() {
             //                        });
         //});
     //}
-                        });
+                        //});
         //            });
         //        });
         //    });
