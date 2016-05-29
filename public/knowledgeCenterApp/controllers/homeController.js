@@ -7,10 +7,10 @@
         .module('KnowledgeCenter')
         .controller('HomeCtrl', homeCtrl);
 
-    homeCtrl.$inject = ['APIService', "$scope"];
+    homeCtrl.$inject = ['APIService', '$scope', '$state'];
 
     /* @ngInject */
-    function homeCtrl(APIService, $scope) {
+    function homeCtrl(APIService, $scope, $state) {
         /* jshint validthis: true */
 
         $scope.postsToDisplay = 3
@@ -19,6 +19,14 @@
             $scope.newPosts = posts;
             console.log($scope.newPosts)
         })
+
+        $scope.searchByTag = function(tag) {
+            APIService.search({category: '', tag: tag, text: ''}, function(posts) {
+                console.log('search callback')
+                console.log(posts)
+                $state.go('posts', {category: 'Search', posts: posts})
+            })
+        }
 
         function listenToNewPosts() {
             if(socketIO != undefined) {
