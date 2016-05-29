@@ -146,7 +146,7 @@
 
         function enableTab() {
             $(document).delegate('#new-comment', 'keydown', function (e) {
-                var kFseyCode = e.keyCode || e.which;
+                var keyCode = e.keyCode || e.which;
 
                 if (keyCode == 9) {
                     e.preventDefault();
