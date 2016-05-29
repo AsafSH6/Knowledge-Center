@@ -30,7 +30,10 @@
              </p>
              <p><span class="glyphicon glyphicon-time"></span> Posted on {{post.creation_date | date}}</p>
 
-             <p>{{post.text.substring(0,30)}}</p>
+             <!--<p>{{post.text.substring(0,30)}}</p>-->
+             <ul id="home-tags" class="tags text-white pull-right" ng-repeat="tag in post.tags track by $index">
+                 <li><a ng-click="searchByTag(tag.name)" href="">{{ tag.name }}</a></li>
+             </ul>
              <a class="btn btn-primary" ui-sref="post({postId: post._id})">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
              </div>

@@ -8,10 +8,10 @@
         .module('KnowledgeCenter')
         .controller('PostsCtrl', PostsCtrl);
 
-    PostsCtrl.$inject = ['$rootScope', '$scope', '$stateParams', 'APIService'];
+    PostsCtrl.$inject = ['$rootScope', '$scope', '$stateParams', '$state', 'APIService'];
 
     /* @ngInject */
-    function PostsCtrl($rootScope, $scope, $stateParams, APIService) {
+    function PostsCtrl($rootScope, $scope, $stateParams, $state, APIService) {
         /* jshint validthis: true */
         var vm = $scope;
 
@@ -24,28 +24,31 @@
         function activate() {
             console.log('posts controller')
             vm.category = $stateParams.category
+            vm.postsPerPage = 9
+            vm.currentPage = 0
             if(vm.category == 'Search') {
-                vm.postsPerPage = 9
-                vm.currentPage = 0
-                console.log($stateParams.posts)
                 vm.dbPosts = $stateParams.posts
                 if(vm.dbPosts != undefined)
                     vm.posts = vm.dbPosts.slice(0, vm.postsPerPage)
-                vm.nextPage = nextPage
-                vm.previousPage = previousPage
-                socketIOListenToNewPosts()
+
             }
             else {
                 APIService.getAllPostsFilteredByCategory(vm.category, function(posts) {
-                    vm.postsPerPage = 9
-                    vm.currentPage = 0
                     vm.dbPosts = posts
                     vm.posts = vm.dbPosts.slice(0, vm.postsPerPage)
-                    vm.nextPage = nextPage
-                    vm.previousPage = previousPage
-                    socketIOListenToNewPosts()
                 })
             }
+            vm.nextPage = nextPage
+            vm.previousPage = previousPage
+            vm.searchByTag = searchByTag
+            socketIOListenToNewPosts()
+        }
+        function searchByTag(tag) {
+            APIService.search({category: '', tag: tag, text: ''}, function(posts) {
+                console.log('search callback')
+                console.log(posts)
+                $state.go('posts', {category: 'Search', posts: posts})
+            })
         }
 
         function nextPage() {

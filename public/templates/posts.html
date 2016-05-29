@@ -10,8 +10,9 @@
                     <postref-Directive></postref-Directive>
                 </h3>
 
-                <p ng-if="post.text.length > 30" >{{ post.text.substring(0, 30) }}...</p>
-                <p ng-if="post.text.length <= 30" >{{ post.text }}</p>
+                <ul id="home-tags" class="tags text-white pull-right" ng-repeat="tag in post.tags track by $index">
+                    <li><a ng-click="searchByTag(tag.name)" href="">{{ tag.name }}</a></li>
+                </ul>
 
                 <p>
                     <span class="label label-default"><i class="fa fa-eye"></i>Views: {{ post.views }}</span>
