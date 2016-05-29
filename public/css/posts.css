@@ -1,5 +1,6 @@
 #new-post {
-    margin-left: 90%;
+    margin-left: 88%;
+    margin-bottom: 1%;
 }
 
 .center {
@@ -18,5 +19,6 @@ button {
 }
 
 .post-left{
-    margin-left:2%;
+    margin-left: 2%;
+    margin-right: 2%;
 }
