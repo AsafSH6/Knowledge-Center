@@ -158,9 +158,9 @@ module.exports = function(socketIO) {
 
                         var postURL = 'https://afternoon-bayou-63848.herokuapp.com/#/post/' + post._id
                         var html = '<p dir="ltr"><b>Hello,</b></p>' +
-                                '<p dir="ltr"><br>Just letting you know that there is a new post in KnowledgeCenter</br>'+
-                                '<br>under <b>"' + post.category.name + '"</b> by <b>' + req.user.username + '</b>.</br></p>' +
-                                '<a dir="ltr" href="'+ postURL + '">' + postURL + '</a>'
+                                '<p dir="ltr"><br>Just letting you know that there is a new post in KnowledgeCenter under</br>'+
+                                '<br><b>"' + post.category.name + '"</b> by <b>' + req.user.username + '</b>.</br></p>' +
+                                '<a style="direction: ltr; float: left" href="'+ postURL + '">' + postURL + '</a>'
                         var mailOptions = {
                             from: 'KnowledgeCenter KnowledgeCenterESG@gmail.com', // sender address
                             to: other_users_email, // list of receivers
@@ -189,7 +189,7 @@ module.exports = function(socketIO) {
                         var postURL = 'https://afternoon-bayou-63848.herokuapp.com/#/post/' + post._id
                         var html = '<p dir="ltr"><b>Hello,</b></p>' +
                             '<p dir="ltr">Just letting you know that there is a new comment by <b>' + req.user.username + '</b> in your post: <b>' + post.title + '</b>.</p>' +
-                            '<a dir="ltr" href="' + postURL + '">' + postURL + '</a>'
+                            '<a style="direction: ltr; float: left" href="' + postURL + '">' + postURL + '</a>'
                         var mailOptions = {
                             from: 'KnowledgeCenter KnowledgeCenterESG@gmail.com', // sender address
                             to: post.user.email, // list of receivers
