@@ -45,7 +45,7 @@ body{
 
 .container {
     /*margin-left: 300px;*/
-    margin-left: 15%;
+    margin-left: 25%;
 }
 
 .widget-controls {
@@ -221,7 +221,8 @@ p {
 }
 
 #post {
-    width: 70%;
+    margin-left: 15% !important;
+    width: 70% !important;
 }
 
 /*.post-links+.post-comments {*/
