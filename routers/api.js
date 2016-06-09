@@ -156,7 +156,7 @@ module.exports = function(socketIO) {
                         var other_users = users.filter(function(user) {return user.email != req.user.email})
                         var other_users_email = other_users.map(function(obj){return obj.email})
 
-                        var postURL = 'https://afternoon-bayou-63848.herokuapp.com/#/post/' + post._id
+                        var postURL = 'https://esg-knowledge-center.herokuapp.com/#/post/' + post._id
                         var html = '<p dir="ltr"><b>Hello,</b></p>' +
                                 '<p dir="ltr"><br>Just letting you know that there is a new post in KnowledgeCenter under</br>'+
                                 '<br><b>"' + post.category.name + '"</b> by <b>' + req.user.username + '</b>.</br></p>' +
@@ -186,7 +186,7 @@ module.exports = function(socketIO) {
                 if (!err) {
                     socketIO.sockets.emit(post._id, comment)
                     if(!comment.user._id.equals(post.user._id)) {  // the comment is not posted by the Post owner himself
-                        var postURL = 'https://afternoon-bayou-63848.herokuapp.com/#/post/' + post._id
+                        var postURL = 'https://esg-knowledge-center.herokuapp.com/#/post/' + post._id
                         var html = '<p dir="ltr"><b>Hello,</b></p>' +
                             '<p dir="ltr">Just letting you know that there is a new comment by <b>' + req.user.username + '</b> in your post: <b>' + post.title + '</b>.</p>' +
                             '<a style="direction: ltr; float: left;" href="' + postURL + '">' + postURL + '</a>'
