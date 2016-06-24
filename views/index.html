@@ -77,8 +77,10 @@
     <script src="/knowledgeCenterApp/services/AuthenticationService.js"></script>
     <script src="/knowledgeCenterApp/Router.js"></script>
     <script>
-        socketIO = io.connect('https://esg-knowledge-center.herokuapp.com/')
-//        socketIO = io.connect('localhost:5000')
+        protocol = window.location.protocol + '//'
+        domain = window.location.host
+
+        socketIO = io.connect(protocol + domain)
         console.log('connected IO')
     </script>
 </body>

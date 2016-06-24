@@ -1,18 +1,11 @@
 var express = require('express')
 var nodemailer = require('nodemailer')
 var models = require('../DB/models')
+var config = requires('../config')
 var router = express.Router();
 
-var knowledgeEmail = 'KnowledgeCenterESG@gmail.com'
-var knowledgePassword = 'ESGESG123'
-
-var transporter = nodemailer.createTransport("SMTP", {
-    service: "Gmail", // hostname
-    auth: {
-        user: knowledgeEmail, // Your email id
-        pass: knowledgePassword // Your password
-    }
-})
+var transporter = nodemailer.createTransport("SMTP", config.email)
+var postURL = config.host + (config.host.endsWith('/') ?  '#/post/' : '/#/post/')
 
 module.exports = function(socketIO) {
 
@@ -52,12 +45,10 @@ module.exports = function(socketIO) {
         })
     });
 
-
     router.post('/delete-tag/', function (req, res) {
         models.Tag.removeTags(req.body.tagId, function (err) {
             if (!err) {
                 res.sendStatus(200)
-
             }
             else {
                 res.sendStatus(500)
@@ -75,7 +66,6 @@ module.exports = function(socketIO) {
             }
         })
     })
-
 
     router.get('/get-all-users/', function (req, res) {
         models.User.getAllUsers(function (err, users) {
@@ -96,7 +86,6 @@ module.exports = function(socketIO) {
             }
             else {
                 res.sendStatus(500)
-
             }
         })
     });
@@ -112,6 +101,7 @@ module.exports = function(socketIO) {
             }
         })
     });
+
     router.get('/get-post-by-id/:id', function (req, res) {
         console.log(req.params['id'])
         models.Post.findPostById(req.params['id'], function (err, post) {
@@ -121,10 +111,8 @@ module.exports = function(socketIO) {
             else {
                 res.sendStatus(500)
             }
-
         })
     });
-
 
     router.get('/increase-view-by-one/:id', function (req, res) {
         models.Post.findPostById(req.params['id'], function (err, post) {
@@ -149,28 +137,35 @@ module.exports = function(socketIO) {
                 if (!err) {
                     socketIO.sockets.emit(req.body.category, post)
                     socketIO.sockets.emit('new-post', post)
-                    models.User.getAllUsers(function(err, users) {
-                        if(err) {
-                            return res.sendStatus(500)
-                        }
-                        var other_users = users.filter(function(user) {return user.email != req.user.email})
-                        var other_users_email = other_users.map(function(obj){return obj.email})
+                    if(config.email != false) {
+                        models.User.getAllUsers(function (err, users) {
+                            if (err) {
+                                return res.sendStatus(500)
+                            }
+                            var other_users = users.filter(function (user) {
+                                return user.email != req.user.email
+                            })
+                            var other_users_email = other_users.map(function (obj) {
+                                return obj.email
+                            })
 
-                        var postURL = 'https://esg-knowledge-center.herokuapp.com/#/post/' + post._id
-                        var html = '<p dir="ltr"><b>Hello,</b></p>' +
-                                '<p dir="ltr"><br>Just letting you know that there is a new post in KnowledgeCenter under</br>'+
+                            var currentPostURL = postURL + post._id
+                            var html = '<p dir="ltr"><b>Hello,</b></p>' +
+                                '<p dir="ltr"><br>Just letting you know that there is a new post in KnowledgeCenter under</br>' +
                                 '<br><b>"' + post.category.name + '"</b> by <b>' + req.user.username + '</b>.</br></p>' +
-                                '<a style="direction: ltr; float: left;" href="'+ postURL + '">' + postURL + '</a>'
-                        var mailOptions = {
-                            from: 'KnowledgeCenter KnowledgeCenterESG@gmail.com', // sender address
-                            to: other_users_email, // list of receivers
-                            //to: 'Asafs@esg.co.il', // list of receivers
-                            subject: 'New Post', // Subject line
-                            html: html
-                        }
-                        transporter.sendMail(mailOptions, function(err, info){}) // happens in another thread and therefore does not slow the response
-                        res.status(200).json(post)
-                    })
+                                '<a style="direction: ltr; float: left;" href="' + currentPostURL + '">' + currentPostURL + '</a>'
+
+                            var mailOptions = {
+                                from: 'KnowledgeCenter KnowledgeCenter', // sender address
+                                to: other_users_email, // list of receivers
+                                subject: 'New Post', // Subject line
+                                html: html
+                            }
+                            transporter.sendMail(mailOptions, function (err, info) {
+                            }) // happens in another thread and therefore does not slow the response
+                        })
+                    }
+                    res.status(200).json(post)
                 }
                 else {
                     res.sendStatus(500)
@@ -185,20 +180,19 @@ module.exports = function(socketIO) {
             function (err, comment, post) {
                 if (!err) {
                     socketIO.sockets.emit(post._id, comment)
-                    if(!comment.user._id.equals(post.user._id)) {  // the comment is not posted by the Post owner himself
-                        var postURL = 'https://esg-knowledge-center.herokuapp.com/#/post/' + post._id
+                    if(config.email != false && !comment.user._id.equals(post.user._id)) {  // the comment is not posted by the Post owner himself
+                        var currentPostURL = postURL + post._id
                         var html = '<p dir="ltr"><b>Hello,</b></p>' +
                             '<p dir="ltr">Just letting you know that there is a new comment by <b>' + req.user.username + '</b> in your post: <b>' + post.title + '</b>.</p>' +
-                            '<a style="direction: ltr; float: left;" href="' + postURL + '">' + postURL + '</a>'
+                            '<a style="direction: ltr; float: left;" href="' + currentPostURL + '">' + currentPostURL + '</a>'
+
                         var mailOptions = {
-                            from: 'KnowledgeCenter KnowledgeCenterESG@gmail.com', // sender address
+                            from: 'KnowledgeCenter KnowledgeCenter', // sender address
                             to: post.user.email, // list of receivers
-                            //to: 'Asafs@esg.co.il', // list of receivers
                             subject: 'New Post', // Subject line
                             html: html
                         }
-                        transporter.sendMail(mailOptions, function (err, info) {
-                        }) // happens in another thread and therefore does not slow the response
+                        transporter.sendMail(mailOptions, function (err, info) {}) // happens in another thread and therefore does not slow the response
                     }
                     res.status(200).json(comment)
                 }
@@ -219,7 +213,6 @@ module.exports = function(socketIO) {
                 else {
                     res.sendStatus(500)
                 }
-
             })
     });
 
@@ -233,7 +226,6 @@ module.exports = function(socketIO) {
                 else {
                     res.sendStatus(500)
                 }
-
             })
     });
 
@@ -248,7 +240,6 @@ module.exports = function(socketIO) {
                 return res.sendStatus(200)
             })
     });
-
 
     router.post('/delete-post/', function (req, res) {
         console.log('DELETE POST')
@@ -285,7 +276,6 @@ module.exports = function(socketIO) {
             else {
                 return res.status(500)
             }
-
         })
     })
 
@@ -336,7 +326,6 @@ module.exports = function(socketIO) {
         })
     })
 
-
     router.post('/admin/edit-user/', function(req, res) {
         if(req.user.is_admin) {
             models.User.updateUserAdmin(req.body.username, req.body.email, req.body.userId, function(err) {
@@ -352,7 +341,6 @@ module.exports = function(socketIO) {
             res.sendStatus(500)
         }
     })
-
 
     return router
 }
