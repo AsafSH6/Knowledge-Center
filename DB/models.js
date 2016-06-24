@@ -416,9 +416,11 @@ postSchema.statics.getPostsGroupedByCategory = function(callback) {
 postSchema.statics.getNumberOfRelatedPostsForEachTag = function(callback) {
     // map function that emits each tag name of in post and the sum 1
     var map = function () {
-        var tags = this.tags
-        for (var tag in tags) {
-            emit(tags[tag].name, {sum: 1})
+        if(this.deleted == false) {
+            var tags = this.tags
+            for (var tag in tags) {
+                emit(tags[tag].name, {sum: 1})
+            }
         }
     }
 
