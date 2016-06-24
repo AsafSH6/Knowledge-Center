@@ -198,8 +198,8 @@ function insertImages(callback) {
         return {imageURL: obj}
     })
 
-    models.Image.insertMany(imagesArr, function(err, images) {
-        callback(images)
+    models.Image.collection.insert(imagesArr, function(err, images) {
+        callback(images.ops)
     })
 }
 
@@ -214,7 +214,7 @@ function insertCategories(callback) {
     var categoriesArr = categories.map(function(obj) {
         return {name: obj, url: '/' + obj}
     })
-    models.Category.insertMany(categoriesArr, function(err, categories) {
+    models.Category.collection.insert(categoriesArr, function(err, categories) {
         callback(categories)
     })
 }
@@ -229,37 +229,48 @@ function insertTags(callback) {
         return {name: obj, categories: []}
     })
 
-    models.Category.insertMany(tagsArr, function(err, tags) {
+    models.Tag.collection.insert(tagsArr, function(err, tags) {
         callback(tags)
     })
 }
 
-function init_db(adminUsername, adminPassword, adminEmail) {
+function init_db(adminUsername, adminPassword, adminEmail, callback) {
     console.log('inserting images')
     insertImages(function(images) {
         console.log('creating admin user.')
-        createNewUser(adminUsername, adminPassword, adminEmail, images[0], function() {})
-        console.log('inserting categories')
-        insertCategories(function() {})
-        console.log('inserting tags')
-        insertTags(function() {})
+        createNewUser(adminUsername, adminPassword, adminEmail, true, images[0], function(user) {
+            console.log('inserting categories')
+            insertCategories(function(categories) {
+                console.log('inserting tags')
+                insertTags(function(tags) {
+                    callback(user, categories, tags)
+                })
+            })
+        })
     })
 }
 
-module.exports = function() {
+function disconnect(callback) {
+    mongoose.disconnect(function() {
+        console.log('disconnected')
+        callback()
+    })
+}
+
+module.exports = (function() {
     mongoose.connect(config.mongoDB_connection_string, function() {
         console.log('connected')
-        return {
-            mongoose: mongoose,
-            disconnect: mongoose.disconnect,
-            createNewUser: createNewUser,
-            createNewCategory: createNewCategory,
-            createNewTag: createNewTag,
-            createNewPost: createNewPost,
-            createNewCommentAndPushToPost: createNewCommentAndPushToPost,
-            createNewImage: createNewImage,
-            deletePostsAndComments: deletePostsAndComments,
-            init_db: init_db
-        }
     });
-}
+    return {
+        mongoose: mongoose,
+        disconnect: disconnect,
+        createNewUser: createNewUser,
+        createNewCategory: createNewCategory,
+        createNewTag: createNewTag,
+        createNewPost: createNewPost,
+        createNewCommentAndPushToPost: createNewCommentAndPushToPost,
+        createNewImage: createNewImage,
+        deletePostsAndComments: deletePostsAndComments,
+        init_db: init_db
+    }
+})()
