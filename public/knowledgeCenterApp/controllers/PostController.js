@@ -44,7 +44,6 @@
         }
 
         function submitNewComment(text) {
-            console.log(text)
             APIService.createNewComment(vm.post._id, text, function () {})
         }
 
@@ -122,7 +121,6 @@
         }
 
         function loadPost(callback) {
-            console.log('loading post')
             APIService.getPostById($stateParams.postId, function (post) {
                 vm.post = post
                 APIService.updateCurrentPost(vm.post)
@@ -167,8 +165,6 @@
 
         function searchByTag(tag) {
             APIService.search({category: '', tag: tag, text: ''}, function(posts) {
-                console.log('search callback')
-                console.log(posts)
                 $state.go('posts', {category: 'Search', posts: posts})
             })
         }
@@ -176,10 +172,8 @@
         function socketIOListenToNewComments() {
             if(socketIO != undefined) {
                 socketIO.on(vm.post._id, function(comment) {
-                    console.log(comment)
                     vm.post.comments.push(comment)
                     vm.$apply()
-                    console.log(vm.post.comments)
                 })
                 socketIO.on('comment-' + vm.post._id, function(commentId) {
                     $timeout(function() {
@@ -199,7 +193,6 @@
                         }
                     })
                 })
-                console.log('listing to: ' + vm.post._id)
             }
         }
 

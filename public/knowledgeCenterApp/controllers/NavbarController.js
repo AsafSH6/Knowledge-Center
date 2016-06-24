@@ -31,7 +31,6 @@
                 vm.dbTags = tags
             })
             APIService.getAllImages(function(images) {
-                console.log(images)
                 vm.dbImages = images
             })
             vm.search = {
@@ -54,8 +53,6 @@
 
         function submitSearch() {
             APIService.search(vm.search, function(posts) {
-                console.log('search callback')
-                console.log(posts)
                 $state.go('posts', {category: 'Search', posts: posts})
             })
         }

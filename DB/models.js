@@ -75,7 +75,6 @@ tagSchema.statics.getAllTags = function(callback){
 /* get the street address and city address of user */
 user.statics.getAddress = function(callback){
     this.find({}, 'username street_addr city_addr', function (err, addr) {
-        console.log(addr);
         callback(addr);
     });
 }
@@ -94,22 +93,17 @@ user.statics.checkIfAdmin = function(username, password, callback){
 }
 
 user.statics.updateUserAdmin = function(username, email, userId, callback){
-    console.log(userId)
-    console.log(username)
-    console.log(email)
     this.findOneAndUpdate({_id: userId},{$set: {'username': username, 'email': email}}, callback)
 }
 
 tagSchema.statics.removeTags = function(tagId, callback){
     this.findById(tagId, function(err, tag) {
         mongoose.model("Post").update({'tags._id': tag._id}, {$pull: {'tags': tag}}, function(err, posts) {
-            console.log(posts)
             tag.remove(function(err) {
                 if(err) {
                     callback(err)
                 }
                 else {
-                    console.log('removed tag')
                     callback(null)
                 }
             })
@@ -201,12 +195,10 @@ postSchema.statics.createNewPost = function(userId, category, tags, title, text,
     var createNewPost = this
     mongoose.model('Category').findOne({name: category}, function(err, category) {
         if(err) {
-            console.log('could not find category')
             return false
         }
         mongoose.model('Tag').find({name: {$in: tags}}, function(err, tags) {
             if(err) {
-                console.log('could not find tags')
                 return false
             }
             var post = new createNewPost({
@@ -219,10 +211,8 @@ postSchema.statics.createNewPost = function(userId, category, tags, title, text,
 
             post.save(function(err) {
                 if(err) {
-                    console.log('could not save post')
                     return false
                 }
-                console.log('saved post')
                 createNewPost.findById(post._id)
                     .populate('user', 'username profile_image')
                     .exec(callback)
@@ -234,16 +224,13 @@ postSchema.statics.createNewPost = function(userId, category, tags, title, text,
 }
 
 postSchema.statics.deletePost = function (user, postId, callback) {
-    console.log(postId)
     this.findById(postId, function(err, post) {
         if(err) {
             callback('error')
         }
         else {
             if(user != undefined &&user.is_admin == true || user._id.equals(post.user)) {
-                console.log(post.comments)
                 mongoose.model('Comment').update({_id: {$in: post.comments}}, {deleted: true} ,function(err) {
-                    console.log('removed comments')
                     if(err) {
                         callback('error')
                     }
@@ -341,7 +328,6 @@ commentSchema.statics.createNewCommentAndPushToPost = function(userId, postId, t
         .populate('user', 'email')
         .exec(function(err, post) {
         if (err) {
-            console.log('could not find post')
             return false
         }
         var comment = createNewCommentAndPushToPost({
@@ -351,15 +337,12 @@ commentSchema.statics.createNewCommentAndPushToPost = function(userId, postId, t
         })
         comment.save(function (err) {
             if (err) {
-                console.log("error: couldn't save the comment")
                 return false
             }
             post.update({$push: {comments: comment._id}}, function (err) {
                 if (err) {
-                    console.log("couldn't update post")
                 }
                 else {
-                    console.log("updated post.")
                     mongoose.model('Comment').findById(comment._id)
                         .populate('user', 'username profile_image')
                         .exec(function(err, comment) {
@@ -375,15 +358,13 @@ postSchema.statics.updatePost = function (userId, updatedPost, callback) {
     var postSchema = this
     this.findById(updatedPost._id, function(err, post) {
         if(err) {
-            console.log('could not update post')
+            callback(true, null)
         }
         else {
-            console.log(userId)
-            console.log(post.user)
             if(userId.equals(post.user)) {
                 mongoose.model('Tag').find({name: {$in: updatedPost.tags}}, function(err, tags) {
                     if (err) {
-                        console.log('could not find tags')
+                        callback(err, null)
                     }
                     else {
                         post.update({$set: {title: updatedPost.title, text: updatedPost.text, tags: tags}}, function(err) {
@@ -399,11 +380,9 @@ postSchema.statics.updatePost = function (userId, updatedPost, callback) {
 commentSchema.statics.updateComment = function (userId, updatedComment, callback) {
     this.findById(updatedComment._id, function(err, comment) {
         if(err) {
-            console.log('could not update comment')
+            callback(err, null)
         }
         else {
-            console.log(userId)
-            console.log(comment.user)
             if(userId.equals(comment.user)) {
                 comment.update({$set: {text: updatedComment.text}}, callback)
             }
@@ -457,8 +436,8 @@ postSchema.statics.getNumberOfRelatedPostsForEachTag = function(callback) {
 
 postSchema.methods.increasePostViewByOne = function(callback) {
     this.update({views: (this.views + 1)}, function(err) {
-        if(err!=null) {
-            console.log(err)
+        if(!err) {
+            callback(err)
         }
         else {
             callback(this)

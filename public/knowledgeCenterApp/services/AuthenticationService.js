@@ -25,21 +25,16 @@
         return service;
 
         function signup(username, password, firstName, lastName, email, street, city, imageId, callback) {
-            console.log(imageId)
             $http.post('/auth/signup/', {username: username, password: password, firstName: firstName, lastName: lastName, email: email, street_addr: street, city_addr:city, imageId: imageId})
                 .success(function (response) {
                     callback(null, response);
                 })
                 .error(function() {
-                    console.log('error')
                     callback({err: 'authentication failed'}, null)
                 });
         }
 
         function signin(username, password, callback) {
-            console.log('signin/')
-            console.log(username)
-            console.log(password)
             $http.post('/auth/login/', { username: username, password: password })
                 .success(function (response) {
                     callback(null, response);

@@ -57,8 +57,6 @@
         }
 
         function signup() {
-            console.log('signup')
-            console.log(vm.chosenImage)
             if(vm.chosenImage == null) {
                 $('#myBtn').click()
                 return
@@ -77,10 +75,8 @@
 
         function loadImageChooseModal() {
             $("#myBtn").click(function(){
-                console.log('modal')
                 $("#myModal").modal();
             });
-            console.log('ran')
         }
 
         function clearDetails() {
@@ -95,8 +91,6 @@
             vm.chosenImage = image
             angular.element('#close-modal').click()
             signup()
-            console.log('setting image')
-            console.log(vm.chosenImage)
         }
     }
 })();

@@ -18,7 +18,6 @@
                 $scope.$on('delete' + $scope.comment._id, function() {
                     $element.empty()
                     render()
-                    console.log('rendered')
                 })
                 $scope.addEditModeFalseToComment($scope.comment)
                 function render() {
@@ -40,9 +39,6 @@
                     var middleOfNextText = (endingOfNextText.indexOf('</code>') != -1 ? '<code ' : '')
                     var fullNextText = beginningOfNextText + middleOfNextText + endingOfNextText
 
-                    //console.log('beginning text: \n' + beginningText)
-                    //console.log('program language: \n' + programmingLanguage)
-                    //console.log('program code: \n' + programmingCode)
                     var editor = 'editor' + $scope.codesCounter
                     $scope.increaseCodeCounter()
                     element.append('<div id="' + editor + '-pane" class="editor"><div id="' + editor +'" class="editor"></div></div>')

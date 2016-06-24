@@ -22,7 +22,6 @@
         function activate() {
             vm.postPreviewElement = angular.element('#new-post-preview')
             vm.category = $stateParams.category
-            console.log(vm.category)
             APIService.getAllTags(function(tags) {
                 vm.dbTags = tags
                 vm.chosenTags = []
@@ -119,7 +118,6 @@
 
             var editor = 'editor' + vm.codesCounter
             vm.postPreviewElement.append('<div id="' + editor + '-pane" class="editor"><div id="' + editor +'" class="editor"></div></div>')
-            console.log(programmingLanguage)
             $window.codemirror = CodeMirror($('#' + editor).get(0), {
                 value: programmingCode,
                 mode: programmingLanguage,
