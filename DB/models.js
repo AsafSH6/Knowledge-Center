@@ -60,7 +60,7 @@ imageSchema.statics.findAllImages = function(callback) {
 
 /* get the last posts */
 postSchema.statics.getPostsHomePage = function(callback) {
-    this.find({}).sort('-creation_date').populate('user', 'username').limit(Enum.numberOfLastestPosts)
+    this.find({deleted: false}).sort('-creation_date').populate('user', 'username').limit(Enum.numberOfLastestPosts)
         .exec(function (err, posts) {
 
             callback(posts);
