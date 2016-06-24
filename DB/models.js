@@ -53,9 +53,11 @@ var postSchema = new Schema({
 var Enum = {
     numberOfLastestPosts: 3
 }
+
 imageSchema.statics.findAllImages = function(callback) {
     return this.find({}, callback)
 }
+
 /* get the last posts */
 postSchema.statics.getPostsHomePage = function(callback) {
     this.find({}).sort('-creation_date').populate('user', 'username').limit(Enum.numberOfLastestPosts)
@@ -90,13 +92,13 @@ user.statics.checkIfAdmin = function(username, password, callback){
         }
     })
 }
+
 user.statics.updateUserAdmin = function(username, email, userId, callback){
     console.log(userId)
     console.log(username)
     console.log(email)
     this.findOneAndUpdate({_id: userId},{$set: {'username': username, 'email': email}}, callback)
 }
-
 
 tagSchema.statics.removeTags = function(tagId, callback){
     this.findById(tagId, function(err, tag) {
@@ -113,46 +115,40 @@ tagSchema.statics.removeTags = function(tagId, callback){
             })
         })
     })
-
 }
-
 
 tagSchema.statics.createNewTag= function(name, callback){
     var tagSchema = this
     this.findOne({name: name}, function(err, tag) {
         if(err) {
-
            callback(err,null)
         }
         else {
-
-
-                    var tag = new tagSchema({name: name});
-                    tag.save(function (err) {
-                        if (err) {
-                            callback(err,null)
-                        }
-                        else {
-
-                            callback(null,tag);
-                            return tag._id;
-                        }
-                    })
+            var tag = new tagSchema({name: name});
+            tag.save(function (err) {
+                if (err) {
+                    callback(err,null)
                 }
+                else {
+
+                    callback(null,tag);
+                    return tag._id;
+                }
+            })
+        }
     })
 }
-
 
 categorySchema.statics.findAllCategories = function(callback) {
     return this.find({}, callback)
 }
 
 postSchema.statics.findAllPosts = function(callback) {
-    return this.find({}, callback)
+    return this.find({deleted: false}, callback)
 }
 
 postSchema.statics.findAllPostsFilteredByCategory = function(category, callback) {
-    return this.find({'category.name': category})
+    return this.find({'category.name': category, deleted: false})
         .sort('-creation_date')
         .populate('user', 'username profile_image')
         .populate('comments')
@@ -161,14 +157,18 @@ postSchema.statics.findAllPostsFilteredByCategory = function(category, callback)
                 path: 'comments.user',
                 select: 'username profile_image',
                 model: mongoose.model('User')
-            }, callback)
+            }, function(err, posts){
+                for(var post in posts) {
+                    posts[post].comments = posts[post].comments.filter(function(comment) {return comment.deleted == false})
+                }
+                callback(err, posts)
+            })
         })
 }
 
 user.statics.getAllUsers = function(callback){
-    return this.find({}, callback);
+    return this.find({deleted: false}, callback);
 }
-
 
 tagSchema.statics.findAllTagsFilteredByCategory = function(category, callback) {
     return this.find({'categories.name': category}, callback)
@@ -178,12 +178,22 @@ postSchema.statics.findPostById = function(postId, callback) {
     return this.findById(postId)
         .populate('user', 'username profile_image')
         .populate('comments')
-        .exec(function(err, posts) {
-            mongoose.model('Comment').populate(posts, {
-                path: 'comments.user',
-                select: 'username profile_image',
-                model: mongoose.model('User')
-            }, callback)
+        .exec(function(err, post) {
+            if(post.deleted == false) {
+                mongoose.model('Comment').populate(post, {
+                    path: 'comments.user',
+                    select: 'username profile_image',
+                    model: mongoose.model('User')
+                }, function (err, post) {
+                    post.comments = post.comments.filter(function (comment) {
+                        return comment.deleted == false
+                    })
+                    callback(err, post)
+                })
+            }
+            else {
+                callback(true, null)
+            }
         })
 }
 
@@ -232,13 +242,13 @@ postSchema.statics.deletePost = function (user, postId, callback) {
         else {
             if(user != undefined &&user.is_admin == true || user._id.equals(post.user)) {
                 console.log(post.comments)
-                mongoose.model('Comment').remove({_id: {$in: post.comments}}, function(err) {
+                mongoose.model('Comment').update({_id: {$in: post.comments}}, {deleted: true} ,function(err) {
                     console.log('removed comments')
                     if(err) {
                         callback('error')
                     }
                     else {
-                        post.remove(function(err) {
+                        post.update({deleted: true}, function(err) {
                             if(err) {
                                 callback('error')
                             }
@@ -278,23 +288,27 @@ postSchema.statics.search = function(searchParams, callback) {
     this.find({$and: [searchParams.categoryQuery,
         searchParams.tagsQuery,
         searchParams.textQuery,
-    ]}).populate('user', 'username profile_image')
+    ], deleted: false})
+        .populate('user', 'username profile_image')
         .populate('comments')
         .exec(function(err, posts) {
             if(err){
-                callback(err,null)
+                callback(err, null)
             }
-            else{
-            mongoose.model('Comment').populate(posts, {
-                path: 'comments.user',
-                select: 'username profile_image',
-                model: mongoose.model('User')
+            else {
+                mongoose.model('Comment').populate(posts, {
+                    path: 'comments.user',
+                    select: 'username profile_image',
+                    model: mongoose.model('User')
             }, function(err, posts) {
                 if(!err){
-                    callback(null,posts)
+                    for(var post in posts) {
+                        posts[post].comments = posts[post].comments.filter(function(comment) {return comment.deleted == false})
+                    }
+                    callback(null, posts)
                 }
                 else{
-                    callback(err,null)
+                    callback(err, null)
                 }
 
             })
@@ -308,7 +322,7 @@ commentSchema.statics.deleteComment = function (userId, commentId, callback) {
         }
         else {
             if(userId.equals(comment.user)) {
-                comment.remove(function(err) {
+                comment.update({deleted: true}, function(err) {
                     if(err) {
                         callback('error', null)
                     }
@@ -396,7 +410,6 @@ commentSchema.statics.updateComment = function (userId, updatedComment, callback
         }
     })
 }
-
 
 postSchema.statics.updateSolvedStatus = function(userId, postId, solvedStatus, callback) {
     this.findById(postId, function(err, post) {

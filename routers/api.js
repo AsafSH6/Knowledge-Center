@@ -1,7 +1,7 @@
 var express = require('express')
 var nodemailer = require('nodemailer')
 var models = require('../DB/models')
-var config = requires('../config')
+var config = require('../config')
 var router = express.Router();
 
 var transporter = nodemailer.createTransport("SMTP", config.email)
@@ -189,7 +189,7 @@ module.exports = function(socketIO) {
                         var mailOptions = {
                             from: 'KnowledgeCenter KnowledgeCenter', // sender address
                             to: post.user.email, // list of receivers
-                            subject: 'New Post', // Subject line
+                            subject: 'New Comment', // Subject line
                             html: html
                         }
                         transporter.sendMail(mailOptions, function (err, info) {}) // happens in another thread and therefore does not slow the response
