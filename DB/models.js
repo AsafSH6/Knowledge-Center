@@ -15,6 +15,7 @@ var user = new Schema({
     points: Number,
     creation_date: { type: Date, default: Date.now },
     profile_image: imageSchema,
+    deleted: {type: Boolean, default: false},
 }, {strict: true})
 
 var categorySchema = new Schema({
@@ -32,7 +33,8 @@ var commentSchema = new Schema({
     creation_date: { type: Date, default: Date.now },
     up_votes: {type: Number, default: 0},
     user: {type: Schema.Types.ObjectId, ref: 'User'},
-    category: categorySchema
+    category: categorySchema,
+    deleted: {type: Boolean, default: false},
 }, {strict: true})
 
 var postSchema = new Schema({
@@ -44,7 +46,8 @@ var postSchema = new Schema({
     comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}],
     category: categorySchema,
     tags: [tagSchema],
-    solved: {type: Boolean, default: false}
+    solved: {type: Boolean, default: false},
+    deleted: {type: Boolean, default: false},
 }, {strict: true})
 
 var Enum = {

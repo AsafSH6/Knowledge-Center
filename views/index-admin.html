@@ -44,7 +44,10 @@
 <script src="/adminManagmentConsoleApp/admin_console.service.js"></script>
 <script src="/adminManagmentConsoleApp/admin_console.router.js"></script>
 <script>
-    socketIO = io.connect('https://esg-knowledge-center.herokuapp.com/#/')
+    protocol = window.location.protocol + '//'
+    domain = window.location.host
+
+    socketIO = io.connect(protocol + domain)
     console.log('connected IO')
 </script>
 

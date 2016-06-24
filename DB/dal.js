@@ -1,47 +1,41 @@
 var models = require('../DB/models')
 var mongoose = require('mongoose');
-var dbConfig = require('./config');
+var config = require('../config');
+var bCrypt = require('bcrypt-nodejs');
 
-mongoose.connect(dbConfig.remote_url, function() {
-    console.log('connected')
-    //insertImages();
-    insertFakeDataToDB()
-    //deletePostsAndComments()
-});
 
-function createNewUser(username, email, callback) {
-    models.Image.findById("56c366c440603608c4ce893e", function(err, image) {
+// Generates hash using bCrypt
+var createHash = function(password){
+    return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
+}
 
+function createNewUser(username, password, email, is_admin, image, callback) {
     var user = new models.User({
         username: username,
-        password: "$2a$10$VYwau9CXD2sjTKQD8BGZ4uzaet0VHFY0Mb95R1JT.tlMB17LEqD3i",
+        password: createHash(password),
         email:  email,
         profile_image: image,
         points: 0,
-        is_admin: true
+        is_admin: is_admin
     });
     user.save(function (err) {
         if (err) {
             console.log("error: couldn't save the user");
-            //mongoose.disconnect();
             return false;
         }
         else {
             console.log("saved user: " +  user);
             callback(user);
-            //mongoose.disconnect();
             return user._id;
         }
     })
-    })
-
 }
 
-function createNewCategory(name, url, callback) {
+function createNewCategory(name, callback) {
+    var url = '/' + name
     models.Category.findOne({$or: [{name: name}, {url: url}]}, function(err, category) {
         if(category) {
             console.log("category already exists: " + category);
-            //mongoose.disconnect();
             return false;
         }
         else {
@@ -49,13 +43,11 @@ function createNewCategory(name, url, callback) {
             category.save(function (err) {
                 if (err) {
                     console.log("error: couldn't save the category");
-                    //mongoose.disconnect();
                     return false;
                 }
                 else {
                     console.log("saved category: " +  category);
                     callback(category)
-                    //mongoose.disconnect();
                     return category._id;
                 }
             })
@@ -67,14 +59,12 @@ function createNewTag(name, categoriesName, callback) {
     models.Tag.findOne({name: name}, function(err, tag) {
         if(tag) {
             console.log("tag already exists: " + tag);
-            //mongoose.disconnect();
             return false;
         }
         else {
             models.Category.find({name: {$in: categoriesName}}, function(err, categories) {
                 if(!categories) {
                     console.log("category does not exists.");
-                    //mongoose.disconnect();
                     return false;
                 }
                 else {
@@ -82,13 +72,11 @@ function createNewTag(name, categoriesName, callback) {
                     tag.save(function (err) {
                         if (err) {
                             console.log("error: couldn't save the tag");
-                            //mongoose.disconnect();
                             return false;
                         }
                         else {
                             console.log("saved tag: " +  tag);
                             callback(tag);
-                            //mongoose.disconnect();
                             return tag._id;
                         }
                     })
@@ -102,21 +90,18 @@ function createNewPost(userName, title, text, categoriesName, tagsName, callback
     models.User.findOne({username: userName}, function(err, user) {
         if(!user) {
             console.log("user does not exits");
-            //mongoose.disconnect();
             return false;
         }
         else {
             models.Category.find({name: {$in: categoriesName}}, function(err, categories) {
                 if(categories.length != categoriesName.length) {
                     console.log("One or more of the categories list does not exits: "+ categories);
-                    //mongoose.disconnect();
                     return false;
                 }
                 else {
                     models.Tag.find({name: {$in: tagsName}}, function(err, tags) {
                         if(tags.length != tagsName.length) {
                             console.log("One or more of the tags list does not exits: "+ tags);
-                            //mongoose.disconnect();
                             return false;
                         }
                         else {
@@ -124,7 +109,6 @@ function createNewPost(userName, title, text, categoriesName, tagsName, callback
                                 {
                                     title: title,
                                     text: text,
-                                    //user: {id: user._id, userName: user.username, points: user.points},
                                     user: user._id,
                                     categories: categories,
                                     tags: tags
@@ -132,7 +116,6 @@ function createNewPost(userName, title, text, categoriesName, tagsName, callback
                             post.save(function (err) {
                                 if (err) {
                                     console.log("error: couldn't save the post");
-                                    //mongoose.disconnect();
                                     return false;
                                 }
                                 else {
@@ -146,7 +129,6 @@ function createNewPost(userName, title, text, categoriesName, tagsName, callback
             })
         }
     })
-
 }
 
 function createNewCommentAndPushToPost(userName, postID, text, callback) {
@@ -154,14 +136,12 @@ function createNewCommentAndPushToPost(userName, postID, text, callback) {
         console.log(postID)
         if(!user) {
             console.log('user does not exits');
-            //mongoose.disconnect();
             return false;
         }
         else {
             models.Post.findById(postID, function(err, post) {
                 if(!post) {
                     console.log('post does not exits.');
-                    //mongoose.disconnect();
                     return false;
                 }
                 else {
@@ -173,7 +153,6 @@ function createNewCommentAndPushToPost(userName, postID, text, callback) {
                     comment.save(function (err) {
                         if (err) {
                             console.log("error: couldn't save the comment");
-                            //mongoose.disconnect();
                             return false;
                         }
                         else {
@@ -181,7 +160,6 @@ function createNewCommentAndPushToPost(userName, postID, text, callback) {
                             post.update({$push: {comments: comment}}, function(err) {
                                 if(err) {
                                     console.log("couldn't update post");
-                                    //mongoose.disconnect();
                                 }
                                 else {
                                     console.log("updated post.")
@@ -196,95 +174,92 @@ function createNewCommentAndPushToPost(userName, postID, text, callback) {
     })
 }
 
-
-// RUN ONE BY ONE
-function insertFakeDataToDB() {
-    //createNewUser('Asaf', 'Asafs@esg.co.il', function(user) {
-    //    createNewCategory('Bugs and Feedback', '/bugs-and-feedback', function(){
-    //    createNewCategory('Links', '/links', function(){
-    //        createNewCategory('Challenges', '/challenges', function(){
-    //            createNewCategory('Guides', '/guides', function(){
-    //var tags = ['Flask', 'Django', 'React', 'Angular', 'Java Script', 'Emails', 'Redux', 'ESG dal', 'sqlalchemy', 'docxtemplater',
-    //'Requests', 'Postgres', 'SQL Server', 'CEM', 'Road6', 'Bezeq', 'Invoices', 'Git', 'Virtual env', 'Gunicorn', 'Nginx', 'Ubuntu',
-    //    'Windows', 'Google Drive', 'DropBox', 'Numpy', 'datetime', 'Django REST Framework', 'Openpyxl']
-    //var tags = ['Heroku', 'NodeJS', 'Bower', 'pip', 'npm']
-    //for(var tag in tags) {
-    //    createNewTag(tags[tag], [], function () {
-                                //createNewTag('Java', ['Questions', 'Links'], function(){
-            //                        createNewTag('StyleFrame', ['Questions', 'Links'], function(){
-            //                            createNewTag('Pandas', ['Things I learnt today'], function(){
-            //                            createNewPost('Asaf', '1+1=?', "5!!", ['Questions'], ['Python', 'Pandas', 'StyleFrame'], function(post){
-            //                                createNewCommentAndPushToPost('Asaf', post._id, "Cool!", function(){});
-            //                                createNewCommentAndPushToPost('Asaf', post._id, "Thanks!!", function(){});
-            //                                createNewCommentAndPushToPost('Asaf', post._id, "Awesome!", function(){console.log('almost done')});
-            //                            });
-            //                        });
-        //});
-    //}
-                        //});
-        //            });
-        //        });
-        //    });
-        //});
-        //});
-    //});
-
-
-   // createNewCategory('Links', '/links', function(){});
-   // createNewCategory('Things I learnt today', '/things-I-learnt-today', function(){});
-    //createNewCategory('Guides', '/guides', function(){});
-    //createNewTag('Python', ['Questions', 'Links', 'Things I learnt today'], function(){});
-    //createNewTag('Java', ['Questions', 'Links'], function(){});
-    //createNewTag('StyleFrame', ['Questions', 'Links'], function(){});
-    //createNewTag('Pandas', ['Things I learnt today'], function(){});
-   // createNewPost('Asaf', '1+1=?', "5!!", ['Questions'], ['Python', 'Pandas', 'StyleFrame'], function(post){
-    //createNewCommentAndPushToPost('Asaf', post._id, "Cool!", function(){});
-   // createNewCommentAndPushToPost('Asaf', post._id, "Thanks!!", function(){});
-    //createNewCommentAndPushToPost('Asaf', post._id, "Awesome!", function(){});
-    //});
-    //createNewPost('Asaf', 'Python is awesome', 'you should try it!', ['Things I learnt today'], ['Python'], function(post){
-    //    createNewCommentAndPushToPost('Asaf', post._id, "Thanks I will!", function(){mongoose.disconnect()});
-    //});
-    //createNewPost('Asaf', 'Change columns in excel file', "How to change the columns in excel file using StyleFrame?", ['Questions'], ['StyleFrame'], function(post){
-        //createNewCommentAndPushToPost('Asaf', post._id, "Thanks!", function(){mongoose.disconnect()});
-        //mongoose.disconnect()
-    //});
+function createNewImage(imageURL) {
+    models.Image({imageURL: imageURL}).save(function() {console.log('saved image ' + imageURL)})
 }
 
 function deletePostsAndComments() {
-    models.Post.find({}).remove().exec();
-    models.Comment.find({}).remove().exec();
-    models.User.find({}).remove().exec();
+    models.Post.find({deleted: false}).update({deleted: true}, function(){});
+    models.Comment.find({deleted: false}).update({deleted: true}, function(){});
+    models.User.find({deleted: false}).update({deleted: true}, function(){});
 }
-//deletePostsAndComments()
-//function(){mongoose.disconnect()}
-//insertFakeDataToDB()
 
-//function b() {
-//    models.Post.findOne({title: '1+1=?'}).populate('user', 'username points').exec(function(err, post) {
-//        console.log(post)
-//        mongoose.disconnect()
-//    })
-//        //console.log(post)
-//}
-//b()
-
-function insertImages() {
+function insertImages(callback) {
     var images = ['http://bootdey.com/img/Content/user_1.jpg',
         'http://bootdey.com/img/Content/user_2.jpg',
         'http://bootdey.com/img/Content/user_3.jpg',
-    'http://bootdey.com/img/Content/avatar/avatar1.png',
-    'http://bootdey.com/img/Content/avatar/avatar2.png',
-    'http://bootdey.com/img/Content/avatar/avatar3.png',
-    'http://bootdey.com/img/Content/avatar/avatar4.png',
-    'http://bootdey.com/img/Content/avatar/avatar5.png',
-    ]
-    for(var image in images) {
-        var image = models.Image({
-            imageURL: images[image]
-        })
-        image.save(function(){console.log('saved')})
-    }
+        'http://bootdey.com/img/Content/avatar/avatar1.png',
+        'http://bootdey.com/img/Content/avatar/avatar2.png',
+        'http://bootdey.com/img/Content/avatar/avatar3.png',
+        'http://bootdey.com/img/Content/avatar/avatar4.png',
+        'http://bootdey.com/img/Content/avatar/avatar5.png',
+        ]
+    var imagesArr = images.map(function(obj) {
+        return {imageURL: obj}
+    })
+
+    models.Image.insertMany(imagesArr, function(err, images) {
+        callback(images)
+    })
 }
 
-//insertImages()
+function insertCategories(callback) {
+    var categories = ['Questions',
+        'Links',
+        'Thins I learned today',
+        'Guides',
+        'Bugs and Feedback',
+        'Challenges',
+        ]
+    var categoriesArr = categories.map(function(obj) {
+        return {name: obj, url: '/' + obj}
+    })
+    models.Category.insertMany(categoriesArr, function(err, categories) {
+        callback(categories)
+    })
+}
+
+function insertTags(callback) {
+    var tags = ['Flask', 'Django', 'React', 'Angular', 'Java Script', 'Emails', 'Redux', 'sqlalchemy', 'docxtemplater',
+    'Requests', 'Postgres', 'SQL Server', 'Git', 'Virtual env', 'Gunicorn', 'Nginx', 'Ubuntu',
+        'Windows', 'Google Drive', 'DropBox', 'Box', 'Numpy', 'datetime', 'Django REST Framework', 'Openpyxl', 'Heroku',
+        'NodeJS', 'Bower', 'pip', 'npm', 'Python', 'StyleFrame']
+
+    var tagsArr = tags.map(function(obj) {
+        return {name: obj, categories: []}
+    })
+
+    models.Category.insertMany(tagsArr, function(err, tags) {
+        callback(tags)
+    })
+}
+
+function init_db(adminUsername, adminPassword, adminEmail) {
+    console.log('inserting images')
+    insertImages(function(images) {
+        console.log('creating admin user.')
+        createNewUser(adminUsername, adminPassword, adminEmail, images[0], function() {})
+        console.log('inserting categories')
+        insertCategories(function() {})
+        console.log('inserting tags')
+        insertTags(function() {})
+    })
+}
+
+module.exports = function() {
+    mongoose.connect(config.mongoDB_connection_string, function() {
+        console.log('connected')
+        return {
+            mongoose: mongoose,
+            disconnect: mongoose.disconnect,
+            createNewUser: createNewUser,
+            createNewCategory: createNewCategory,
+            createNewTag: createNewTag,
+            createNewPost: createNewPost,
+            createNewCommentAndPushToPost: createNewCommentAndPushToPost,
+            createNewImage: createNewImage,
+            deletePostsAndComments: deletePostsAndComments,
+            init_db: init_db
+        }
+    });
+}

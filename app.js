@@ -9,10 +9,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var dbConfig = require('./DB/config');
+var config = require('./config');
 
-//mongoose.connect(dbConfig.local_url, function(err) {
-mongoose.connect(dbConfig.remote_url, function(err) {
+mongoose.connect(config.mongoDB_connection_string, function(err) {
     if(err!=null) {
         console.log('connection error')
     }
@@ -33,7 +32,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(expressSession({ secret: 'mySecretKey', cookie: { maxAge: 60000000000 }, resave: true, saveUninitialized: true }))
+app.use(expressSession({ secret: config.secret_key, cookie: { maxAge: 60000000000 }, resave: true, saveUninitialized: true }))
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
