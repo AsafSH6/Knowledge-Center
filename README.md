@@ -3,6 +3,8 @@ _Manage your knowledge simply in one place_
 
 Visit our demo [Knowledge Center](https://knowledge-center.herokuapp.com/)
 <img src="https://raw.githubusercontent.com/AsafSH6/Knowledge-Center/master/KnowledgeCenter%20home%20screen.png">
+<img src="https://raw.githubusercontent.com/AsafSH6/Knowledge-Center/master/KnowledgeCenter%20post%20example.png">
+
 
 <p>
 <br>:heavy_check_mark: Code snippets</br>
@@ -10,7 +12,6 @@ Visit our demo [Knowledge Center](https://knowledge-center.herokuapp.com/)
 <br>:heavy_check_mark: Fast and smart search engine</br>
 </p>
 
-<img src="https://raw.githubusercontent.com/AsafSH6/Knowledge-Center/master/KnowledgeCenter%20post%20example.png">
 
 <p>
 <b>Quick Start:</b>
