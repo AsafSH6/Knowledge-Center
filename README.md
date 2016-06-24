@@ -3,7 +3,7 @@ _Manage your knowledge simply in one place_
 
 Visit our demo [Knowledge Center](https://knowledge-center.herokuapp.com/)
 <img src="https://raw.githubusercontent.com/AsafSH6/Knowledge-Center/master/KnowledgeCenter%20home%20screen.png">
-<img src="https://raw.githubusercontent.com/AsafSH6/Knowledge-Center/master/KnowledgeCenter%20post%20example.png">
+<img src="https://raw.githubusercontent.com/AsafSH6/Knowledge-Center/master/KnowledgeCenter%20post%20example2.png">
 
 
 <p>
