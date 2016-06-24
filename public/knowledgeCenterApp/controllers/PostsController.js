@@ -22,7 +22,6 @@
         ////////////////
 
         function activate() {
-            console.log('posts controller')
             vm.category = $stateParams.category
             vm.postsPerPage = 9
             vm.currentPage = 0
@@ -45,14 +44,11 @@
         }
         function searchByTag(tag) {
             APIService.search({category: '', tag: tag, text: ''}, function(posts) {
-                console.log('search callback')
-                console.log(posts)
                 $state.go('posts', {category: 'Search', posts: posts})
             })
         }
 
         function nextPage() {
-            console.log('next page')
             if((vm.currentPage + 1) * vm.postsPerPage >= vm.dbPosts.length)
                 return
             vm.currentPage += 1
@@ -66,7 +62,6 @@
         }
 
         function previousPage() {
-            console.log('previous page')
             if(vm.currentPage - 1 >= 0) {
                 vm.currentPage -= 1
             }
@@ -84,13 +79,10 @@
         function socketIOListenToNewPosts() {
             if(socketIO != undefined) {
                 socketIO.on(vm.category, function(post) {
-                    console.log('new post')
                     APIService.insertPost(post)
                     vm.posts.unshift(post)
                     vm.$apply()
-                    console.log(vm.posts)
                 })
-                console.log('listing to: ' + vm.category)
             }
         }
     }

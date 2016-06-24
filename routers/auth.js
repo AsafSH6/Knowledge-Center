@@ -23,7 +23,6 @@ module.exports = function(passport, socketIO){
 
     router.post('/login/admin/', passport.authenticate('login'), function(req, res) {
         if(req.user.is_admin){
-            console.log(req.user.is_admin)
             res.status(200).json({id: req.user._id})
         }
         else {
@@ -45,7 +44,6 @@ module.exports = function(passport, socketIO){
     });
 
     router.get('/is-authenticated/', function(req, res) {
-        console.log(req.isAuthenticated())
         res.json({isAuthenticated: req.isAuthenticated()})
     })
 

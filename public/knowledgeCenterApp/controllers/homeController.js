@@ -17,23 +17,17 @@
 
         APIService.getHomePosts( function(posts) {
             $scope.newPosts = posts;
-            console.log($scope.newPosts)
         })
 
         $scope.searchByTag = function(tag) {
             APIService.search({category: '', tag: tag, text: ''}, function(posts) {
-                console.log('search callback')
-                console.log(posts)
                 $state.go('posts', {category: 'Search', posts: posts})
             })
         }
 
         function listenToNewPosts() {
             if(socketIO != undefined) {
-                console.log('listening to new posts')
                 socketIO.on('new-post', function(newPost) {
-                    console.log('new post created')
-                    console.log(newPost)
                     $scope.newPosts.unshift(newPost)
                     if($scope.newPosts.length > $scope.postsToDisplay) {
                         $scope.newPosts.pop()
@@ -49,7 +43,6 @@
                 /* Get iframe src attribute value i.e. YouTube video url
                  and store it in a variable */
                 $("#angularImg").click(function(){
-                    console.log('modal')
                     $("#myModal2").modal();
                 });
                 //var url = "http://techslides.com/demos/sample-videos/small.mp4";

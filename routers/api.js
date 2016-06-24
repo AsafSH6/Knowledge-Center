@@ -33,14 +33,12 @@ module.exports = function(socketIO) {
 
     router.get('/get-all-addresses/', function(req, res) {
         models.User.getAddress(function(addr) {
-            console.log(addr);
             res.json(addr);
         })
     });
 
     router.get('/get-home-posts/', function(req, res) {
         models.Post.getPostsHomePage(function(posts) {
-            console.log(posts);
             res.json(posts);
         })
     });
@@ -79,7 +77,6 @@ module.exports = function(socketIO) {
     });
 
     router.get('/get-all-posts-filtered-by-category/:category', function (req, res) {
-        console.log(req.params['category'])
         models.Post.findAllPostsFilteredByCategory(req.params['category'], function (err, posts) {
             if (!err) {
                 res.status(200).json(posts)
@@ -91,7 +88,6 @@ module.exports = function(socketIO) {
     });
 
     router.get('/get-all-tags-filtered-by-category/:category', function (req, res) {
-        console.log(req.params['category'])
         models.Tag.findAllTagsFilteredByCategory(req.params['category'], function (err, tags) {
             if (!err) {
                 res.status(200).json(tags)
@@ -103,7 +99,6 @@ module.exports = function(socketIO) {
     });
 
     router.get('/get-post-by-id/:id', function (req, res) {
-        console.log(req.params['id'])
         models.Post.findPostById(req.params['id'], function (err, post) {
             if (!err) {
                 res.status(200).json(post)
@@ -234,7 +229,6 @@ module.exports = function(socketIO) {
             req.body.password, req.body.email, req.body.userId,
             function(err) {
                 if(err) {
-                    console.log(err)
                     return res.sendStatus(500)
                 }
                 return res.sendStatus(200)
@@ -242,7 +236,6 @@ module.exports = function(socketIO) {
     });
 
     router.post('/delete-post/', function (req, res) {
-        console.log('DELETE POST')
         models.Post.deletePost(req.user, req.body.postId, function (err) {
             if (!err) {
                 res.sendStatus(200)
@@ -254,7 +247,6 @@ module.exports = function(socketIO) {
     })
 
     router.post('/delete-comment/', function (req, res) {
-        console.log('DELETE COMMENT')
         models.Comment.deleteComment(req.user._id, req.body.commentId, function (err) {
             if (!err) {
                 socketIO.sockets.emit('comment-' + req.body.postId, req.body.commentId)
@@ -267,8 +259,6 @@ module.exports = function(socketIO) {
     })
 
     router.post('/search/', function (req, res) {
-        console.log('SEARCH')
-        console.log(req.body)
         models.Post.search(req.body, function (err, posts) {
             if (!err) {
                 return res.status(200).json(posts)

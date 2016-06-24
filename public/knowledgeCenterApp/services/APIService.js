@@ -47,8 +47,6 @@
     function getAllCategories(callback) {
         $http.get('/api/v1/get-all-categories/').success(function(categories) {
             dbCategories = categories
-            console.log('loaded categories:')
-            console.log(dbCategories)
             callback(categories);
         }).error(function(){
             $state.go('error')
@@ -57,9 +55,6 @@
 
         function getHomePosts(callback) {
             $http.get('./api/v1/get-home-posts/').then(function(posts) {
-
-                console.log('loaded home posts:')
-                console.log(posts);
                 callback(posts.data);
             });
         }
@@ -75,8 +70,6 @@
 
         $http.get('/api/v1/get-all-posts-filtered-by-category/' + category).success(function(posts) {
             dbPosts = posts
-            console.log('all posts of category: ' + category)
-            console.log(dbPosts)
             callback(posts);
         }).error(function(){
             $state.go('error')
@@ -90,7 +83,6 @@
         })
     }
     function getPostById(postId, callback) {
-        console.log('asking for post ' + postId)
         $http.get('/api/v1/get-post-by-id/' + postId).success(function(post) {
             currentPost = post
             callback(post)
