@@ -7,8 +7,8 @@
  */
 
 module.exports = {
-    mongoDB_connection_string: 'mongodb://admin:admin@ds019498.mlab.com:19498/knowledge-center',
-    secret_key: 'bababa',
-    email: {service: 'Gmail', user: 'mulefortests@gmail.com', pass: 'mule123@'},
-    host: 'http://localhost:5000'
+    mongoDB_connection_string: '',
+    secret_key: '',
+    email: false,
+    host: ''
 }
