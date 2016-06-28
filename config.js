@@ -7,8 +7,8 @@
  */
 
 module.exports = {
-    mongoDB_connection_string: '',
-    secret_key: '',
+    mongoDB_connection_string: 'mongodb://admin:admin@ds019498.mlab.com:19498/knowledge-center',
+    secret_key: 'KnowledgeCenter',
     email: false,
-    host: ''
+    host: 'https://knowledge-center.herokuapp.com/'
 }
