@@ -10,6 +10,7 @@ Visit our demo [Knowledge Center](https://knowledge-center.herokuapp.com/)
 <br>:heavy_check_mark: Code snippets</br>
 <br>:heavy_check_mark: Marked links</br>
 <br>:heavy_check_mark: Fast and smart search engine</br>
+<br>:heavy_check_mark: Responsive</br>
 </p>
 
 
