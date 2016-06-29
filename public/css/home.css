@@ -237,7 +237,6 @@ p.copyright {
     border-top: 1px dotted #7C7C7C;
     padding-top: 10px;
     font-size: 0.9em;
-    margin-right: 8%;
 }
 
 .contact-us-details{
@@ -256,3 +255,22 @@ p.copyright {
      border: 1px solid #5bc0de !important;
      color: black !important;
  }
+
+#git-link {
+    color: black;
+    font-size: medium;
+}
+
+#git-icon {
+    margin-bottom: 3%;
+}
+
+@media only screen and (min-width: 1000px) {
+    #git-icon {
+        margin-bottom: 0.5%;
+    }
+
+    .footer-copyright {
+        margin-right: 12%;
+    }
+}

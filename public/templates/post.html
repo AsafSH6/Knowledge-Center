@@ -44,34 +44,35 @@
                 </div>
                     <post-directive></post-directive>
             </div>
-            <div class="container-comments bootstrap snippet">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="blog-comment">
-                            <ul class="comments">
-                                <li class="clearfix" ng-repeat="comment in post.comments track by $index">
-                                    <img ng-src="{{comment.user.profile_image.imageURL}}" class="avatar" alt="">
-                                    <div class="post-comments">
-                                        <p class="meta">
-                                            <a href="">{{ comment.user.username }} </a>
-                                            {{ comment.creation_date | date}}
-                                            <div ng-if="isCommentPublisher(comment)" class="widget-controls">
-                                                <a ng-click="edit(comment)" href=""><i class="comment-edit-btn"> {{comment.edit_or_cancel}} </i></a>
-                                                <a ng-if="!comment.editMode" ng-click="deleteComment($index)" href=""><i class="comment-edit-btn"> delete </i></a>
-                                            </div>
-                                        <comment-directive ng-if="!comment.editMode" id="comment-{{comment._id}}"></comment-directive>
-                                        <div ng-if="comment.editMode">
-                                            <textarea ng-model="comment.editedText" id="comment-edit-text" rows="{{comment.text.split('\n').length + 2}}"></textarea>
-                                            <button ng-click="updateComment(comment._id)" type="button" class="btn btn-info btn-lg">Update</button>
-                                        </div>
+
+        </section>
+        <div class="container-comments bootstrap snippet">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="blog-comment">
+                        <ul class="comments">
+                            <li class="clearfix" ng-repeat="comment in post.comments track by $index">
+                                <img ng-src="{{comment.user.profile_image.imageURL}}" class="avatar" alt="">
+                                <div class="post-comments">
+                                    <p class="meta">
+                                        <a href="">{{ comment.user.username }} </a>
+                                        {{ comment.creation_date | date}}
+                                    <div ng-if="isCommentPublisher(comment)" class="widget-controls">
+                                        <a ng-click="edit(comment)" href=""><i class="comment-edit-btn"> {{comment.edit_or_cancel}} </i></a>
+                                        <a ng-if="!comment.editMode" ng-click="deleteComment($index)" href=""><i class="comment-edit-btn"> delete </i></a>
                                     </div>
-                                </li>
-                            </ul>
-                        </div>
+                                    <comment-directive ng-if="!comment.editMode" id="comment-{{comment._id}}"></comment-directive>
+                                    <div ng-if="comment.editMode">
+                                        <textarea ng-model="comment.editedText" id="comment-edit-text" rows="{{comment.text.split('\n').length + 2}}"></textarea>
+                                        <button ng-click="updateComment(comment._id)" type="button" class="btn btn-info btn-lg">Update</button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
         <div ng-if="globals.loggedIn">
             <textarea id="new-comment" ng-model="text" rows="5" placeholder="Write your comment here..."></textarea>
             <button ng-click="submitNewComment(text); text=''" type="button" class="btn btn-info btn-lg">Submit</button>
