@@ -14,8 +14,8 @@ Visit our demo [Knowledge Center](https://knowledge-center.herokuapp.com/)
 </p>
 
 
+# Quick Start
 <p>
-<b>Quick Start:</b>
 <ul>
 <li> Clone the project: git clone https://github.com/AsafSH6/Knowledge-Center.git</li>
 <li> Edit config.js</li>
