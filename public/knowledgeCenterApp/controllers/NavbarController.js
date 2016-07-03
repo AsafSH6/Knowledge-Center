@@ -45,6 +45,10 @@
 
         function setActivate($index){
             vm.currentActive = $index
+            var navBtn = $('#nav-collapse')[0]
+            if(navBtn.attributes.valueOf()[5].value == 'true') {
+                navBtn.click()
+            }
         }
 
         function checkActive($index){
