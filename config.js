@@ -11,5 +11,5 @@ module.exports = {
     secret_key: 'knowledge center',
     email: false,
     //host: 'http://localhost:5000'
-    host: 'https://github.com/AsafSH6/Knowledge-Center'
+    host: 'https://knowledge-center.herokuapp.com/'
 }
