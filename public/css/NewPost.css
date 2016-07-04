@@ -3,13 +3,6 @@
     overflow: hidden;
 }
 
-.new-post {
-    float: left;
-    margin-top: 1%;
-    width: 35%;
-    margin-left: 1%;
-}
-
 #new-post-preview {
     margin-top: 5%;
     white-space: pre;
@@ -54,10 +47,38 @@
     margin-left: 1%;
 }
 
+.new-post {
+    float: left;
+    margin-top: 1%;
+    width: 35%;
+    margin-left: 1%;
+}
+
 #post-preview {
     float: left;
     width: 30%;
     margin-left: 1%;
+}
+
+@media(max-width:1024px) {
+    #post-guide {
+        width: 100%;
+        margin-left: 7%;
+    }
+
+    .new-post {
+        margin-top: 1%;
+        width: 94%;
+        margin-left: 7%;
+    }
+
+    #post-preview {
+        width: 94%;
+        margin-left: 7%;
+    }
+    .guide-item {
+        margin-right: 5%;
+    }
 }
 .guide-item {
     font-size: medium !important;
