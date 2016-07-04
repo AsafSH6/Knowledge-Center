@@ -33,7 +33,7 @@ body {
     border-bottom-left-radius: 4px;
 }
 
-@media screen and (min-width: 268px) {
+@media screen and (min-width: 1024px) {
     #adv-search {
         width: 500px;
         margin: 0 auto;

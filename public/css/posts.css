@@ -3,6 +3,14 @@
     margin-bottom: 1%;
 }
 
+@media only screen and (max-width: 1024px) {
+    #new-post {
+        margin-left: 30%;
+        margin-bottom: 1%;
+    }
+}
+
+
 .center {
     margin-left: 30%;
     width: 100%;

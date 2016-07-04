@@ -59,7 +59,7 @@ h6 {
     text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
 }
 
-@media(max-width:767px) {
+@media(max-width:1024px) {
     .intro-message {
         padding-bottom: 15%;
     }
@@ -140,7 +140,7 @@ h6 {
     }
 }
 
-@media(max-width:767px) {
+@media(max-width:1024px) {
     .banner h2 {
         margin: 0;
         text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
@@ -260,7 +260,7 @@ p.copyright {
 #git-icon {
     margin-bottom: 3%;
 }
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1024px) {
 
     .modal-body {
         height: 475px !important;
@@ -273,7 +273,7 @@ p.copyright {
     }
 }
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 1024px) {
     #git-icon {
         margin-bottom: 0.5%;
     }

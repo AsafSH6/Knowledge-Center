@@ -67,7 +67,7 @@ a {
     position: relative;
 }
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 1024px) {
 
     .blog-comment img.avatar {
         position: relative;
